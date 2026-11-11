@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search IT</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700&display=swap');
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #080d1b;
+            color: white;
+        }
+
+        header {
+            padding: 20px 8%;
+            background: #101a30;
+            border-bottom: 1px solid #263653;
+        }
+
+        header h2 {
+            color: #38bdf8;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        main {
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .doc-content {
+            text-align: left;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        h1 span {
+            color: #38bdf8;
+        }
+
+        .description {
+            color: #aab6cc;
+        }
+
+        .search-box {
+            margin: 30px auto;
+            max-width: 550px;
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #334766;
+            background: #17243b;
+            color: white;
+        }
+
+        button {
+            padding: 15px 22px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: #142039;
+            padding: 25px;
+            width: 180px;
+            border: 1px solid #263653;
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            color: #38bdf8;
+        }
+      .documentation {
+    margin-top: 25px;
+    background: #0b1220;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.doc-header {
+    background: #101a30;
+    padding: 18px;
+    border-bottom: 1px solid #26344d;
+}
+
+.doc-layout {
+    display: grid;
+    grid-template-columns: 190px 1fr 170px;
+    gap: 25px;
+    padding: 25px;
+}
+
+.doc-sidebar,
+.doc-toc {
+    .doc-toc {
+    position: sticky;
+    top: 20px;
+    align-self: start;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+  .doc-toc a {
+    color: #94a3b8;
+    text-decoration: none;
+    display: block;
+    padding: 7px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.doc-toc a:hover {
+    color: #38bdf8;
+    background: #17243a;
+}
+
+.doc-sidebar p,
+.doc-toc p {
+    padding: 8px 0;
+    border-bottom: 1px solid #1e293b;
+}
+
+.doc-content {
+    color: #e2e8f0;
+    line-height: 1.8;
+}
+
+.doc-content h1 {
+    color: #38bdf8;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.doc-content h2 {
+    color: #a78bfa;
+    margin-top: 30px;
+}
+
+.doc-content button {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 750px) {
+    .doc-layout {
+        grid-template-columns: 1fr;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .doc-sidebar,
+    .doc-toc {
+        display: none;
+    }
+
+    .doc-content {
+        max-width: 100%;
+        font-size: 14px;
+    }
+
+    .doc-content h1 {
+        font-size: 23px;
+    }
+
+    .doc-content h2 {
+        font-size: 19px;
+    }
+
+    .doc-header {
+        padding: 12px;
+    }
+}
+      .doc-content {
+    text-align: left;
+    max-width: 850px;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.doc-content h1,
+.doc-content h2,
+.doc-content h3,
+.doc-content p,
+.doc-content li {
+    text-align: left;
+}
+
+.doc-content p {
+    margin-bottom: 16px;
+}
+
+.doc-content h2 {
+    margin-top: 35px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #26344d;
+}
+
+.doc-content ul,
+.doc-content ol {
+    padding-left: 25px;
+}
+
+.doc-content li {
+    margin-bottom: 10px;
+}
+
+.doc-content pre {
+    background: #020b04;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    text-align: left;
+    border: 1px solid #00ff41;
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
+}
+
+.doc-content code {
+    font-family: monospace;
+    color: #38bdf8;
+}
+  .doc-content,
+.doc-content h1,
+.doc-content h2,
+.doc-content h3,
+.doc-content p,
+.doc-content li {
+    text-align: left !important;
+}
+  .doc-content pre {
+    background: #020b04 !important;
+    border: 1px solid #00ff41 !important;
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
+}
+  .doc-content pre,
+.doc-content pre[class*="language-"],
+.doc-content pre code {
+    background: #020b04 !important;
+    border: 1px solid #00ff41 !important;
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.2);
+}
+    </style>
+  <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+</head>
+
+<body>
+
+<header>
+    <h2>SEARCH IT</h2>
+    <p>Search. Discover. Learn.</p>
+</header>
+
+<main>
+    <h1>Explore the World of <span>IT</span></h1>
+
+    <p class="description">
+        Your learning platform for discovering technology and computer knowledge.
+    </p>
+
+    <div class="search-box">
+        <input type="text" placeholder="Search IT topics...">
+<button onclick="searchIT()">Search</button>
+    </div>
+    <div id="results"></div>
+    <h2>Explore Categories</h2>
+
+    <div class="categories">
+        <div class="card">
+            <h3>Programming</h3>
+            <p>Learn programming languages.</p>
+        </div>
+
+        <div class="card">
+            <h3>Computer Fundamentals</h3>
+            <p>Understand how computers work.</p>
+        </div>
+
+        <div class="card">
+            <h3>Networking</h3>
+            <p>Discover computer networks.</p>
+        </div>
+
+        <div class="card">
+            <h3>Web Development</h3>
+            <p>Explore website development.</p>
+        </div>
+
+        <div class="card">
+            <h3>Database Management</h3>
+            <p>Learn about databases.</p>
+        </div>
+    </div>
+</main>
+<script>
+const articles = [
+    {
+        title: "What is Java?",
+        description: "Java is a programming language used to build applications."
+    },
+    {
+        title: "What is HTML?",
+        description: "HTML is the standard markup language used to create web pages."
+    },
+    {
+        title: "What is Networking?",
+        description: "Computer networking connects devices so they can communicate."
+    },
+    {
+        title: "What is a Computer?",
+        description: "A computer is an electronic device that processes data."
+    }
+];
+
+function searchIT() {
+    const query = document.querySelector("input").value.toLowerCase();
+
+    const results = articles.filter(article =>
+        article.title.toLowerCase().includes(query)
+    );
+
+    if (query === "") {
+        alert("Please enter a topic.");
+        return;
+    }
+  const output = document.getElementById("results");
+
+if (results.length === 0) {
+    output.innerHTML = "<p>No matching IT topics found.</p>";
+    return;
+}
+
+output.innerHTML = results.map(article => `
+    <div class="card">
+        <h3>${article.title}</h3>
+        <p>${article.description}</p>
+        <button onclick="openArticle('${article.title}')">
+            Read Article
+        </button>
+    </div>
+`).join("");
+}
+  
+function openArticle(title) {
+    const article = articles.find(item => item.title === title);
+    if (!article) return;
+
+    const output = document.getElementById("results");
+
+    if (title !== "What is Java?") {
+        output.innerHTML = `
+            <div class="doc-content">
+                <button onclick="searchIT()">← Back to Search</button>
+                <h1>${article.title}</h1>
+                <p>${article.description}</p>
+                <p>This topic's complete learning chapter is still being developed.</p>
+            </div>
+        `;
+        return;
+    }
+
+    output.innerHTML = `
+        <div class="documentation">
+            <header class="doc-header">
+                <h2>SEARCH IT</h2>
+                <p>IT KNOWLEDGE BASE / PROGRAMMING / JAVA</p>
+            </header>
+
+            <div class="doc-layout">
+                <aside class="doc-sidebar">
+                    <h3>PROGRAMMING</h3>
+                    <p>Java</p>
+                    <p>Python</p>
+                    <p>C++</p>
+                    <p>JavaScript</p>
+                    <p>HTML & CSS</p>
+                </aside>
+
+                <main class="doc-content">
+                    <button onclick="searchIT()">← Back to Search</button>
+
+                    <h1>Java Programming</h1>
+                    <p>A comprehensive introduction to Java, its architecture,
+                    programming concepts, and practical applications.</p>
+
+                    <h2 id="overview">1. Introduction to Java</h2>
+                    <p>Java is a high-level, general-purpose, class-based,
+                    object-oriented programming language. It is designed to
+                    allow developers to create applications that can run on
+                    different platforms through the Java Virtual Machine (JVM).</p>
+
+                    <p>Java source code is compiled into bytecode. A compatible
+                    JVM executes that bytecode, which supports Java's
+                    platform-independent approach.</p>
+
+                    <h2 id="history">2. History and Development</h2>
+                    <p>Java originated from the Green Project at Sun Microsystems
+                    in the early 1990s. James Gosling led the development team.
+                    The language was initially called Oak and was later renamed
+                    Java. It was publicly released in 1995.</p>
+
+                    <p>Oracle acquired Sun Microsystems in 2010 and became the
+                    steward of Java. Java continues to evolve through regular
+                    releases and community-led development.</p>
+
+                    <h2 id="architecture">3. Java Architecture</h2>
+                    <h3>Java Development Kit (JDK)</h3>
+                    <p>The JDK is the software development package. It includes
+                    tools such as the Java compiler, runtime components, and
+                    development utilities.</p>
+
+                    <h3>Java Runtime Environment (JRE)</h3>
+                    <p>The JRE is the runtime environment conceptually made up
+                    of the JVM and supporting libraries needed to run Java
+                    applications. Modern JDK distributions package runtime
+                    components differently, so a separate JRE download is
+                    not always provided.</p>
+
+                    <h3>Java Virtual Machine (JVM)</h3>
+                    <p>The JVM loads, verifies, and executes Java bytecode.
+                    It manages memory and provides runtime services.</p>
+
+                    <h3>How Java Runs</h3>
+                    <ol>
+                        <li>A developer writes source code in a .java file.</li>
+                        <li>The Java compiler (javac) compiles the source code.</li>
+                        <li>The compiler produces bytecode in a .class file.</li>
+                        <li>The JVM loads and executes the bytecode.</li>
+                    </ol>
+
+                    <h2 id="syntax">4. Basic Java Program</h2>
+                    <pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+
+                    <p><b>Explanation:</b></p>
+                    <ul>
+                        <li><b>public class Main:</b> Declares a class named Main.</li>
+                        <li><b>main:</b> The standard application entry point.</li>
+                        <li><b>String[] args:</b> Receives command-line arguments.</li>
+                        <li><b>System.out.println:</b> Prints text followed by a new line.</li>
+                    </ul>
+
+                    <h2 id="variables">5. Variables and Data Types</h2>
+                    <p>A variable is a named storage location that holds a value.
+                    Java is statically typed, meaning variables have declared types.</p>
+
+                    <pre><code class="language-java">int age = 18;
+double price = 99.50;
+char grade = 'A';
+boolean isStudent = true;
+String name = "Alex";</code></pre>
+
+                    <p>Java's eight primitive types are byte, short, int,
+                    long, float, double, char, and boolean. String is a
+                    reference type, not a primitive type.</p>
+
+                    <h2 id="operators">6. Operators</h2>
+                    <p>Operators perform operations on values and variables.</p>
+                    <ul>
+                        <li>Arithmetic: +, -, *, /, %</li>
+                        <li>Comparison: ==, !=, greater than, less than</li>
+                        <li>Logical: &&, ||, !</li>
+                        <li>Assignment: =, +=, -=, *=</li>
+                    </ul>
+
+                    <h2 id="control">7. Control Structures</h2>
+                    <p>Control structures determine the order in which
+                    instructions execute.</p>
+
+                    <h3>Conditional statements</h3>
+                    <pre><code class="language-java">int score = 85;
+
+if (score >= 75) {
+    System.out.println("Passed");
+} else {
+    System.out.println("Failed");
+}</code></pre>
+
+                    <h3>Loops</h3>
+                    <p>A loop repeats instructions while a condition is
+                    satisfied or for a specified number of iterations.</p>
+                    <pre><code class="language-java">for (int i = 1; i <= 5; i++) {
+    System.out.println(i);
+}</code></pre>
+
+                    <h2 id="methods">8. Methods</h2>
+                    <p>A method is a named block of code that performs a
+                    particular task. Methods can accept parameters and
+                    return values.</p>
+                    <pre><code class="language-java">public static int add(int a, int b) {
+    return a + b;
+}</code></pre>
+
+                    <h2 id="oop">9. Object-Oriented Programming</h2>
+                    <p>Java supports object-oriented programming (OOP).
+                    Its four commonly taught principles are:</p>
+                    <ul>
+                        <li><b>Encapsulation:</b> Bundling data and methods
+                        while controlling access to an object's state.</li>
+                        <li><b>Inheritance:</b> Creating a class based on
+                        another class.</li>
+                        <li><b>Polymorphism:</b> Allowing a common interface
+                        or parent type to represent different implementations.</li>
+                        <li><b>Abstraction:</b> Exposing essential behavior
+                        while hiding implementation details.</li>
+                    </ul>
+
+                    <h3>Class and Object Example</h3>
+                    <pre><code class="language-java">class Student {
+    String name;
+
+    void introduce() {
+        System.out.println("Hello, " + name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student student = new Student();
+        student.name = "Alex";
+        student.introduce();
+    }
+}</code></pre>
+
+                    <h2 id="applications">10. Applications of Java</h2>
+                    <ul>
+                        <li>Enterprise and business applications.</li>
+                        <li>Backend services and web applications.</li>
+                        <li>Android applications, including many existing projects.</li>
+                        <li>Financial and transaction processing systems.</li>
+                        <li>Development tools and server software.</li>
+                    </ul>
+
+                    <h2 id="advantages">11. Advantages and Limitations</h2>
+                    <h3>Advantages</h3>
+                    <ul>
+                        <li>Runs on platforms with compatible JVM implementations.</li>
+                        <li>Strong type checking and structured programming.</li>
+                        <li>Large ecosystem of libraries and tools.</li>
+                        <li>Built-in memory management and garbage collection.</li>
+                    </ul>
+
+                    <h3>Limitations</h3>
+                    <ul>
+                        <li>Runtime and memory overhead can be higher than
+                        some native applications.</li>
+                        <li>Some tasks require more code than in scripting
+                        languages.</li>
+                        <li>Performance depends on the JVM, application,
+                        and environment.</li>
+                    </ul>
+
+                    <h2 id="glossary">12. Glossary</h2>
+                    <ul>
+                        <li><b>Compiler:</b> A tool that translates source code
+                        into another form, such as Java bytecode.</li>
+                        <li><b>Bytecode:</b> Instructions stored in class files
+                        for execution by a JVM.</li>
+                        <li><b>Class:</b> A definition used to create objects.</li>
+                        <li><b>Object:</b> An instance of a class.</li>
+                        <li><b>Garbage Collection:</b> Automatic reclamation
+                        of memory occupied by objects that are no longer
+                        reachable.</li>
+                    </ul>
+
+                    <h2 id="exercise">13. Practical Exercises</h2>
+                    <ol>
+                        <li>Write a program that displays your name and course.</li>
+                        <li>Create two integer variables and display their sum.</li>
+                        <li>Write a program that checks whether a number is even or odd.</li>
+                        <li>Use a loop to display numbers from 1 to 10.</li>
+                        <li>Create a Student class with a name field and an
+                        introduction method.</li>
+                    </ol>
+
+                    <h2 id="quiz">14. Knowledge Check</h2>
+                    <ol>
+                        <li>Who led the development of Java?</li>
+                        <li>What does JVM stand for?</li>
+                        <li>What is Java bytecode?</li>
+                        <li>What is the difference between a class and an object?</li>
+                        <li>Name the four commonly taught principles of OOP.</li>
+                    </ol>
+
+                    <h2 id="references">15. References</h2>
+                    <ul>
+                        <li><a href="https://docs.oracle.com/en/java/"
+                        target="_blank" rel="noopener">Oracle Java Documentation</a></li>
+                        <li><a href="https://dev.java/learn/"
+                        target="_blank" rel="noopener">Dev.java Learning Materials</a></li>
+                        <li><a href="https://www.w3schools.com/java/"
+                        target="_blank" rel="noopener">W3Schools Java Tutorial</a></li>
+                    </ul>
+
+                    <p><b>Search IT — Search. Discover. Learn.</b></p>
+                </main>
+
+                <aside class="doc-toc">
+                    <h3>ON THIS PAGE</h3>
+                    <p><a href="#overview">Introduction</a></p>
+                    <p><a href="#history">History</a></p>
+                    <p><a href="#architecture">Architecture</a></p>
+                    <p><a href="#syntax">Basic Program</a></p>
+                    <p><a href="#variables">Variables</a></p>
+                    <p><a href="#operators">Operators</a></p>
+                    <p><a href="#control">Control Structures</a></p>
+                    <p><a href="#methods">Methods</a></p>
+                    <p><a href="#oop">OOP</a></p>
+                    <p><a href="#applications">Applications</a></p>
+                    <p><a href="#advantages">Advantages</a></p>
+                    <p><a href="#glossary">Glossary</a></p>
+                    <p><a href="#exercise">Exercises</a></p>
+                    <p><a href="#quiz">Knowledge Check</a></p>
+                    <p><a href="#references">References</a></p>
+                </aside>
+            </div>
+        </div>
+     `;
+    Prism.highlightAllUnder(output);
+}
+
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>
