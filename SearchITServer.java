@@ -17,6 +17,7 @@ public class SearchITServer {
 
         ArticleManager manager = new ArticleManager();
         ArticleData.loadArticles(manager);
+        ArticleDataProgramming.load(manager);
 
         HttpServer server = HttpServer.create(
             new InetSocketAddress(8080), 0
