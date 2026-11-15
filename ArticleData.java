@@ -229,5 +229,140 @@ public class ArticleData {
 
         ));
 
+        manager.addArticle(new Article(
+
+            2,
+
+            "Introduction to Computer Networks",
+
+            "Networking",
+
+            "An introduction to computer networks, including their definition, components, network types, how data travels between devices, practical examples, and why networks matter in modern computing.",
+
+            // DEFINITION
+            "A computer network is a group of interconnected devices that can communicate and share resources such as files, printers, and internet access. Devices exchange information by following agreed rules called protocols. Networks may use cables, radio signals, or other transmission media to carry data.",
+
+            // HISTORY
+            "Computer networking developed from research in the 1960s. ARPANET, funded by the United States Department of Defense, connected research institutions and became an important predecessor of the Internet. In the 1970s and 1980s, the TCP/IP protocols were developed and adopted, allowing different networks to connect to one another. The growth of the World Wide Web in the 1990s made networks part of everyday life.",
+
+            // CORE CONCEPTS
+            "1. Node: Any device connected to a network, such as a computer, phone, or printer.\n\n" +
+            "2. Protocol: A set of rules that defines how devices send, receive, and interpret data.\n\n" +
+            "3. IP Address: A numerical label that identifies a device on a network.\n\n" +
+            "4. Router: A device that forwards data between different networks.\n\n" +
+            "5. Switch: A device that connects devices within the same local network.\n\n" +
+            "6. Bandwidth: The maximum amount of data that can be transferred in a given time.\n\n" +
+            "7. Topology: The arrangement of devices and connections in a network.",
+
+            // HOW IT WORKS
+            "When a device sends data, the data is divided into small units called packets. Each packet carries the address of the sender and the receiver. Switches and routers read these addresses and forward the packets toward their destination. At the destination, the packets are put back together into the original data. Protocols such as TCP and IP manage addressing, delivery, and error handling during this process.",
+
+            // TYPES AND CLASSIFICATIONS
+            "Networks are commonly classified by the area they cover:\n\n" +
+            "1. PAN (Personal Area Network): A very small network around one person, such as Bluetooth devices.\n\n" +
+            "2. LAN (Local Area Network): A network within a home, school, or office.\n\n" +
+            "3. MAN (Metropolitan Area Network): A network covering a city or a large campus.\n\n" +
+            "4. WAN (Wide Area Network): A network covering a large geographic area. The Internet is the largest example.",
+
+            // PRACTICAL EXAMPLES
+            "Example: Visiting a website.\n\n" +
+            "1. Your device connects to a router through Wi-Fi.\n" +
+            "2. The router sends your request through your internet service provider.\n" +
+            "3. The request travels across several networks to the web server.\n" +
+            "4. The server sends the web page back to your device as packets.\n\n" +
+            "This shows how many separate networks cooperate by using shared protocols.",
+
+            // APPLICATIONS
+            "1. Internet Access: Browsing, streaming, and online communication.\n\n" +
+            "2. Resource Sharing: Sharing printers, files, and storage in schools and offices.\n\n" +
+            "3. Cloud Services: Accessing remote servers and applications.\n\n" +
+            "4. Communication: Email, messaging, and video conferencing.\n\n" +
+            "5. Business Operations: Connecting branches, databases, and point-of-sale systems.",
+
+            // ADVANTAGES
+            "Networks allow resources to be shared, support fast communication, make centralized data management possible, and let many users work together. They can also reduce costs because several users can share the same hardware and software.",
+
+            // LIMITATIONS
+            "Networks require equipment, configuration, and maintenance. They can be targets of security threats, and a failure in a central device may affect many users. Performance can also be reduced by congestion, interference, or limited bandwidth.",
+
+            // RELATED TOPICS
+            "TCP/IP, OSI Model, IP Addressing, Routers and Switches, Wireless Networks, Network Security, Internet, Cloud Computing.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Computer network - Encyclopaedia Britannica: https://www.britannica.com/technology/computer-network",
+                "Computer network - Wikipedia: https://en.wikipedia.org/wiki/Computer_network",
+                "OSI model - Wikipedia: https://en.wikipedia.org/wiki/OSI_model"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            3,
+
+            "Introduction to Databases",
+
+            "Database Management",
+
+            "An introduction to databases, including their definition, database management systems, tables and keys, SQL, practical examples, and why they are important for storing and managing data.",
+
+            // DEFINITION
+            "A database is an organized collection of data that is stored and accessed electronically. A Database Management System (DBMS) is the software used to create, store, retrieve, update, and manage the data in a database. Databases keep large amounts of information consistent, searchable, and secure.",
+
+            // HISTORY
+            "Early computer systems stored data in separate files, which caused duplication and inconsistency. In the 1960s, hierarchical and network database models were developed. In 1970, Edgar F. Codd proposed the relational model, which organizes data into tables. This led to relational database systems and the SQL language, which became the dominant way to work with business data.",
+
+            // CORE CONCEPTS
+            "1. Table: A collection of related data arranged in rows and columns.\n\n" +
+            "2. Record (Row): One complete entry in a table.\n\n" +
+            "3. Field (Column): One attribute of the data, such as name or age.\n\n" +
+            "4. Primary Key: A field that uniquely identifies each record.\n\n" +
+            "5. Foreign Key: A field that links one table to another.\n\n" +
+            "6. Query: A request to retrieve or change data.\n\n" +
+            "7. Normalization: Organizing data to reduce duplication and improve consistency.",
+
+            // HOW IT WORKS
+            "A user or application sends a request, usually written in SQL, to the DBMS. The DBMS interprets the request, finds the needed data, and returns the result or applies the change. The DBMS also enforces rules such as unique keys, controls who may access the data, and protects the data when several users work at the same time.",
+
+            // TYPES AND CLASSIFICATIONS
+            "1. Relational Databases: Store data in tables linked by keys. Examples include MySQL, PostgreSQL, and SQLite.\n\n" +
+            "2. NoSQL Databases: Store data in flexible formats such as documents, key-value pairs, or graphs. An example is MongoDB.\n\n" +
+            "3. Centralized and Distributed Databases: Data may be kept in one location or spread across several locations.",
+
+            // PRACTICAL EXAMPLES
+            "Example: A table named Students and a query that retrieves records.\n\n" +
+            "SELECT name, course\n" +
+            "FROM Students\n" +
+            "WHERE course = 'BSIT';\n\n" +
+            "Explanation:\n" +
+            "- SELECT chooses which fields to display.\n" +
+            "- FROM names the table to read.\n" +
+            "- WHERE filters the records so only BSIT students are returned.",
+
+            // APPLICATIONS
+            "1. School Systems: Student records, grades, and enrollment.\n\n" +
+            "2. Business: Inventory, sales, payroll, and customer information.\n\n" +
+            "3. Banking: Accounts and transactions.\n\n" +
+            "4. Healthcare: Patient records and appointments.\n\n" +
+            "5. Websites: Storing user accounts, posts, and products.",
+
+            // ADVANTAGES
+            "Databases reduce data duplication, keep data consistent, allow fast searching, support many users at once, and provide security and backup features. They make it easier to manage large amounts of information than separate files.",
+
+            // LIMITATIONS
+            "Databases require careful design, skilled administration, and regular backups. Large systems can be costly and complex, and poorly designed databases or queries can perform slowly. A failure or security breach can affect a large amount of important data.",
+
+            // RELATED TOPICS
+            "SQL, Relational Model, Normalization, Data Modeling, NoSQL, Database Security, Data Warehousing, JDBC.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Database - Encyclopaedia Britannica: https://www.britannica.com/technology/database",
+                "Database - Wikipedia: https://en.wikipedia.org/wiki/Database",
+                "Relational model - Wikipedia: https://en.wikipedia.org/wiki/Relational_model"
+            )
+
+        ));
     }
 }
