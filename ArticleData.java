@@ -605,5 +605,76 @@ public class ArticleData {
             "4. What is the difference between a class and an object?\n" +
             "5. Name the four commonly taught principles of OOP.");
         ));
+              manager.addArticle(new Article(
+
+            7,
+
+            "Introduction to Computer Fundamentals",
+
+            "Computer Fundamentals",
+
+            "An introduction to how computers work, including their definition, main hardware components, software, binary data, the way a computer processes instructions, and the roles computers play today.",
+
+            // DEFINITION
+            "A computer is an electronic device that accepts data as input, processes it by following a set of instructions called a program, stores the results, and produces output. Computers work with two kinds of components: hardware, the physical parts you can touch, and software, the programs that tell the hardware what to do.",
+
+            // HISTORY
+            "In the 1830s, Charles Babbage designed the Analytical Engine, a mechanical machine that is considered an early concept of a general-purpose computer. Electronic computers appeared in the 1940s, and ENIAC, completed in 1945, was one of the first large electronic general-purpose computers. The transistor, invented in 1947, and later the integrated circuit made computers smaller, faster, and cheaper. In 1971 the first commercial microprocessor, the Intel 4004, placed a processor on a single chip, which led to personal computers in the late 1970s and 1980s.",
+
+            // CORE CONCEPTS
+            "1. CPU (Central Processing Unit): The part that carries out instructions and performs calculations. It is often called the brain of the computer.\n\n" +
+            "2. Memory (RAM): Fast, temporary storage that holds the programs and data currently in use. Its contents are lost when the power is turned off.\n\n" +
+            "3. Storage: Permanent storage for files and programs, such as a hard disk drive or a solid-state drive (SSD).\n\n" +
+            "4. Input Devices: Devices used to send data into the computer, such as a keyboard, mouse, or microphone.\n\n" +
+            "5. Output Devices: Devices that present results to the user, such as a monitor, speaker, or printer.\n\n" +
+            "6. Motherboard: The main circuit board that connects the CPU, memory, storage, and other components.\n\n" +
+            "7. Operating System: The system software that manages the hardware and runs other programs. Examples are Windows, macOS, Linux, and Android.\n\n" +
+            "8. Bit and Byte: A bit is a single binary digit, either 0 or 1. A byte is a group of 8 bits, and it can represent one character such as the letter A.",
+
+            // HOW IT WORKS
+            "Computers represent all data, including numbers, text, images, and sound, in binary form using 0s and 1s. To run a program, the CPU repeats a cycle: it fetches an instruction from memory, decodes it to find out what it means, and executes it. The results are stored back in memory or sent to an output device. Most modern computers follow the stored-program idea, often called the von Neumann architecture, in which both the program and its data are kept in the same memory.",
+
+            // TYPES AND CLASSIFICATIONS
+            "Computers are commonly grouped by size and purpose:\n\n" +
+            "1. Personal Computers: Desktops and laptops used by one person at a time.\n\n" +
+            "2. Mobile Devices: Smartphones and tablets.\n\n" +
+            "3. Servers: Powerful computers that provide services such as websites and databases to many users over a network.\n\n" +
+            "4. Supercomputers: Extremely fast systems used for scientific simulations and large calculations.\n\n" +
+            "5. Embedded Computers: Small computers built into other devices, such as washing machines, cars, and smart TVs.\n\n" +
+            "Software is also divided into system software, such as the operating system, and application software, such as a word processor or a web browser.",
+
+            // PRACTICAL EXAMPLES
+            "Example: Saving a typed document.\n\n" +
+            "1. You type on the keyboard (input), and the keystrokes are sent to the CPU.\n" +
+            "2. The CPU runs the word processor program, which is loaded in RAM, and places the text in memory.\n" +
+            "3. The text appears on the monitor (output).\n" +
+            "4. When you press Save, the operating system copies the document from RAM to the SSD (storage).\n\n" +
+            "If the computer loses power before you save, the text in RAM is lost, while the saved file on the SSD remains.",
+
+            // APPLICATIONS
+            "1. Education: Online classes, research, and digital learning materials.\n\n" +
+            "2. Business: Accounting, inventory, communication, and record keeping.\n\n" +
+            "3. Healthcare: Patient records, medical imaging, and diagnostic equipment.\n\n" +
+            "4. Communication: Email, messaging, and video calls.\n\n" +
+            "5. Entertainment: Games, music, and video streaming.\n\n" +
+            "6. Science and Engineering: Simulations, data analysis, and design.",
+
+            // ADVANTAGES
+            "Computers process data quickly and accurately, store very large amounts of information, run many tasks at the same time, and can repeat the same operation without getting tired. They also make communication and access to information much faster.",
+
+            // LIMITATIONS
+            "A computer can only follow the instructions it is given, so wrong data or a faulty program produces wrong results. Computers depend on electric power, can fail or be attacked by malware, and need regular maintenance and updates. They also do not understand meaning or make judgments the way people do.",
+
+            // RELATED TOPICS
+            "Operating Systems, Computer Hardware, Computer Software, Binary Number System, Computer Architecture, Memory and Storage, Networking, Programming.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Computer - Encyclopaedia Britannica: https://www.britannica.com/technology/computer",
+                "Computer - Wikipedia: https://en.wikipedia.org/wiki/Computer",
+                "Von Neumann architecture - Wikipedia: https://en.wikipedia.org/wiki/Von_Neumann_architecture"
+            )
+
+        ));  
     }
 }
