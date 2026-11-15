@@ -457,7 +457,8 @@ public class ArticleData {
                 "Java Documentation - Oracle: https://docs.oracle.com/en/java/",
                 "Dev.java Learning Materials: https://dev.java/learn/",
                 "Java Tutorial - W3Schools: https://www.w3schools.com/java/"
-            )
+            )));
+
         Article javaArticle = manager.getArticleByTitle("Java Programming");
 
         javaArticle.addSection("Introduction to Java",
@@ -604,8 +605,8 @@ public class ArticleData {
             "3. What is Java bytecode?\n" +
             "4. What is the difference between a class and an object?\n" +
             "5. Name the four commonly taught principles of OOP.");
-        ));
-              manager.addArticle(new Article(
+              
+        manager.addArticle(new Article(
 
             7,
 

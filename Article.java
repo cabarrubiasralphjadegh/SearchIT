@@ -1,6 +1,6 @@
-
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Article {
@@ -20,6 +20,7 @@ public class Article {
     private String limitations;
     private String relatedTopics;
     private List<String> references;
+    private List<Section> sections = new ArrayList<>();
 
     public Article(int id, String title, String category,
                    String description, String definition,
@@ -61,4 +62,12 @@ public class Article {
     public String getLimitations() { return limitations; }
     public String getRelatedTopics() { return relatedTopics; }
     public List<String> getReferences() { return references; }
+
+    public void addSection(String title, String content) {
+        sections.add(new Section(title, content));
+    }
+
+    public List<Section> getSections() {
+        return sections;
+    }
 }
