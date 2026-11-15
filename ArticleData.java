@@ -364,5 +364,246 @@ public class ArticleData {
             )
 
         ));
+
+                manager.addArticle(new Article(
+
+            6,
+
+            "Java Programming",
+
+            "Programming",
+
+            "A comprehensive introduction to Java, including its history, architecture, basic syntax, variables, control structures, methods, object-oriented programming, and practical applications.",
+
+            // DEFINITION
+            "Java is a high-level, general-purpose, class-based, object-oriented programming language. It is designed so that developers can create applications that run on different platforms through the Java Virtual Machine (JVM). Java source code is compiled into bytecode, and a compatible JVM executes that bytecode, which supports Java's platform-independent approach.",
+
+            // HISTORY
+            "Java originated from the Green Project at Sun Microsystems in the early 1990s. James Gosling led the development team. The language was initially called Oak and was later renamed Java. It was publicly released in 1995. Oracle acquired Sun Microsystems in 2010 and became the steward of Java, which continues to evolve through regular releases and community-led development.",
+
+            // CORE CONCEPTS
+            "1. JDK (Java Development Kit): The software development package. It includes the Java compiler, runtime components, and development tools.\n\n" +
+            "2. JRE (Java Runtime Environment): The runtime environment made up of the JVM and the libraries needed to run Java applications. Modern JDK distributions package runtime components differently, so a separate JRE download is not always provided.\n\n" +
+            "3. JVM (Java Virtual Machine): Loads, verifies, and executes Java bytecode, manages memory, and provides runtime services.\n\n" +
+            "4. Variables and Data Types: A variable is a named storage location. Java is statically typed, so every variable has a declared type. The eight primitive types are byte, short, int, long, float, double, char, and boolean. String is a reference type.\n\n" +
+            "5. Operators: Arithmetic (+, -, *, /, %), comparison (==, !=, <, >), logical (&&, ||, !), and assignment (=, +=, -=).\n\n" +
+            "6. Control Structures: Conditional statements (if/else) and loops (for, while) decide the order in which instructions run.\n\n" +
+            "7. Methods: Named blocks of code that perform a task and may accept parameters and return values.\n\n" +
+            "8. Classes and Objects: A class is a definition used to create objects, and an object is an instance of a class.",
+
+            // HOW IT WORKS
+            "Java programs follow four steps:\n\n" +
+            "1. A developer writes source code in a .java file.\n" +
+            "2. The Java compiler (javac) compiles the source code.\n" +
+            "3. The compiler produces bytecode in a .class file.\n" +
+            "4. The JVM loads and executes the bytecode.\n\n" +
+            "Because the JVM runs the bytecode instead of the operating system, the same compiled program can run on any platform that has a compatible JVM. Java also provides automatic memory management through garbage collection, which reclaims memory used by objects that can no longer be reached.",
+
+            // TYPES AND CLASSIFICATIONS
+            "Java supports object-oriented programming (OOP). Its four commonly taught principles are:\n\n" +
+            "1. Encapsulation: Bundling data and methods while controlling access to an object's state, usually with private fields and public getter methods.\n\n" +
+            "2. Inheritance: Creating a class based on another class so that it reuses and extends existing behavior.\n\n" +
+            "3. Polymorphism: Allowing a common parent type or interface to represent different implementations.\n\n" +
+            "4. Abstraction: Exposing essential behavior while hiding implementation details.",
+
+            // PRACTICAL EXAMPLES
+            "Example 1: A basic Java program.\n\n" +
+            "public class Main {\n" +
+            "    public static void main(String[] args) {\n" +
+            "        System.out.println(\"Hello, World!\");\n" +
+            "    }\n" +
+            "}\n\n" +
+            "Explanation:\n" +
+            "- public class Main declares a class named Main.\n" +
+            "- main is the standard entry point of an application.\n" +
+            "- String[] args receives command-line arguments.\n" +
+            "- System.out.println prints text followed by a new line.\n\n" +
+            "Example 2: A conditional statement.\n\n" +
+            "int score = 85;\n" +
+            "if (score >= 75) {\n" +
+            "    System.out.println(\"Passed\");\n" +
+            "} else {\n" +
+            "    System.out.println(\"Failed\");\n" +
+            "}\n\n" +
+            "Example 3: A class and an object.\n\n" +
+            "class Student {\n" +
+            "    String name;\n\n" +
+            "    void introduce() {\n" +
+            "        System.out.println(\"Hello, \" + name);\n" +
+            "    }\n" +
+            "}\n\n" +
+            "Student student = new Student();\n" +
+            "student.name = \"Alex\";\n" +
+            "student.introduce();",
+
+            // APPLICATIONS
+            "1. Enterprise and business applications.\n\n" +
+            "2. Backend services and web applications.\n\n" +
+            "3. Android applications, including many existing projects.\n\n" +
+            "4. Financial and transaction processing systems.\n\n" +
+            "5. Development tools and server software.",
+
+            // ADVANTAGES
+            "Java runs on platforms with a compatible JVM, uses strong type checking and structured programming, has a large ecosystem of libraries and tools, and provides built-in memory management through garbage collection.",
+
+            // LIMITATIONS
+            "Java can have higher runtime and memory overhead than some native applications. Some tasks require more code than in scripting languages, and performance depends on the JVM, the application, and the environment.",
+
+            // RELATED TOPICS
+            "Object-Oriented Programming, JVM, Data Types, Control Structures, Methods, Classes and Objects, Collections, Exception Handling, JDBC, Spring Framework.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Java Documentation - Oracle: https://docs.oracle.com/en/java/",
+                "Dev.java Learning Materials: https://dev.java/learn/",
+                "Java Tutorial - W3Schools: https://www.w3schools.com/java/"
+            )
+        Article javaArticle = manager.getArticleByTitle("Java Programming");
+
+        javaArticle.addSection("Introduction to Java",
+            "Java is a high-level, general-purpose, class-based, object-oriented programming language. It is designed to allow developers to create applications that can run on different platforms through the Java Virtual Machine (JVM).\n" +
+            "Java source code is compiled into bytecode. A compatible JVM executes that bytecode, which supports Java's platform-independent approach.");
+
+        javaArticle.addSection("History and Development",
+            "Java originated from the Green Project at Sun Microsystems in the early 1990s. James Gosling led the development team. The language was initially called Oak and was later renamed Java. It was publicly released in 1995.\n" +
+            "Oracle acquired Sun Microsystems in 2010 and became the steward of Java. Java continues to evolve through regular releases and community-led development.");
+
+        javaArticle.addSection("Java Architecture",
+            "### Java Development Kit (JDK)\n" +
+            "The JDK is the software development package. It includes tools such as the Java compiler, runtime components, and development utilities.\n" +
+            "### Java Runtime Environment (JRE)\n" +
+            "The JRE is the runtime environment made up of the JVM and the supporting libraries needed to run Java applications. Modern JDK distributions package runtime components differently, so a separate JRE download is not always provided.\n" +
+            "### Java Virtual Machine (JVM)\n" +
+            "The JVM loads, verifies, and executes Java bytecode. It manages memory and provides runtime services.\n" +
+            "### How Java Runs\n" +
+            "1. A developer writes source code in a .java file.\n" +
+            "2. The Java compiler (javac) compiles the source code.\n" +
+            "3. The compiler produces bytecode in a .class file.\n" +
+            "4. The JVM loads and executes the bytecode.");
+
+        javaArticle.addSection("Basic Java Program",
+            "```java\n" +
+            "public class Main {\n" +
+            "    public static void main(String[] args) {\n" +
+            "        System.out.println(\"Hello, World!\");\n" +
+            "    }\n" +
+            "}\n" +
+            "```\n" +
+            "**Explanation:**\n" +
+            "- **public class Main:** Declares a class named Main.\n" +
+            "- **main:** The standard application entry point.\n" +
+            "- **String[] args:** Receives command-line arguments.\n" +
+            "- **System.out.println:** Prints text followed by a new line.");
+
+        javaArticle.addSection("Variables and Data Types",
+            "A variable is a named storage location that holds a value. Java is statically typed, meaning variables have declared types.\n" +
+            "```java\n" +
+            "int age = 18;\n" +
+            "double price = 99.50;\n" +
+            "char grade = 'A';\n" +
+            "boolean isStudent = true;\n" +
+            "String name = \"Alex\";\n" +
+            "```\n" +
+            "Java's eight primitive types are byte, short, int, long, float, double, char, and boolean. String is a reference type, not a primitive type.");
+
+        javaArticle.addSection("Operators",
+            "Operators perform operations on values and variables.\n" +
+            "- Arithmetic: +, -, *, /, %\n" +
+            "- Comparison: ==, !=, greater than, less than\n" +
+            "- Logical: &&, ||, !\n" +
+            "- Assignment: =, +=, -=, *=");
+
+        javaArticle.addSection("Control Structures",
+            "Control structures determine the order in which instructions execute.\n" +
+            "### Conditional statements\n" +
+            "```java\n" +
+            "int score = 85;\n" +
+            "\n" +
+            "if (score >= 75) {\n" +
+            "    System.out.println(\"Passed\");\n" +
+            "} else {\n" +
+            "    System.out.println(\"Failed\");\n" +
+            "}\n" +
+            "```\n" +
+            "### Loops\n" +
+            "A loop repeats instructions while a condition is satisfied or for a specified number of iterations.\n" +
+            "```java\n" +
+            "for (int i = 1; i <= 5; i++) {\n" +
+            "    System.out.println(i);\n" +
+            "}\n" +
+            "```");
+
+        javaArticle.addSection("Methods",
+            "A method is a named block of code that performs a particular task. Methods can accept parameters and return values.\n" +
+            "```java\n" +
+            "public static int add(int a, int b) {\n" +
+            "    return a + b;\n" +
+            "}\n" +
+            "```");
+
+        javaArticle.addSection("Object-Oriented Programming",
+            "Java supports object-oriented programming (OOP). Its four commonly taught principles are:\n" +
+            "- **Encapsulation:** Bundling data and methods while controlling access to an object's state.\n" +
+            "- **Inheritance:** Creating a class based on another class.\n" +
+            "- **Polymorphism:** Allowing a common interface or parent type to represent different implementations.\n" +
+            "- **Abstraction:** Exposing essential behavior while hiding implementation details.\n" +
+            "### Class and Object Example\n" +
+            "```java\n" +
+            "class Student {\n" +
+            "    String name;\n" +
+            "\n" +
+            "    void introduce() {\n" +
+            "        System.out.println(\"Hello, \" + name);\n" +
+            "    }\n" +
+            "}\n" +
+            "\n" +
+            "public class Main {\n" +
+            "    public static void main(String[] args) {\n" +
+            "        Student student = new Student();\n" +
+            "        student.name = \"Alex\";\n" +
+            "        student.introduce();\n" +
+            "    }\n" +
+            "}\n" +
+            "```");
+
+        javaArticle.addSection("Applications of Java",
+            "- Enterprise and business applications.\n" +
+            "- Backend services and web applications.\n" +
+            "- Android applications, including many existing projects.\n" +
+            "- Financial and transaction processing systems.\n" +
+            "- Development tools and server software.");
+
+        javaArticle.addSection("Advantages and Limitations",
+            "### Advantages\n" +
+            "- Runs on platforms with compatible JVM implementations.\n" +
+            "- Strong type checking and structured programming.\n" +
+            "- Large ecosystem of libraries and tools.\n" +
+            "- Built-in memory management and garbage collection.\n" +
+            "### Limitations\n" +
+            "- Runtime and memory overhead can be higher than some native applications.\n" +
+            "- Some tasks require more code than in scripting languages.\n" +
+            "- Performance depends on the JVM, application, and environment.");
+
+        javaArticle.addSection("Glossary",
+            "- **Compiler:** A tool that translates source code into another form, such as Java bytecode.\n" +
+            "- **Bytecode:** Instructions stored in class files for execution by a JVM.\n" +
+            "- **Class:** A definition used to create objects.\n" +
+            "- **Object:** An instance of a class.\n" +
+            "- **Garbage Collection:** Automatic reclamation of memory occupied by objects that are no longer reachable.");
+
+        javaArticle.addSection("Practical Exercises",
+            "1. Write a program that displays your name and course.\n" +
+            "2. Create two integer variables and display their sum.\n" +
+            "3. Write a program that checks whether a number is even or odd.\n" +
+            "4. Use a loop to display numbers from 1 to 10.\n" +
+            "5. Create a Student class with a name field and an introduction method.");
+
+        javaArticle.addSection("Knowledge Check",
+            "1. Who led the development of Java?\n" +
+            "2. What does JVM stand for?\n" +
+            "3. What is Java bytecode?\n" +
+            "4. What is the difference between a class and an object?\n" +
+            "5. Name the four commonly taught principles of OOP.");
+        ));
     }
 }

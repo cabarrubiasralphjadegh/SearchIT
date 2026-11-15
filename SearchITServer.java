@@ -119,6 +119,16 @@ String response = json.toString();
                     json.append("\"").append(escape(refs.get(i))).append("\"");
                 }
 
+                json.append("],\"sections\":[");
+
+                List<Section> secs = a.getSections();
+                for (int i = 0; i < secs.size(); i++) {
+                    if (i > 0) json.append(",");
+                    json.append("{\"title\":\"").append(escape(secs.get(i).getTitle()))
+                        .append("\",\"content\":\"").append(escape(secs.get(i).getContent()))
+                        .append("\"}");
+                }
+
                 json.append("],\"sameCategory\":[");
 
                 List<Article> same = manager.getArticlesByCategory(a.getCategory());
