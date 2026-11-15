@@ -51,7 +51,7 @@ public class ArticleManager {
         }
         return list;
     }
-        public List<Article> searchArticles(String keyword) {
+            public List<Article> searchArticles(String keyword) {
 
         List<Article> results = new ArrayList<>();
 
@@ -63,7 +63,6 @@ public class ArticleManager {
 
         List<Article> titleMatches = new ArrayList<>();
         List<Article> categoryMatches = new ArrayList<>();
-        List<Article> otherMatches = new ArrayList<>();
 
         for (Article article : articles) {
 
@@ -71,16 +70,11 @@ public class ArticleManager {
                 titleMatches.add(article);
             } else if (article.getCategory().toLowerCase().contains(search)) {
                 categoryMatches.add(article);
-            } else if (article.getDescription().toLowerCase().contains(search)
-                    || article.getDefinition().toLowerCase().contains(search)
-                    || article.getRelatedTopics().toLowerCase().contains(search)) {
-                otherMatches.add(article);
             }
         }
 
         results.addAll(titleMatches);
         results.addAll(categoryMatches);
-        results.addAll(otherMatches);
 
         return results;
     }
