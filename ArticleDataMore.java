@@ -299,6 +299,173 @@ public class ArticleDataMore {
             )
 
         ));
+                
+        manager.addArticle(new Article(
+
+            17,
+
+            "HTML and CSS",
+
+            "Web Development",
+
+            "An introduction to HTML and CSS, including how HTML structures a web page, how CSS styles it, the basic syntax of both, a working example, and how browsers combine them.",
+
+            // DEFINITION
+            "HTML (HyperText Markup Language) is the standard language used to describe the structure and content of a web page, such as headings, paragraphs, images, links, and forms. CSS (Cascading Style Sheets) is the language used to describe how that content looks, including colors, fonts, spacing, and layout. HTML says what is on the page, and CSS says how it appears.",
+
+            // HISTORY
+            "Tim Berners-Lee created HTML at CERN around 1989 to 1991 as part of the first World Wide Web. The first formal specification, HTML 2.0, was published in 1995, and HTML 4 followed in 1997. CSS was proposed by Hakon Wium Lie in 1994, and the first CSS recommendation was published by the W3C in 1996. HTML5 became a W3C Recommendation in October 2014 and added elements for video, audio, and page structure.",
+
+            // CORE CONCEPTS
+            "1. Element: A building block of an HTML page, written with a start tag, content, and an end tag, such as a paragraph element containing text.\n\n" +
+            "2. Tag: The markup that marks where an element starts and ends, written between angle brackets.\n\n" +
+            "3. Attribute: Extra information inside a start tag, such as the address of a link or the source of an image.\n\n" +
+            "4. Semantic Elements: Elements that describe their meaning, such as header, nav, main, and footer, which help browsers and search engines understand a page.\n\n" +
+            "5. Selector: The part of a CSS rule that chooses which elements to style, such as an element name, a class, or an id.\n\n" +
+            "6. Property and Value: A CSS declaration has a property, such as color, and a value, such as blue.\n\n" +
+            "7. Box Model: CSS treats every element as a box made of content, padding, border, and margin.\n\n" +
+            "8. Cascade and Specificity: The rules that decide which style wins when several rules apply to the same element.",
+
+            // HOW IT WORKS
+            "When a browser receives an HTML file, it reads the tags and builds a tree of elements called the Document Object Model (DOM). It then reads the CSS and works out which rules apply to each element. Finally, it calculates the size and position of every box and paints the page on the screen. If the HTML or the CSS changes, the browser repeats these steps for the affected parts. CSS can be written in a separate file linked from the page, inside a style element, or directly in an element's style attribute, and a separate file is usually preferred because several pages can share it.",
+
+            // TYPES AND CLASSIFICATIONS
+            "Ways to organize and apply styles:\n\n" +
+            "1. External CSS: Rules in a separate file linked to the page. This is the most common method.\n\n" +
+            "2. Internal CSS: Rules written inside a style element in the page.\n\n" +
+            "3. Inline CSS: Rules written in the style attribute of one element.\n\n" +
+            "Common kinds of CSS selectors:\n\n" +
+            "1. Element selector: Matches every element of one type, such as all paragraphs.\n\n" +
+            "2. Class selector: Written with a dot, it matches every element with that class.\n\n" +
+            "3. ID selector: Written with a hash sign, it matches the one element with that id.\n\n" +
+            "Modern CSS layout tools include Flexbox for one-dimensional layouts and Grid for two-dimensional layouts.",
+
+            // PRACTICAL EXAMPLES
+            "Example: A small page with a heading and a button.\n\n" +
+            "HTML:\n" +
+            "<h1>Search IT</h1>\n" +
+            "<p class=\"note\">Search. Discover. Learn.</p>\n" +
+            "<button>Search</button>\n\n" +
+            "CSS:\n" +
+            "h1 {\n" +
+            "    color: #38bdf8;\n" +
+            "}\n" +
+            ".note {\n" +
+            "    color: gray;\n" +
+            "}\n" +
+            "button {\n" +
+            "    background: #2563eb;\n" +
+            "    color: white;\n" +
+            "    padding: 10px 20px;\n" +
+            "}\n\n" +
+            "Explanation:\n" +
+            "- The h1 element is the main heading, and the rule h1 colors every h1 on the page.\n" +
+            "- class=\"note\" gives the paragraph a class, and the rule .note styles every element with that class.\n" +
+            "- padding adds space between the button text and its border.\n\n" +
+            "The Search IT home page you are using is built this way: HTML for the search box and results, and CSS for the dark theme.",
+
+            // APPLICATIONS
+            "1. Websites: Every web page uses HTML for structure and CSS for appearance.\n\n" +
+            "2. Web Applications: Interfaces for online stores, school portals, and dashboards.\n\n" +
+            "3. Email Templates: Formatted emails are written in HTML.\n\n" +
+            "4. Responsive Design: CSS media queries adapt a page to phones, tablets, and desktops.\n\n" +
+            "5. Documentation: Many manuals and help pages are written in HTML.",
+
+            // ADVANTAGES
+            "HTML and CSS are free, open standards that every browser understands. They are easy to start with, they keep content separate from design so a whole site can be restyled by changing one file, and they work on almost every device.",
+
+            // LIMITATIONS
+            "HTML and CSS describe pages but cannot make decisions or process data, so JavaScript or a server-side language is needed for that. Browsers may display some CSS features differently, and large style sheets can become hard to manage without careful organization.",
+
+            // RELATED TOPICS
+            "JavaScript, Responsive Design, DOM, Web Accessibility, Web Browsers, HTTP, CSS Frameworks, Web Development.",
+
+            // REFERENCES
+            Arrays.asList(
+                "HTML - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/HTML",
+                "CSS - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/CSS",
+                "HTML - Wikipedia: https://en.wikipedia.org/wiki/HTML"
+            )
+
+        ));
+
+        manager.addArticle(new Article(
+
+            18,
+
+            "REST APIs and JSON",
+
+            "Web Development",
+
+            "An introduction to REST APIs and the JSON format, including how clients and servers exchange data, HTTP methods and status codes, a worked example, and how Search IT uses them.",
+
+            // DEFINITION
+            "An API (Application Programming Interface) is a defined way for one program to request data or actions from another. A REST API is a web API that follows the REST (Representational State Transfer) style: resources are identified by addresses, and clients use standard HTTP methods to work with them. JSON (JavaScript Object Notation) is a lightweight text format that REST APIs commonly use to send data.",
+
+            // HISTORY
+            "Roy Fielding described the REST architectural style in his doctoral dissertation in 2000. JSON was popularized by Douglas Crockford in the early 2000s and was based on the object notation of JavaScript. Because JSON is smaller and easier to read than XML, it replaced XML in most new web APIs during the 2010s.",
+
+            // CORE CONCEPTS
+            "1. Client and Server: The client, such as a browser, sends a request, and the server sends back a response.\n\n" +
+            "2. Resource: A thing the API manages, such as an article or a user. Each resource has an address.\n\n" +
+            "3. Endpoint: A specific address of the API, such as /api/search.\n\n" +
+            "4. HTTP Method: The action requested. GET reads data, POST creates data, PUT replaces data, and DELETE removes data.\n\n" +
+            "5. Status Code: A number in the response that shows the result, such as 200 for success, 404 for not found, and 500 for a server error.\n\n" +
+            "6. Query Parameter: A value added to the address after a question mark, such as ?q=java.\n\n" +
+            "7. Stateless: Each request contains everything the server needs, so the server does not need to remember earlier requests.\n\n" +
+            "8. JSON Structure: Data is written as objects in curly braces, with name and value pairs, and as arrays in square brackets.",
+
+            // HOW IT WORKS
+            "The client sends an HTTP request that contains a method, an address, and sometimes extra data. The server reads the request, finds or changes the data, and sends back a response with a status code and, usually, a JSON body. The client reads the JSON and uses it, for example by showing it on the page. Because REST uses ordinary HTTP, any program that can make web requests, in any language, can use the API.",
+
+            // TYPES AND CLASSIFICATIONS
+            "1. REST APIs: Use standard HTTP methods and resource addresses. They are the most common style.\n\n" +
+            "2. SOAP APIs: An older style that exchanges XML messages with strict rules.\n\n" +
+            "3. GraphQL APIs: Let the client ask for exactly the fields it needs through one endpoint.\n\n" +
+            "JSON supports these value types: string, number, true or false, null, object, and array.",
+
+            // PRACTICAL EXAMPLES
+            "Example: The Search IT search endpoint.\n\n" +
+            "Request:\n" +
+            "GET /api/search?q=java\n\n" +
+            "Response (shortened):\n" +
+            "{\n" +
+            "  \"found\": true,\n" +
+            "  \"count\": 1,\n" +
+            "  \"results\": [\n" +
+            "    { \"title\": \"Java Programming\", \"category\": \"Programming\" }\n" +
+            "  ]\n" +
+            "}\n\n" +
+            "Explanation:\n" +
+            "- GET asks the server to read data, and q=java is the search keyword.\n" +
+            "- found, count, and results are names, and each one has a value.\n" +
+            "- results is an array that holds one object for each article.\n\n" +
+            "In Search IT, the JavaScript in the page uses fetch() to send this request to the Java server, and the Java code builds the JSON text.",
+
+            // APPLICATIONS
+            "1. Web and Mobile Apps: Apps load data from servers, such as posts, products, and weather.\n\n" +
+            "2. Third-Party Services: Payment, map, and login services offer APIs to other developers.\n\n" +
+            "3. Microservices: Large systems are split into small services that talk through APIs.\n\n" +
+            "4. Configuration Files: JSON is also used to store settings and data.\n\n" +
+            "5. Learning Platforms: Systems such as Search IT use an API to serve their content.",
+
+            // ADVANTAGES
+            "REST APIs are simple, because they reuse standard web technology. JSON is easy for people to read and for programs to process, and almost every programming language can handle it. Clients and servers can be developed independently as long as they agree on the API.",
+
+            // LIMITATIONS
+            "REST APIs can send more data than a client needs, or require several requests to collect related data. An API must be protected with authentication and input checking, or it can expose private data. JSON does not support comments or dates directly, and large responses can be slow to send.",
+
+            // RELATED TOPICS
+            "HTTP, JavaScript, Web Servers, GraphQL, XML, Authentication, Web Security, Java Programming.",
+
+            // REFERENCES
+            Arrays.asList(
+                "An overview of HTTP - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview",
+                "Working with JSON - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON",
+                "Representational state transfer - Wikipedia: https://en.wikipedia.org/wiki/REST"
+            )
+
+        ));
 
     }
 }
