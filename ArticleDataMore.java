@@ -155,6 +155,150 @@ public class ArticleDataMore {
         ));
 
         // ADD NEW ARTICLES ABOVE THIS LINE
+                manager.addArticle(new Article(
+
+            15,
+
+            "Operating Systems",
+
+            "Computer Fundamentals",
+
+            "An introduction to operating systems, including their definition, main functions, key components such as the kernel and file system, common types, how they manage programs and memory, and popular examples.",
+
+            // DEFINITION
+            "An operating system (OS) is the main system software that manages a computer's hardware and provides services for other programs. It sits between the user, the applications, and the hardware. Without an operating system, every program would have to control the keyboard, screen, memory, and storage by itself.",
+
+            // HISTORY
+            "The earliest computers had no operating system, and operators loaded one program at a time. In the 1950s, batch systems were developed to run jobs one after another automatically. UNIX was created at Bell Labs in 1969 by Ken Thompson and Dennis Ritchie, and many later systems were influenced by it. MS-DOS appeared in 1981, and Windows 1.0 followed in 1985. Linus Torvalds released the first version of the Linux kernel in 1991. The Apple iPhone introduced iOS in 2007, and the first Android phones were sold in 2008.",
+
+            // CORE CONCEPTS
+            "1. Kernel: The core of the operating system. It has full control of the hardware and provides basic services to the rest of the system.\n\n" +
+            "2. Process: A program that is currently running, together with the resources it uses.\n\n" +
+            "3. Thread: A smaller unit of work inside a process. A process can have several threads that run at the same time.\n\n" +
+            "4. Scheduling: Deciding which process gets the CPU and for how long.\n\n" +
+            "5. Memory Management: Giving each program the memory it needs and keeping programs from interfering with one another.\n\n" +
+            "6. File System: The method used to name, store, and organize files on a storage device.\n\n" +
+            "7. Device Driver: A small program that lets the operating system communicate with a specific piece of hardware, such as a printer.\n\n" +
+            "8. User Interface: The way people use the system. A command-line interface (CLI) uses typed commands, and a graphical user interface (GUI) uses windows, icons, and menus.",
+
+            // HOW IT WORKS
+            "When the computer starts, a small program in firmware loads the operating system from storage into memory. The kernel then starts the system services and the user interface. When you open an application, the OS creates a process for it, gives it memory, and schedules it to use the CPU. The CPU switches between processes many times per second, so several programs seem to run at once. When a program needs a service such as reading a file, it makes a request to the kernel called a system call, and the kernel performs the task using the correct device driver.",
+
+            // TYPES AND CLASSIFICATIONS
+            "Operating systems can be grouped by the devices they run on:\n\n" +
+            "1. Desktop and Laptop Systems: Windows, macOS, and Linux distributions such as Ubuntu.\n\n" +
+            "2. Mobile Systems: Android and iOS.\n\n" +
+            "3. Server Systems: Windows Server and Linux, designed to run for long periods and serve many users.\n\n" +
+            "4. Embedded Systems: Small systems inside devices such as routers, TVs, and cars.\n\n" +
+            "5. Real-Time Systems: Systems that must respond within a strict time limit, such as those in medical devices and industrial machines.\n\n" +
+            "They can also be grouped by how they run tasks: batch systems run jobs one after another, time-sharing systems let many users share the CPU, and distributed systems spread work across several computers.",
+
+            // PRACTICAL EXAMPLES
+            "Example: Listening to music while writing a document.\n\n" +
+            "1. The OS runs two processes at once: a music player and a word processor.\n" +
+            "2. The scheduler gives each one short turns on the CPU, switching so quickly that both seem to run at the same time.\n" +
+            "3. The memory manager keeps each program in its own area of memory, so a crash in one does not damage the other.\n" +
+            "4. When you press Save, the word processor asks the kernel to write the file, and the file system stores it on the drive.\n\n" +
+            "You can see running processes in Windows Task Manager, or by running the command top in a Linux terminal.",
+
+            // APPLICATIONS
+            "1. Personal Computing: Running programs and managing files on laptops and desktops.\n\n" +
+            "2. Mobile Devices: Running apps and managing battery, touch input, and sensors.\n\n" +
+            "3. Servers and Cloud: Hosting websites, databases, and virtual machines.\n\n" +
+            "4. Embedded Devices: Controlling routers, smart TVs, and vehicles.\n\n" +
+            "5. Education and Development: Learning how computers work and building software.",
+
+            // ADVANTAGES
+            "An operating system lets many programs share the same hardware safely, hides hardware details from programmers, provides a consistent interface for users, and offers security features such as user accounts and file permissions.",
+
+            // LIMITATIONS
+            "An operating system uses some memory and processing power itself. It can have bugs and security weaknesses, so it needs regular updates. Programs written for one operating system often cannot run on another without changes, and a failure in the kernel can crash the whole system.",
+
+            // RELATED TOPICS
+            "Computer Hardware, File Systems, Processes and Threads, Memory Management, Linux, Windows, Android, Virtualization, Computer Architecture.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Operating system - Encyclopaedia Britannica: https://www.britannica.com/technology/operating-system",
+                "Operating system - Wikipedia: https://en.wikipedia.org/wiki/Operating_system",
+                "Kernel (operating system) - Wikipedia: https://en.wikipedia.org/wiki/Kernel_(operating_system)"
+            )
+
+        ));
+
+        manager.addArticle(new Article(
+
+            16,
+
+            "Binary Number System",
+
+            "Computer Fundamentals",
+
+            "An introduction to the binary number system, including place values, converting between binary and decimal, binary addition, how computers store text, and why computers use binary.",
+
+            // DEFINITION
+            "The binary number system is a way of writing numbers using only two digits, 0 and 1. It is a base-2 system, while the decimal system that people use every day is base 10. Computers use binary because their electronic circuits have two clear states, such as on and off, which map directly to 1 and 0.",
+
+            // HISTORY
+            "Gottfried Wilhelm Leibniz described the modern binary number system in 1703. In 1847, George Boole published the algebra of logic, now called Boolean algebra, which works with true and false values. In 1937, Claude Shannon showed in his master's thesis that Boolean algebra could be used to design electrical switching circuits, which became the basis of digital computers. The ASCII character code, which assigns numbers to letters, was first published in 1963.",
+
+            // CORE CONCEPTS
+            "1. Bit: A single binary digit, either 0 or 1. The word comes from binary digit.\n\n" +
+            "2. Byte: A group of 8 bits. One byte can hold 256 different values, from 0 to 255.\n\n" +
+            "3. Place Value: Each position in a binary number is worth a power of 2, starting from 1 on the right, then 2, 4, 8, 16, and so on.\n\n" +
+            "4. Most and Least Significant Bit: The leftmost bit has the largest value, and the rightmost bit has the smallest.\n\n" +
+            "5. Hexadecimal: A base-16 system that uses the digits 0 to 9 and the letters A to F. One hexadecimal digit stands for exactly 4 bits, so it is a short way to write binary.\n\n" +
+            "6. Character Encoding: A table that assigns a number to each character. ASCII and Unicode are the best known.\n\n" +
+            "7. Kilobyte, Megabyte, and Gigabyte: Units of storage. In everyday use, 1 kilobyte is about 1,000 bytes, although some systems use 1,024.",
+
+            // HOW IT WORKS
+            "A binary number is read by adding up the place values of every position that holds a 1. For example, in 1101 the positions from the right are worth 1, 2, 4, and 8. The 1s are at the positions worth 8, 4, and 1, so the value is 8 + 4 + 1 = 13. To convert a decimal number to binary, repeatedly divide it by 2 and write down the remainders, then read the remainders from last to first. Inside the computer, all data, including numbers, text, images, and sound, is stored as patterns of bits.",
+
+            // TYPES AND CLASSIFICATIONS
+            "Number systems commonly used in computing:\n\n" +
+            "1. Binary (base 2): Digits 0 and 1.\n\n" +
+            "2. Octal (base 8): Digits 0 to 7. It was used in older systems.\n\n" +
+            "3. Decimal (base 10): Digits 0 to 9.\n\n" +
+            "4. Hexadecimal (base 16): Digits 0 to 9 and A to F. It is used for colors, memory addresses, and other values.\n\n" +
+            "The same value written in each system: the number 255 is 11111111 in binary, 377 in octal, 255 in decimal, and FF in hexadecimal.",
+
+            // PRACTICAL EXAMPLES
+            "Example 1: Binary to decimal.\n\n" +
+            "1011 = (1 x 8) + (0 x 4) + (1 x 2) + (1 x 1) = 8 + 0 + 2 + 1 = 11\n\n" +
+            "Example 2: Decimal to binary. Convert 13.\n\n" +
+            "13 divided by 2 is 6 remainder 1\n" +
+            "6 divided by 2 is 3 remainder 0\n" +
+            "3 divided by 2 is 1 remainder 1\n" +
+            "1 divided by 2 is 0 remainder 1\n\n" +
+            "Reading the remainders from last to first gives 1101.\n\n" +
+            "Example 3: Binary addition. 0101 + 0011.\n\n" +
+            "The rules are 0 + 0 = 0, 0 + 1 = 1, 1 + 1 = 10 (write 0, carry 1). Adding the two numbers gives 1000, which is 5 + 3 = 8 in decimal.\n\n" +
+            "Example 4: Storing text. In ASCII, the letter A is the number 65, which is 01000001 in binary. A computer stores the word HI as the bytes for H (72) and I (73).",
+
+            // APPLICATIONS
+            "1. Computer Memory and Storage: All data is stored as bits.\n\n" +
+            "2. Networking: IP addresses and subnet masks are binary numbers written in a readable form.\n\n" +
+            "3. Digital Images: Each color is stored as numbers, often written in hexadecimal, such as #FF0000 for red.\n\n" +
+            "4. Programming: Bitwise operations and flags use binary values directly.\n\n" +
+            "5. Digital Electronics: Logic gates and circuits work with 0 and 1.",
+
+            // ADVANTAGES
+            "Binary is simple and reliable, because a circuit only needs to tell two states apart, which makes it resistant to small amounts of electrical noise. Binary arithmetic can be carried out with simple logic circuits, and it maps directly to Boolean logic.",
+
+            // LIMITATIONS
+            "Binary numbers are long and hard for people to read, so programmers often use hexadecimal instead. A fixed number of bits can only hold a limited range of values, and going past it causes overflow. Some decimal fractions, such as 0.1, cannot be stored exactly in binary, which leads to small rounding errors.",
+
+            // RELATED TOPICS
+            "Hexadecimal, Boolean Algebra, Logic Gates, ASCII and Unicode, Computer Memory, IP Addressing, Data Representation, Computer Architecture.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Binary number - Wikipedia: https://en.wikipedia.org/wiki/Binary_number",
+                "Binary number system - Encyclopaedia Britannica: https://www.britannica.com/science/binary-number-system",
+                "ASCII - Wikipedia: https://en.wikipedia.org/wiki/ASCII"
+            )
+
+        ));
 
     }
 }
