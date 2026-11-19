@@ -77,7 +77,34 @@ public class SearchITWindow {
         top.setBackground(PANEL);
         top.setBorder(new EmptyBorder(14, 16, 14, 16));
         top.add(heading, BorderLayout.NORTH);
-        top.add(searchRow, BorderLayout.CENTER);
+                String[] categories = {"Programming", "Computer Fundamentals", "Networking",
+                "Web Development", "Database Management", "Cybersecurity",
+                "Emerging Technologies"};
+
+        JPanel categoryRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
+        categoryRow.setOpaque(false);
+
+        for (String name : categories) {
+            JButton button = new JButton(name);
+            button.setBackground(CARD);
+            button.setForeground(ACCENT);
+            button.setFocusPainted(false);
+            button.setOpaque(true);
+            button.setBorder(BorderFactory.createCompoundBorder(
+                    new LineBorder(BORDER), new EmptyBorder(6, 12, 6, 12)));
+            button.addActionListener(e -> {
+                searchField.setText(name);
+                searchButton.doClick();
+            });
+            categoryRow.add(button);
+        }
+
+        JPanel searchArea = new JPanel(new BorderLayout(0, 8));
+        searchArea.setOpaque(false);
+        searchArea.add(searchRow, BorderLayout.NORTH);
+        searchArea.add(categoryRow, BorderLayout.CENTER);
+
+        top.add(searchArea, BorderLayout.CENTER);
 
         DefaultListModel<Article> model = new DefaultListModel<>();
         JList<Article> resultList = new JList<>(model);
