@@ -81,7 +81,7 @@ public class SearchITWindow {
                 "Web Development", "Database Management", "Cybersecurity",
                 "Emerging Technologies"};
 
-        JPanel categoryRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 4));
+        JPanel categoryRow = new JPanel(new GridLayout(2, 4, 8, 8));
         categoryRow.setOpaque(false);
 
         for (String name : categories) {
