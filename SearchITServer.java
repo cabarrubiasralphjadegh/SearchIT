@@ -16,6 +16,8 @@ public class SearchITServer {
     public static void main(String[] args) throws IOException {
 
         ArticleManager manager = new ArticleManager();
+        AccountStore accounts = new AccountStore();
+
         ArticleData.loadArticles(manager);
         ArticleDataProgramming.load(manager);
         ArticleDataNetworking.load(manager);
@@ -25,6 +27,80 @@ public class SearchITServer {
         HttpServer server = HttpServer.create(
             new InetSocketAddress(8080), 0
         );
+
+server.createContext("/api/register", exchange -> {
+    exchange.getResponseHeaders().set(
+        "Access-Control-Allow-Origin", "*"
+    );
+
+    if (!exchange.getRequestMethod().equals("POST")) {
+        exchange.sendResponseHeaders(405, -1);
+        exchange.close();
+        return;
+    }
+
+    try {
+        String body = new String(
+            exchange.getRequestBody().readAllBytes(),
+            StandardCharsets.UTF_8
+        );
+
+        String username = getFormValue(body, "username");
+        String email = getFormValue(body, "email");
+        String password = getFormValue(body, "password");
+
+        boolean registered = accounts.register(
+            username, email, password.toCharArray()
+        );
+
+        sendJson(exchange, registered
+            ? "{\"success\":true,\"message\":\"Account created!\"}"
+            : "{\"success\":false,\"message\":\"Username or email already exists.\"}"
+        );
+
+    } catch (Exception e) {
+        sendJson(exchange,
+            "{\"success\":false,\"message\":\"Registration failed.\"}"
+        );
+    }
+});
+
+server.createContext("/api/login", exchange -> {
+    exchange.getResponseHeaders().set(
+        "Access-Control-Allow-Origin", "*"
+    );
+
+    if (!exchange.getRequestMethod().equals("POST")) {
+        exchange.sendResponseHeaders(405, -1);
+        exchange.close();
+        return;
+    }
+
+    try {
+        String body = new String(
+            exchange.getRequestBody().readAllBytes(),
+            StandardCharsets.UTF_8
+        );
+
+        String username = getFormValue(body, "username");
+        String password = getFormValue(body, "password");
+
+        boolean authenticated = accounts.authenticate(
+            username, password.toCharArray()
+        );
+
+        sendJson(exchange, authenticated
+            ? "{\"success\":true,\"message\":\"Login successful!\"}"
+            : "{\"success\":false,\"message\":\"Invalid username or password.\"}"
+        );
+
+    } catch (Exception e) {
+        sendJson(exchange,
+            "{\"success\":false,\"message\":\"Login failed.\"}"
+        );
+    }
+});
+
 
         server.createContext("/api/search", exchange -> {
 
@@ -159,6 +235,43 @@ String response = json.toString();
         System.out.println("Search IT server is running!");
         System.out.println("Port: 8080");
     }
+    
+private static String getFormValue(String body, String key) {
+    String[] pairs = body.split("&");
+
+    for (String pair : pairs) {
+        String[] parts = pair.split("=", 2);
+
+        if (parts.length == 2 &&
+            parts[0].equals(key)) {
+
+            return URLDecoder.decode(
+                parts[1],
+                StandardCharsets.UTF_8
+            );
+        }
+    }
+
+    return "";
+}
+
+private static void sendJson(
+    HttpExchange exchange,
+    String response
+) throws IOException {
+
+    byte[] data = response.getBytes(StandardCharsets.UTF_8);
+
+    exchange.getResponseHeaders().set(
+        "Content-Type", "application/json; charset=UTF-8"
+    );
+
+    exchange.sendResponseHeaders(200, data.length);
+
+    try (OutputStream output = exchange.getResponseBody()) {
+        output.write(data);
+    }
+}
 
     private static String escape(String text) {
         return text.replace("\\", "\\\\")

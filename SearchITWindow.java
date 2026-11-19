@@ -34,11 +34,14 @@ public class SearchITWindow {
 
     private static void createWindow(ArticleManager manager) {
 
-        JFrame frame = new JFrame("Search IT");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1050, 680);
-        frame.setLocationRelativeTo(null);
-        frame.getContentPane().setBackground(BG);
+        JFrame frame = new JFrame("SEARCH IT | IT Learning Platform");
+
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setSize(1200, 780);
+frame.setMinimumSize(new Dimension(900, 600));
+frame.setLocationRelativeTo(null);
+frame.getContentPane().setBackground(BG);
+frame.setLayout(new BorderLayout());
 
         JLabel title = new JLabel("SEARCH IT");
         title.setFont(new Font("SansSerif", Font.BOLD, 26));
@@ -46,6 +49,7 @@ public class SearchITWindow {
 
         JLabel tagline = new JLabel("Search. Discover. Learn.");
         tagline.setForeground(MUTED);
+tagline.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         JPanel heading = new JPanel(new GridLayout(2, 1));
         heading.setOpaque(false);
@@ -73,25 +77,48 @@ public class SearchITWindow {
         searchRow.add(searchField, BorderLayout.CENTER);
         searchRow.add(searchButton, BorderLayout.EAST);
 
-        JPanel top = new JPanel(new BorderLayout(0, 12));
-        top.setBackground(PANEL);
-        top.setBorder(new EmptyBorder(14, 16, 14, 16));
+        JPanel top = new JPanel(new BorderLayout(0, 16));
+top.setBackground(PANEL);
+top.setBorder(new EmptyBorder(22, 26, 22, 26));
         top.add(heading, BorderLayout.NORTH);
                 String[] categories = {"Programming", "Computer Fundamentals", "Networking",
                 "Web Development", "Database Management", "Cybersecurity",
                 "Emerging Technologies"};
 
-        JPanel categoryRow = new JPanel(new GridLayout(2, 4, 8, 8));
-        categoryRow.setOpaque(false);
+        JPanel categoryRow = new JPanel();
+categoryRow.setLayout(new BoxLayout(categoryRow, BoxLayout.Y_AXIS));
+categoryRow.setOpaque(false);
 
         for (String name : categories) {
             JButton button = new JButton(name);
-            button.setBackground(CARD);
-            button.setForeground(ACCENT);
-            button.setFocusPainted(false);
-            button.setOpaque(true);
-            button.setBorder(BorderFactory.createCompoundBorder(
-                    new LineBorder(BORDER), new EmptyBorder(6, 12, 6, 12)));
+            button.setAlignmentX(Component.LEFT_ALIGNMENT);
+button.setMaximumSize(new Dimension(220, 42));
+button.setPreferredSize(new Dimension(220, 42));
+button.setHorizontalAlignment(SwingConstants.LEFT);
+            button.setBackground(new Color(0x172944));
+button.setForeground(TEXT);
+button.setFocusPainted(false);
+button.setOpaque(true);
+button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+button.setFont(new Font("SansSerif", Font.PLAIN, 13));
+
+button.setBorder(BorderFactory.createCompoundBorder(
+        new LineBorder(new Color(0x304568), 1, true),
+        new EmptyBorder(10, 14, 10, 14)
+));
+button.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent e) {
+        button.setBackground(new Color(0x23446b));
+        button.setForeground(ACCENT);
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent e) {
+        button.setBackground(new Color(0x172944));
+        button.setForeground(TEXT);
+    }
+});
             button.addActionListener(e -> {
                 searchField.setText(name);
                 searchButton.doClick();
@@ -99,12 +126,31 @@ public class SearchITWindow {
             categoryRow.add(button);
         }
 
-        JPanel searchArea = new JPanel(new BorderLayout(0, 8));
-        searchArea.setOpaque(false);
-        searchArea.add(searchRow, BorderLayout.NORTH);
-        searchArea.add(categoryRow, BorderLayout.CENTER);
+        JPanel searchArea = new JPanel(new BorderLayout());
+searchArea.setOpaque(false);
+searchArea.add(searchRow, BorderLayout.CENTER);
 
-        top.add(searchArea, BorderLayout.CENTER);
+top.add(searchArea, BorderLayout.CENTER);
+
+// Sidebar navigation
+JPanel sidebar = new JPanel(new BorderLayout(0, 12));
+sidebar.setBackground(PANEL);
+sidebar.setPreferredSize(new Dimension(245, 0));
+sidebar.setBorder(new EmptyBorder(18, 12, 18, 12));
+
+JLabel navTitle = new JLabel("EXPLORE TOPICS");
+navTitle.setFont(new Font("SansSerif", Font.BOLD, 14));
+navTitle.setForeground(ACCENT);
+
+JScrollPane categoryScroll = new JScrollPane(categoryRow);
+categoryScroll.setBorder(null);
+categoryScroll.getViewport().setBackground(PANEL);
+categoryScroll.setHorizontalScrollBarPolicy(
+        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+);
+
+sidebar.add(navTitle, BorderLayout.NORTH);
+sidebar.add(categoryScroll, BorderLayout.CENTER);
 
         DefaultListModel<Article> model = new DefaultListModel<>();
         JList<Article> resultList = new JList<>(model);
@@ -168,9 +214,12 @@ public class SearchITWindow {
         JScrollPane listScroll = new JScrollPane(resultList);
         listScroll.setBorder(new LineBorder(BORDER));
         listScroll.getViewport().setBackground(CARD);
+        listScroll.setPreferredSize(new Dimension(280, 0));
+listScroll.getVerticalScrollBar().setUnitIncrement(16);
 
         JScrollPane viewerScroll = new JScrollPane(viewer);
         viewerScroll.setBorder(new LineBorder(BORDER));
+        viewerScroll.getVerticalScrollBar().setUnitIncrement(16);
 
         JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScroll, viewerScroll);
         split.setDividerLocation(270);
@@ -179,9 +228,17 @@ public class SearchITWindow {
         split.setBackground(BG);
         split.setBorder(new EmptyBorder(12, 12, 12, 12));
 
-        frame.add(top, BorderLayout.NORTH);
-        frame.add(split, BorderLayout.CENTER);
-        frame.setVisible(true);
+        // Main application layout
+JPanel mainContent = new JPanel(new BorderLayout());
+mainContent.setBackground(BG);
+
+mainContent.add(sidebar, BorderLayout.WEST);
+mainContent.add(split, BorderLayout.CENTER);
+
+frame.add(top, BorderLayout.NORTH);
+frame.add(mainContent, BorderLayout.CENTER);
+
+frame.setVisible(true);
     }
 
     private static String page(String body) {
