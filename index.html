@@ -933,7 +933,15 @@ public class Main {
      `;
     Prism.highlightAllUnder(output);
 }
-
+document.querySelectorAll(".categories .card").forEach(card => {
+    card.style.cursor = "pointer";
+    card.addEventListener("click", () => {
+        const name = card.querySelector("h3").textContent;
+        document.getElementById("searchInput").value = name;
+        searchIT();
+        document.getElementById("results").scrollIntoView({ behavior: "smooth" });
+    });
+});
 </script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-java.min.js"></script>
