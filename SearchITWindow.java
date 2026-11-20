@@ -21,6 +21,18 @@ public class SearchITWindow {
     private static final String FENCE = "```";
 
     public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                AccountStore store = new AccountStore();
+                new LoginWindow(store, user -> showApp(user)).setVisible(true);
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(null,
+                    "Could not start: " + e.getMessage());
+            }
+        });
+    }
+
+    public static void showApp(String username) {
 
         ArticleManager manager = new ArticleManager();
         ArticleData.loadArticles(manager);
