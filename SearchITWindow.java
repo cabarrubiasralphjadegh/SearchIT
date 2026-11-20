@@ -8,7 +8,7 @@ import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 
 public class SearchITWindow {
-
+    private static String currentUser = "";
     private static final Color BG = new Color(0x080d1b);
     private static final Color PANEL = new Color(0x101a30);
     private static final Color CARD = new Color(0x142039);
@@ -33,7 +33,7 @@ public class SearchITWindow {
     }
 
     public static void showApp(String username) {
-
+            currentUser = username;
         ArticleManager manager = new ArticleManager();
         ArticleData.loadArticles(manager);
         ArticleDataProgramming.load(manager);
@@ -247,7 +247,30 @@ mainContent.setBackground(BG);
 mainContent.add(sidebar, BorderLayout.WEST);
 mainContent.add(split, BorderLayout.CENTER);
 
-frame.add(top, BorderLayout.NORTH);
+        JPanel userBar = new JPanel(new BorderLayout());
+        userBar.setBackground(new Color(0x080d1b));
+        userBar.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 16, 8, 16));
+
+        JLabel welcomeLabel = new JLabel("Welcome, " + currentUser);
+        welcomeLabel.setForeground(new Color(0x38bdf8));
+        welcomeLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setBackground(new Color(0x2563eb));
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setFocusPainted(false);
+        logoutButton.addActionListener(ev -> {
+            frame.dispose();
+            main(new String[0]);
+        });
+
+        userBar.add(welcomeLabel, BorderLayout.WEST);
+        userBar.add(logoutButton, BorderLayout.EAST);
+
+        JPanel northWrap = new JPanel(new BorderLayout());
+        northWrap.add(userBar, BorderLayout.NORTH);
+        northWrap.add(top, BorderLayout.CENTER);
+        frame.add(northWrap, BorderLayout.NORTH);
 frame.add(mainContent, BorderLayout.CENTER);
 
 frame.setVisible(true);
