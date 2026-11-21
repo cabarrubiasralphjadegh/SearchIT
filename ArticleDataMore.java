@@ -467,5 +467,266 @@ public class ArticleDataMore {
 
         ));
 
+                manager.addArticle(new Article(
+
+            19,
+
+            "SQL Basics",
+
+            "Database Management",
+
+            "An introduction to SQL, the language used to create, read, update and delete data in relational databases, with worked examples of SELECT, INSERT, UPDATE, DELETE, WHERE, ORDER BY, GROUP BY and JOIN.",
+
+            // DEFINITION
+            "SQL (Structured Query Language) is the standard language for working with relational databases. A relational database stores data in tables made of rows and columns, and SQL is how you ask the database to store, find, change, or remove that data. You describe what result you want, and the database system works out the steps to produce it.",
+
+            // HISTORY
+            "SQL grew out of Edgar F. Codd's relational model, published in 1970. In the early 1970s, Donald Chamberlin and Raymond Boyce at IBM created a language for it, first called SEQUEL and later shortened to SQL. Oracle released the first commercially available SQL database in 1979. SQL became an ANSI standard in 1986 and an ISO standard in 1987, and it has been revised many times since. Today MySQL, PostgreSQL, SQLite, Microsoft SQL Server and Oracle Database all use SQL, each with small differences called dialects.",
+
+            // CORE CONCEPTS
+            "1. Table: A collection of related data arranged in rows and columns, such as a table of students.\n\n" +
+            "2. Row (record): One item in a table, such as one student.\n\n" +
+            "3. Column (field): One property of every row, such as name or grade. Each column has a data type, such as INT for whole numbers, VARCHAR for text, or DATE for dates.\n\n" +
+            "4. Primary key: A column whose value is different for every row, so each row can be identified exactly.\n\n" +
+            "5. Foreign key: A column that holds the primary key of a row in another table. It is how two tables are linked.\n\n" +
+            "6. Query: A SQL statement that asks the database for data or asks it to change data.",
+
+            // HOW IT WORKS
+            "1. You write a SQL statement and send it to the database system.\n\n" +
+            "2. The database checks that the statement is written correctly.\n\n" +
+            "3. It plans the fastest way to find or change the data, often using indexes.\n\n" +
+            "4. It runs the plan on the tables.\n\n" +
+            "5. It returns the result, which is either a table of rows (for SELECT) or a message saying how many rows were changed.",
+
+            // TYPES
+            "SQL commands are grouped by what they do:\n\n" +
+            "1. DDL (Data Definition Language): CREATE, ALTER and DROP. They build or change the structure of tables.\n\n" +
+            "2. DML (Data Manipulation Language): INSERT, UPDATE and DELETE. They add, change and remove rows.\n\n" +
+            "3. DQL (Data Query Language): SELECT. It reads data. Some books place SELECT under DML.\n\n" +
+            "4. DCL (Data Control Language): GRANT and REVOKE. They control who may use the data.\n\n" +
+            "5. TCL (Transaction Control Language): COMMIT and ROLLBACK. They save or undo a group of changes.",
+
+            // EXAMPLES
+            "The examples use a table named students.\n\n" +
+            "1. Create the table:\n" +
+            "```\n" +
+            "CREATE TABLE students (\n" +
+            "  id INT PRIMARY KEY,\n" +
+            "  name VARCHAR(50),\n" +
+            "  course VARCHAR(30),\n" +
+            "  grade INT\n" +
+            ");\n" +
+            "```\n\n" +
+            "2. Add a row:\n" +
+            "```\n" +
+            "INSERT INTO students (id, name, course, grade)\n" +
+            "VALUES (1, 'Ana', 'BSIT', 92);\n" +
+            "```\n\n" +
+            "3. Read rows that match a condition, highest grade first:\n" +
+            "```\n" +
+            "SELECT name, grade FROM students\n" +
+            "WHERE course = 'BSIT'\n" +
+            "ORDER BY grade DESC;\n" +
+            "```\n\n" +
+            "4. Change a row:\n" +
+            "```\n" +
+            "UPDATE students SET grade = 95 WHERE id = 1;\n" +
+            "```\n\n" +
+            "5. Delete a row:\n" +
+            "```\n" +
+            "DELETE FROM students WHERE id = 1;\n" +
+            "```\n\n" +
+            "6. Count students in each course:\n" +
+            "```\n" +
+            "SELECT course, COUNT(*) FROM students GROUP BY course;\n" +
+            "```\n\n" +
+            "7. Combine two tables with a JOIN:\n" +
+            "```\n" +
+            "SELECT students.name, enrollments.subject\n" +
+            "FROM students\n" +
+            "JOIN enrollments ON students.id = enrollments.student_id;\n" +
+            "```\n\n" +
+            "Always write a WHERE clause with UPDATE and DELETE. Without it, the command changes or removes every row in the table.",
+
+            // APPLICATIONS
+            "SQL is used behind websites and mobile apps to store accounts, products and orders. Schools, banks and hospitals use it for their records. Businesses use it to produce reports, and data analysts use it to filter and summarize large amounts of data. Android and many desktop programs use SQLite, a small SQL database stored in a single file.",
+
+            // ADVANTAGES
+            "SQL is a widely used standard, so the skill carries over between database systems. It is readable, because commands look like short English instructions. It can handle very large tables, lets many users work at the same time, and has built-in tools for security and for keeping data correct.",
+
+            // LIMITATIONS
+            "SQL works best with data that fits neatly in tables, so it is less natural for loosely structured data such as documents or social graphs. Each database system has its own dialect, so some commands must be rewritten when switching systems. Poorly written queries can be slow on large tables. Queries that put user input directly into the command text are open to SQL injection, so programs must use prepared statements.",
+
+            // RELATED TOPICS
+            "Database Normalization, NoSQL Databases, REST APIs, Web Development, Cybersecurity.",
+
+            // REFERENCES
+            Arrays.asList(
+                "SQL Tutorial - W3Schools: https://www.w3schools.com/sql/",
+                "SQL - Wikipedia: https://en.wikipedia.org/wiki/SQL",
+                "SQLite Query Language Documentation: https://www.sqlite.org/lang.html"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            20,
+
+            "Database Normalization",
+
+            "Database Management",
+
+            "An explanation of database normalization, the process of organizing tables so each fact is stored only once, with a step-by-step example that moves a messy table through First, Second and Third Normal Form.",
+
+            // DEFINITION
+            "Database normalization is the process of organizing the data in a relational database into well-structured tables so that each fact is stored in only one place. It reduces repeated data and prevents the errors that appear when repeated data is inserted, changed or deleted. The rules for how far a table has been cleaned up are called normal forms.",
+
+            // HISTORY
+            "Edgar F. Codd introduced normalization together with the relational model. He described First Normal Form in 1970, and defined Second and Third Normal Form in 1971. In 1974, Raymond Boyce and Codd introduced a stricter version of Third Normal Form, called Boyce-Codd Normal Form (BCNF). Later researchers added Fourth and Fifth Normal Form, which deal with rarer situations.",
+
+            // CORE CONCEPTS
+            "1. Redundancy: The same fact stored in many places, such as a customer phone number repeated on every order.\n\n" +
+            "2. Anomalies: Problems caused by redundancy. An update anomaly means changing a fact in one row but not in the others. An insertion anomaly means being unable to record a fact until unrelated data exists. A deletion anomaly means losing a fact by deleting a row that also held other information.\n\n" +
+            "3. Functional dependency: When the value of one column decides the value of another. For example, a customer id decides the customer name.\n\n" +
+            "4. Primary key: The column, or group of columns, that identifies each row.\n\n" +
+            "5. Normal form: A rule a table must satisfy, such as First, Second or Third Normal Form.\n\n" +
+            "6. Decomposition: Splitting one table into smaller tables that are linked by keys, without losing any information.",
+
+            // HOW IT WORKS
+            "1. Look at the table and find data that repeats.\n\n" +
+            "2. Decide which column, or columns, is the primary key.\n\n" +
+            "3. List which columns depend on which, using functional dependencies.\n\n" +
+            "4. Split the table so every column depends only on the key of its own table.\n\n" +
+            "5. Link the new tables with foreign keys.\n\n" +
+            "6. Check the result against each normal form, starting from the first.",
+
+            // TYPES
+            "1. First Normal Form (1NF): Every cell holds a single value, there are no repeating groups of columns, and every row can be identified by a key.\n\n" +
+            "2. Second Normal Form (2NF): The table is in 1NF, and every non-key column depends on the whole primary key, not on just a part of it. This matters when the key is made of more than one column.\n\n" +
+            "3. Third Normal Form (3NF): The table is in 2NF, and no non-key column depends on another non-key column.\n\n" +
+            "4. Boyce-Codd Normal Form (BCNF): A stricter 3NF, in which every column that decides another column must itself be a candidate key.\n\n" +
+            "5. Fourth and Fifth Normal Form: Handle special cases with multiple independent lists of values. They are rarely needed in everyday design.",
+
+            // EXAMPLES
+            "Start with one table of orders that stores everything together. The key is order_id plus product:\n" +
+            "```\n" +
+            "order_id | customer | phone    | product  | price\n" +
+            "1        | Ana      | 0917-111 | Pen      | 10\n" +
+            "1        | Ana      | 0917-111 | Notebook | 40\n" +
+            "2        | Ben      | 0918-222 | Pen      | 10\n" +
+            "```\n\n" +
+            "Problems: Ana's phone is stored twice, and the price of a Pen is stored twice. If Ana changes her phone number, every one of her rows must be updated, or the data becomes inconsistent.\n\n" +
+            "Step 1 (1NF): Each cell has one value. If an order had held the text Pen, Notebook in a single cell, we would give each item its own row, as shown above.\n\n" +
+            "Step 2 (2NF): The price depends only on the product, which is just part of the key. Move it into its own table.\n\n" +
+            "Step 3 (3NF): The phone depends on the customer, not on the order. Move customers into their own table.\n\n" +
+            "Result:\n" +
+            "```\n" +
+            "customers(customer_id, name, phone)\n" +
+            "products(product_id, product_name, price)\n" +
+            "orders(order_id, customer_id)\n" +
+            "order_items(order_id, product_id, quantity)\n" +
+            "```\n\n" +
+            "Now each phone number and each price is stored once, and the tables are connected by their ids.",
+
+            // APPLICATIONS
+            "Normalization is used when designing databases for schools, hospitals, banks, online shops and any system where records must stay correct over time. It is a standard step in database design, taught before building tables in systems such as MySQL, PostgreSQL and SQL Server.",
+
+            // ADVANTAGES
+            "Normalized data takes less storage and is easier to keep consistent, because each fact lives in one place. Updates are simpler, and the insertion, update and deletion anomalies are avoided. The structure is clearer, which makes the database easier to understand and to change later.",
+
+            // LIMITATIONS
+            "Splitting data into more tables means queries must use JOINs to put it back together, which can be slower on very large reports. Going too far can make a design hard to read. For this reason, some systems, such as data warehouses, deliberately repeat data (denormalization) to read faster. Good normalization also needs careful thought about how the data really depends on itself.",
+
+            // RELATED TOPICS
+            "SQL Basics, NoSQL Databases, Data Modeling, Information Systems, Software Development.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Database normalization - Wikipedia: https://en.wikipedia.org/wiki/Database_normalization",
+                "Description of the database normalization basics - Microsoft Learn: https://learn.microsoft.com/en-us/office/troubleshoot/access/database-normalization-description",
+                "A Relational Model of Data for Large Shared Data Banks - E. F. Codd (1970): https://www.seas.upenn.edu/~zives/03f/cis550/codd.pdf"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            21,
+
+            "NoSQL Databases",
+
+            "Database Management",
+
+            "An introduction to NoSQL databases, which store data in flexible forms instead of fixed tables, covering the four main types (document, key-value, wide-column and graph), how they scale across many servers, and when to use them instead of SQL.",
+
+            // DEFINITION
+            "NoSQL, often read as not only SQL, describes databases that store data in ways other than the fixed rows and columns of a relational database. They use flexible structures such as documents, key-value pairs or graphs, and they are designed to handle large amounts of data, fast access, and spreading the data across many servers.",
+
+            // HISTORY
+            "The word NoSQL was first used in 1998 by Carlo Strozzi for a small relational database that did not use SQL. It became popular after 2006 and 2007, when Google published its Bigtable design and Amazon published its Dynamo design for handling huge amounts of web data. Facebook released Cassandra as open source in 2008, and MongoDB and Redis appeared in 2009. In 2009, Johan Oskarsson used the name NoSQL for a meeting about these new non-relational databases, and the name stuck.",
+
+            // CORE CONCEPTS
+            "1. Flexible schema: Records in the same collection do not all need the same fields, so the structure can change without rebuilding the database.\n\n" +
+            "2. Horizontal scaling: Instead of buying one bigger computer (vertical scaling), more ordinary computers are added to share the work.\n\n" +
+            "3. Sharding: Splitting the data into parts, called shards, and storing each part on a different server.\n\n" +
+            "4. Replication: Keeping copies of the data on more than one server, so the system keeps working if one server fails.\n\n" +
+            "5. CAP theorem: When a network failure splits a distributed system, it must choose between keeping the data consistent and keeping the system available. It cannot guarantee both at that moment.\n\n" +
+            "6. Eventual consistency: A rule used by many NoSQL systems where all copies of the data may differ briefly but will agree after a short time. This is different from the strict ACID guarantees of traditional relational databases, although many modern NoSQL systems now offer transactions too.",
+
+            // HOW IT WORKS
+            "1. The application sends a request that uses the database's own commands or programming interface, instead of SQL.\n\n" +
+            "2. The database finds which server holds the data, usually using the key or a chosen shard key.\n\n" +
+            "3. It reads or writes the data on that server.\n\n" +
+            "4. It copies the change to the replica servers.\n\n" +
+            "5. It returns the result. Depending on the settings, it may answer after the first copy is saved, which is faster, or after several copies agree, which is safer.",
+
+            // TYPES
+            "1. Document databases: Store records as JSON-like documents. Examples: MongoDB and Couchbase.\n\n" +
+            "2. Key-value databases: Store each value under a unique key, like a very large dictionary. Examples: Redis and Amazon DynamoDB.\n\n" +
+            "3. Wide-column databases: Store data in rows whose columns can differ, grouped into column families, which is useful for huge amounts of data. Examples: Apache Cassandra and Apache HBase.\n\n" +
+            "4. Graph databases: Store items as nodes and the connections between them as relationships, which suits data about networks of people or places. Example: Neo4j.",
+
+            // EXAMPLES
+            "1. A document in a document database. Notice that the hobbies list sits inside the same record, which would need a separate table in SQL:\n" +
+            "```\n" +
+            "{\n" +
+            "  \"name\": \"Ana\",\n" +
+            "  \"course\": \"BSIT\",\n" +
+            "  \"hobbies\": [\"coding\", \"chess\"]\n" +
+            "}\n" +
+            "```\n\n" +
+            "2. Finding documents in MongoDB:\n" +
+            "```\n" +
+            "db.students.find({ course: 'BSIT' })\n" +
+            "```\n\n" +
+            "3. Storing and reading a value in Redis, a key-value database:\n" +
+            "```\n" +
+            "SET user:1 Ana\n" +
+            "GET user:1\n" +
+            "```\n\n" +
+            "4. A graph database can answer questions such as which friends of my friends also like the same game, by following relationships instead of joining tables.",
+
+            // APPLICATIONS
+            "NoSQL databases are used for social media feeds, real-time apps, online games and leaderboards, shopping carts and product catalogs, content management, and storing data from sensors. Redis is often used as a fast cache in front of another database. Graph databases are used for recommendations and for finding links between people or accounts.",
+
+            // ADVANTAGES
+            "NoSQL databases can store varied data without a fixed design, and they grow by adding servers. They are very fast for the specific kinds of requests they are built for. Document databases are natural for programmers, because the stored data looks like the objects used in their code.",
+
+            // LIMITATIONS
+            "Most NoSQL databases do not support joins as well as SQL, so related data is often repeated, and the data must be designed around the questions the app will ask. There is no single standard query language, so skills do not transfer as easily between products. Eventual consistency can show slightly old data for a short time. For structured data with strict rules, such as bank records, a relational database is usually still the better choice.",
+
+            // RELATED TOPICS
+            "SQL Basics, Database Normalization, REST APIs and JSON, Cloud Computing, Big Data.",
+
+            // REFERENCES
+            Arrays.asList(
+                "NoSQL - Wikipedia: https://en.wikipedia.org/wiki/NoSQL",
+                "What is NoSQL? - MongoDB: https://www.mongodb.com/resources/basics/databases/nosql-explained",
+                "Redis Documentation: https://redis.io/docs/"
+            )
+
+        ));
+
     }
 }
