@@ -728,5 +728,850 @@ public class ArticleDataMore {
 
         ));
 
+                manager.addArticle(new Article(
+
+            22,
+
+            "Artificial Intelligence",
+
+            "Emerging Technologies",
+
+            "An introduction to artificial intelligence (AI), covering what it is, how machines learn from data, the main types such as machine learning, deep learning and generative AI, real examples, and its benefits and risks.",
+
+            // DEFINITION
+            "Artificial intelligence (AI) is the field of computer science that builds systems able to do tasks that normally need human intelligence, such as recognizing images, understanding speech, translating languages, making decisions and writing text. Most modern AI does not follow a fixed list of instructions for every case. Instead, it learns patterns from large amounts of data.",
+
+            // HISTORY
+            "In 1950, Alan Turing published a paper asking whether machines can think and proposed what is now called the Turing test. The term artificial intelligence was introduced by John McCarthy for the 1956 Dartmouth workshop, which is often seen as the start of the field. Progress later slowed during two periods of reduced funding and interest, called AI winters, in the 1970s and in the late 1980s. In 1997, IBM's Deep Blue defeated the world chess champion Garry Kasparov. Around 2012, deep learning made a major leap in image recognition, and in 2016 DeepMind's AlphaGo defeated the Go champion Lee Sedol. In 2017, researchers introduced the transformer design, which led to today's large language models and the wide use of generative AI in the 2020s.",
+
+            // CORE CONCEPTS
+            "1. Model: A mathematical system that takes an input, such as a photo, and produces an output, such as the word cat.\n\n" +
+            "2. Machine learning: A way of building AI in which the model learns from examples instead of being given step-by-step rules.\n\n" +
+            "3. Training data: The examples the model learns from. The quality and variety of this data strongly affect how good the model is.\n\n" +
+            "4. Neural network: A model made of many connected layers of simple calculating units, loosely inspired by the brain.\n\n" +
+            "5. Deep learning: Machine learning that uses neural networks with many layers. It is behind most image, speech and language AI today.\n\n" +
+            "6. Training and inference: Training is the learning stage, which needs a lot of computing power. Inference is using the trained model to answer new inputs.\n\n" +
+            "7. Bias: Unfair or inaccurate results that happen when the training data is incomplete or reflects unfair patterns.",
+
+            // HOW IT WORKS
+            "1. Collect data that is related to the task, such as many emails labeled spam or not spam.\n\n" +
+            "2. Choose a type of model that suits the task.\n\n" +
+            "3. Train the model: it makes predictions, compares them with the correct answers, and adjusts its internal numbers to make fewer mistakes. This repeats many times.\n\n" +
+            "4. Test the model on new data it has never seen, to check that it really learned the pattern and did not just memorize the examples.\n\n" +
+            "5. Deploy the model so it can handle real inputs.\n\n" +
+            "6. Monitor results and retrain with better data when the model makes mistakes.",
+
+            // TYPES
+            "AI can be grouped by ability:\n\n" +
+            "1. Narrow AI: Built for one task or a small set of tasks, such as translating text or recommending videos. All AI in use today is narrow AI.\n\n" +
+            "2. General AI: A hypothetical system that could learn and perform any intellectual task a human can. It does not exist yet.\n\n" +
+            "AI can also be grouped by technique:\n\n" +
+            "3. Supervised learning: Learns from examples that already have the correct answer.\n\n" +
+            "4. Unsupervised learning: Finds hidden groups or patterns in data that has no answers.\n\n" +
+            "5. Reinforcement learning: Learns by trial and error, receiving rewards for good actions.\n\n" +
+            "6. Natural language processing: Lets computers work with human language.\n\n" +
+            "7. Computer vision: Lets computers understand images and video.\n\n" +
+            "8. Generative AI: Creates new text, images, audio or code from what it has learned.",
+
+            // EXAMPLES
+            "1. An email spam filter is trained on thousands of emails that people have already marked as spam or not spam. It learns which words and patterns suggest spam, then sorts new emails by itself.\n\n" +
+            "2. A video app recommends what to watch next by learning from what similar users watched.\n\n" +
+            "3. Face unlock on a phone compares the camera image with a stored face pattern.\n\n" +
+            "4. Online translators convert text between languages.\n\n" +
+            "5. A chatbot answers questions in natural language.\n\n" +
+            "6. In hospitals, AI can help doctors spot signs of disease in X-ray images, but a doctor makes the final decision.",
+
+            // APPLICATIONS
+            "AI is used in healthcare for medical images and drug research, in banks to detect fraud, in education for tutoring and feedback, and in farming to monitor crops. It is used in transport for navigation and driver-assistance features, in customer service for chatbots, and in cybersecurity to detect unusual activity on networks.",
+
+            // ADVANTAGES
+            "AI can work quickly and without getting tired, and it can find patterns in amounts of data too large for people to check. It can automate repetitive tasks, give results around the clock, and in some narrow tasks it matches or exceeds human accuracy.",
+
+            // LIMITATIONS
+            "AI is only as good as its data, so poor or unfair data leads to poor or unfair results. A model can be wrong while sounding confident, and generative AI can produce false information, so important results must be checked by people. Many models cannot explain why they gave an answer. AI raises privacy concerns, needs large amounts of energy and computing power to train, and changes the kind of work people do. Human oversight is necessary.",
+
+            // RELATED TOPICS
+            "Python Programming, Cloud Computing, Internet of Things, Cybersecurity, Data Structures and Algorithms.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Artificial intelligence - Wikipedia: https://en.wikipedia.org/wiki/Artificial_intelligence",
+                "Computing Machinery and Intelligence - A. M. Turing (1950): https://academic.oup.com/mind/article/LIX/236/433/986238",
+                "Machine Learning Crash Course - Google for Developers: https://developers.google.com/machine-learning/crash-course"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            23,
+
+            "Cloud Computing",
+
+            "Emerging Technologies",
+
+            "An introduction to cloud computing, the delivery of servers, storage, databases and software over the internet, covering how it works, the IaaS, PaaS and SaaS service models, public, private and hybrid clouds, and its benefits and limits.",
+
+            // DEFINITION
+            "Cloud computing is the delivery of computing services, such as servers, storage, databases, networking and software, over the internet on demand. Instead of buying and running your own computers, you use the provider's computers and usually pay only for what you use. The United States National Institute of Standards and Technology (NIST) describes five key traits: on-demand self-service, broad network access, resource pooling, rapid elasticity and measured service.",
+
+            // HISTORY
+            "The idea began in the 1960s with time-sharing, where many users shared one large computer, and John McCarthy suggested that computing might one day be sold like a public utility. In the 1990s, virtualization made it possible to split one physical machine into several virtual ones, and in 1999 Salesforce began delivering business software through a website. Amazon Web Services launched its storage service (S3) and its virtual servers (EC2) in 2006, which is widely seen as the start of modern cloud computing. Google App Engine followed in 2008, and Microsoft Azure became generally available in 2010.",
+
+            // CORE CONCEPTS
+            "1. Data center: A large building full of servers, storage and networking equipment, owned and run by the cloud provider.\n\n" +
+            "2. Virtualization: Software that divides one physical server into several separate virtual machines.\n\n" +
+            "3. On-demand self-service: You can create or remove resources yourself, in minutes, without talking to a person.\n\n" +
+            "4. Elasticity and scalability: Resources can grow when demand is high and shrink when it is low.\n\n" +
+            "5. Pay-as-you-go: Usage is measured, and you are charged for what you use.\n\n" +
+            "6. Region: A geographic area where the provider keeps data centers. Choosing a region affects speed, cost and legal rules about where data is stored.\n\n" +
+            "7. Shared responsibility: The provider protects the underlying infrastructure, while the customer is responsible for protecting their own data, accounts and settings.",
+
+            // HOW IT WORKS
+            "1. The provider builds data centers filled with servers, storage and network equipment.\n\n" +
+            "2. Virtualization divides these machines into many virtual resources that can be given to different customers, a design called multi-tenancy.\n\n" +
+            "3. A customer asks for a resource, such as a server or a database, through a website or a programming interface.\n\n" +
+            "4. The system sets up the resource within minutes and connects it to the internet.\n\n" +
+            "5. The customer uses it over the internet from any device.\n\n" +
+            "6. The provider measures usage, such as hours of computing or amount of storage, and bills for it.",
+
+            // TYPES
+            "Service models, from most control to least:\n\n" +
+            "1. IaaS (Infrastructure as a Service): You rent basic computing resources such as virtual servers and storage, and manage the software yourself. Example: Amazon EC2.\n\n" +
+            "2. PaaS (Platform as a Service): You get a ready platform for building and running apps, and the provider manages the servers and system software. Example: Google App Engine.\n\n" +
+            "3. SaaS (Software as a Service): You use finished software through a browser or app. Examples: Gmail and Microsoft 365.\n\n" +
+            "Deployment models:\n\n" +
+            "4. Public cloud: Shared services offered to many customers over the internet.\n\n" +
+            "5. Private cloud: Cloud resources used by only one organization, in its own data center or a dedicated one.\n\n" +
+            "6. Hybrid cloud: A mix of public and private clouds that work together.",
+
+            // EXAMPLES
+            "1. Email and file storage: Gmail and Google Drive keep your messages and files on the provider's servers, so you can open them from any device.\n\n" +
+            "2. Video streaming: Netflix runs much of its service on Amazon Web Services, which lets it handle millions of viewers at once.\n\n" +
+            "3. Development environments: GitHub Codespaces, the tool used to build this project, runs the code editor and the program on a cloud computer and shows it in a web browser. This is how a tablet can build and run a Java program.\n\n" +
+            "4. A school website that gets very few visitors most of the year can add more servers for enrollment week and remove them afterward, paying only for the extra days.",
+
+            // APPLICATIONS
+            "Cloud computing is used for web hosting, storing and backing up files, building and testing software, streaming video and music, analyzing large amounts of data, and training AI models. Schools and companies use it for online classes, remote work and shared documents.",
+
+            // ADVANTAGES
+            "There is no need to buy expensive equipment in advance, because you pay for what you use. Resources can be added within minutes and removed when no longer needed. Services can be reached from anywhere with internet. Providers handle maintenance, updates and backups, and large providers can offer high reliability by keeping copies of data in different locations.",
+
+            // LIMITATIONS
+            "A reliable internet connection is required. Costs can grow quickly if usage is not watched. The customer has less control over the underlying hardware, and moving to another provider can be difficult, a problem called vendor lock-in. Security is shared, so a weak password or wrong setting by the customer can expose data. Laws may also limit where certain data can be stored. Provider outages, although rare, can affect many customers at the same time.",
+
+            // RELATED TOPICS
+            "Networking, Operating Systems, Cybersecurity, Artificial Intelligence, Internet of Things.",
+
+            // REFERENCES
+            Arrays.asList(
+                "The NIST Definition of Cloud Computing (SP 800-145): https://csrc.nist.gov/pubs/sp/800/145/final",
+                "Cloud computing - Wikipedia: https://en.wikipedia.org/wiki/Cloud_computing",
+                "What is Cloud Computing? - Amazon Web Services: https://aws.amazon.com/what-is-cloud-computing/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            24,
+
+            "Internet of Things",
+
+            "Emerging Technologies",
+
+            "An explanation of the Internet of Things (IoT): physical devices with sensors and network connections that send data and receive commands, covering the parts of an IoT system, communication methods such as Wi-Fi, Bluetooth, LoRaWAN and MQTT, a worked temperature-and-fan example, and the main security risks.",
+
+            // DEFINITION
+            "The Internet of Things (IoT) is a network of physical objects, called things, that contain sensors, a small processor and a network connection, so they can collect data, send it to other devices or to the cloud, and in many cases receive commands back. A thing can be as small as a temperature sensor on a farm or as large as a factory machine. What makes a device part of the IoT is that it exchanges data over a network without a person typing it in.",
+
+            // HISTORY
+            "In 1982, students at Carnegie Mellon University connected a Coca-Cola vending machine to the internet so they could check from their computers whether a drink was available and cold, which is often cited as one of the first connected devices. In 1999, Kevin Ashton, working with the Auto-ID Center at MIT, used the phrase Internet of Things while describing how objects tagged with RFID chips could be tracked. In the same year, Andy Stanford-Clark and Arlen Nipper created MQTT, a lightweight messaging protocol that is still widely used. Around 2008 and 2009, estimates reported that more devices than people were connected to the internet. Cheap boards such as the Arduino and the ESP32 and low-cost sensors then made IoT projects possible for students and hobbyists.",
+
+            // CORE CONCEPTS
+            "1. Sensor: A component that measures something in the physical world and turns it into an electrical signal. Examples: a DHT22 for temperature and humidity, a PIR sensor for motion, and a GPS module for location.\n\n" +
+            "2. Actuator: A component that does something in the physical world when it receives a command, such as a relay that switches a fan on, a motor, or a door lock.\n\n" +
+            "3. Microcontroller: A small, low-power computer chip that reads sensors and controls actuators. Examples: Arduino boards and the ESP32, which also has built-in Wi-Fi and Bluetooth. A Raspberry Pi is a larger single-board computer that can run a full operating system.\n\n" +
+            "4. Connectivity: How the device reaches the network. Short range: Wi-Fi, Bluetooth Low Energy and Zigbee. Long range with very low power: LoRaWAN and NB-IoT. Wide area: cellular networks such as 4G and 5G.\n\n" +
+            "5. Gateway: A device that collects data from many nearby sensors and forwards it to the internet.\n\n" +
+            "6. Protocol: The agreed message format. MQTT uses a publish and subscribe model, in which devices publish messages to named topics on a server called a broker, and other devices subscribe to the topics they care about. HTTP and CoAP are also used.\n\n" +
+            "7. Cloud platform: The online service that stores the data, analyzes it, and shows it in dashboards.\n\n" +
+            "8. Edge computing: Processing data on or near the device, instead of sending everything to the cloud, to reduce delay and network traffic.\n\n" +
+            "9. Firmware: The program stored inside the device. It must be updated over time to fix bugs and security flaws.",
+
+            // HOW IT WORKS
+            "1. A sensor measures a physical value, for example 28.5 degrees Celsius.\n\n" +
+            "2. The microcontroller reads the value and may filter or average it.\n\n" +
+            "3. The device connects to the network using Wi-Fi, Bluetooth, LoRaWAN or cellular.\n\n" +
+            "4. It sends the reading using a protocol such as MQTT to a broker or a cloud platform.\n\n" +
+            "5. The cloud stores the reading and compares it with rules or analyzes it, sometimes with machine learning.\n\n" +
+            "6. If a rule matches, the system sends a command back to the device or sends an alert to a phone.\n\n" +
+            "7. The actuator carries out the command, and the user can watch all of it on a dashboard or in an app.",
+
+            // TYPES
+            "1. Consumer IoT: Smart speakers, smart lights and plugs, smart TVs, fitness bands and smartwatches.\n\n" +
+            "2. Industrial IoT (IIoT): Sensors on factory machines that report vibration and temperature so repairs can be planned before a breakdown, and trackers on shipping containers.\n\n" +
+            "3. Smart city IoT: Parking sensors, smart street lights, traffic monitoring and water meters.\n\n" +
+            "4. Healthcare IoT: Wearable heart-rate monitors and connected glucose meters that send readings to a doctor.\n\n" +
+            "5. Agricultural IoT: Soil-moisture sensors that tell a farm when to water, and weather stations.\n\n" +
+            "6. Home and building automation: Thermostats, security cameras, door sensors and smoke alarms.",
+
+            // EXAMPLES
+            "A room temperature and fan system built with an ESP32:\n\n" +
+            "1. A DHT22 sensor is connected to the ESP32. Every 10 seconds the ESP32 reads the temperature.\n\n" +
+            "2. The ESP32 connects to the home Wi-Fi and publishes the reading to an MQTT broker:\n" +
+            "```\n" +
+            "Topic:   home/room1/temperature\n" +
+            "Payload: 28.5\n" +
+            "```\n\n" +
+            "3. A rule on the server says: if the temperature is above 30, publish the command ON to the topic home/room1/fan.\n\n" +
+            "4. A second ESP32 subscribed to home/room1/fan receives ON and switches a relay that powers a fan.\n\n" +
+            "5. When the temperature falls below 28, the rule sends OFF, and the fan stops.\n\n" +
+            "Other examples: a smart thermostat that learns when people are home, a wearable that sends heart-rate data to a phone, and soil-moisture sensors that start irrigation only when the soil is dry.",
+
+            // APPLICATIONS
+            "IoT is used in smart homes, farming, manufacturing, logistics and fleet tracking, hospitals, energy meters, water monitoring and environmental monitoring. Cities use it for parking and traffic management, and businesses use it to monitor equipment and plan maintenance before machines fail.",
+
+            // ADVANTAGES
+            "IoT gives real-time information about the physical world, so decisions are based on measurements instead of guesses. It automates routine tasks, such as watering or lighting, and can save energy and time. It supports early warnings, such as detecting a leak or a failing motor, and lets people monitor and control things remotely from a phone.",
+
+            // LIMITATIONS
+            "Security is the biggest concern. Many devices are sold with default passwords or no way to update their firmware, and attackers can control them. In 2016, the Mirai malware took over large numbers of cameras and routers with default passwords and used them to attack the DNS provider Dyn, which made many popular websites unreachable. Devices also collect personal information, which creates privacy risks. Different brands often do not work together because they use different standards. Small battery-powered devices must save energy, and a device that loses its network connection may stop working properly. Large systems also create large amounts of data that must be stored and analyzed.",
+
+            // RELATED TOPICS
+            "Cloud Computing, Networking, Wireless Networks, Cybersecurity, Artificial Intelligence.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Internet of things - Wikipedia: https://en.wikipedia.org/wiki/Internet_of_things",
+                "That Internet of Things Thing - Kevin Ashton, RFID Journal (2009): https://www.rfidjournal.com/that-internet-of-things-thing",
+                "MQTT: The Standard for IoT Messaging: https://mqtt.org/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            25,
+
+            "Blockchain",
+
+            "Emerging Technologies",
+
+            "An explanation of blockchain: a shared record made of blocks that are linked by cryptographic hashes and copied across many computers, covering how a transaction is verified and added, proof of work versus proof of stake, smart contracts, a worked hash-chain example, and its real limits.",
+
+            // DEFINITION
+            "A blockchain is a shared digital ledger, a list of records, in which the records are grouped into blocks and each block contains the cryptographic hash of the block before it. Because of this link, changing an old record changes its hash and breaks every block after it, which makes tampering easy to detect. The ledger is not kept in one place. Many computers, called nodes, each hold a copy and follow the same rules to agree on what is valid, so no single company or person has to be trusted to keep the record.",
+
+            // HISTORY
+            "In 1991, Stuart Haber and W. Scott Stornetta described a way to timestamp documents by linking them with cryptography so they could not be changed without detection. On 31 October 2008, a person or group using the name Satoshi Nakamoto published the paper Bitcoin: A Peer-to-Peer Electronic Cash System, and the Bitcoin network started on 3 January 2009 with its first block, called the genesis block. Ethereum, proposed by Vitalik Buterin, launched in 2015 and added smart contracts, which are programs that run on the blockchain. In 2016, a flaw in a smart contract called The DAO was exploited and about 3.6 million ether was taken, which showed that code errors cannot be easily undone. In September 2022, Ethereum changed its method of agreeing on blocks from proof of work to proof of stake, which reduced its energy use. Companies also built private blockchains, such as Hyperledger Fabric.",
+
+            // CORE CONCEPTS
+            "1. Block: A group of records, such as transactions, together with a timestamp and the hash of the previous block.\n\n" +
+            "2. Hash: A fixed-length fingerprint created from data by a hash function. Bitcoin uses SHA-256, which produces 64 hexadecimal characters. The same input always gives the same hash, and changing even one character of the input gives a completely different hash.\n\n" +
+            "3. Chain: Each block stores the previous block's hash, so the blocks form a sequence that cannot be reordered or edited without changing every later hash.\n\n" +
+            "4. Node: A computer that keeps a copy of the blockchain and checks new blocks against the rules.\n\n" +
+            "5. Digital signature: A user signs a transaction with a private key, and anyone can check the signature with the matching public key. This proves who authorized the transaction without revealing the private key.\n\n" +
+            "6. Wallet: Software or a device that stores private keys. Whoever has the private key controls the funds, and a lost key cannot be recovered.\n\n" +
+            "7. Consensus: The method nodes use to agree on the next block. The two best-known are proof of work and proof of stake.\n\n" +
+            "8. Smart contract: A program stored on the blockchain that runs automatically when its conditions are met.",
+
+            // HOW IT WORKS
+            "1. A user creates a transaction, for example sending a coin to another user, and signs it with their private key.\n\n" +
+            "2. The transaction is broadcast to the nodes of the network.\n\n" +
+            "3. Nodes check that the signature is valid and that the sender really has the funds.\n\n" +
+            "4. Valid transactions are collected into a candidate block.\n\n" +
+            "5. Consensus decides who adds the next block. In proof of work, miners repeatedly change a number called a nonce until the block's hash meets a difficulty target, which takes a lot of computing power. Bitcoin aims for a new block about every 10 minutes. In proof of stake, a validator is selected based on the amount of cryptocurrency it has locked up as a deposit, and it can lose that deposit for cheating.\n\n" +
+            "6. The new block, containing the hash of the previous block, is sent to all nodes, which check it and add it to their copy.\n\n" +
+            "7. The transaction is confirmed. Each additional block placed on top makes it harder to change.",
+
+            // TYPES
+            "1. Public blockchains: Anyone can read them and take part. Examples: Bitcoin and Ethereum.\n\n" +
+            "2. Private blockchains: Run by one organization, which decides who can take part.\n\n" +
+            "3. Consortium blockchains: Run by a group of organizations, such as several banks. Example: Hyperledger Fabric.\n\n" +
+            "4. Hybrid blockchains: Combine private and public parts.\n\n" +
+            "By consensus method: proof of work (Bitcoin) and proof of stake (Ethereum since 2022).",
+
+            // EXAMPLES
+            "A simplified chain of three blocks. The hash values below are made up for illustration:\n" +
+            "```\n" +
+            "Block 1  data: Ana pays Ben 5   hash: A1F3   previous: 0000\n" +
+            "Block 2  data: Ben pays Cy 2    hash: 7B9C   previous: A1F3\n" +
+            "Block 3  data: Cy pays Dee 1    hash: 3E52   previous: 7B9C\n" +
+            "```\n\n" +
+            "If someone edits Block 1 to say Ana pays Ben 500, the hash of Block 1 changes. Block 2 still stores the old hash A1F3, so the link no longer matches and the change is detected. To hide it, the attacker would have to recompute every later block and also convince most of the network to accept the new version, which is extremely hard on a large network.\n\n" +
+            "A real hash example: the SHA-256 hash of the text hello is 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824. If you change one letter, the new hash looks completely different.\n\n" +
+            "A smart contract example: a contract can hold a payment and release it to a seller automatically once a delivery is confirmed.",
+
+            // APPLICATIONS
+            "Blockchain is used for cryptocurrencies such as Bitcoin and Ethereum, for tracking products through a supply chain, for checking the authenticity of certificates and records, for sending payments across borders, and for smart contracts in decentralized finance. Some organizations also use it to prove the origin of food or goods and to keep shared records between companies that do not fully trust each other.",
+
+            // ADVANTAGES
+            "Records are tamper-evident, because changes break the chain. The data is shared, so there is no single point of failure and no single owner who can quietly change it. Transactions can be traced and audited, and people can transact directly without relying on a central intermediary.",
+
+            // LIMITATIONS
+            "Proof of work uses large amounts of electricity. Blockchains are slower than centralized databases, because every node must check every block, and Bitcoin handles only a few transactions per second. Data written to the chain is hard to remove, so mistakes and illegal content cannot be easily undone. A lost private key means lost funds, and a stolen key lets a thief spend them. Bugs in smart contracts can be exploited, as in The DAO. If one group controls more than half of a network's power, it can rewrite recent blocks, an attack called a 51 percent attack. Many problems that are said to need a blockchain can be solved more simply with an ordinary database, so it is not always the right tool.",
+
+            // RELATED TOPICS
+            "Cryptography, Cybersecurity, Networking, Database Management, Cloud Computing.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Bitcoin: A Peer-to-Peer Electronic Cash System - Satoshi Nakamoto (2008): https://bitcoin.org/bitcoin.pdf",
+                "Blockchain - Wikipedia: https://en.wikipedia.org/wiki/Blockchain",
+                "Intro to Ethereum - ethereum.org: https://ethereum.org/en/developers/docs/intro-to-ethereum/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            26,
+
+            "JavaScript",
+
+            "Programming",
+
+            "An introduction to JavaScript, the programming language that makes web pages interactive, covering variables, data types, functions, the DOM, events, asynchronous code with promises and fetch, where JavaScript runs, and how it differs from Java.",
+
+            // DEFINITION
+            "JavaScript is a programming language that runs in every major web browser and is used to make web pages interactive: reacting to clicks, changing what is shown without reloading the page, checking forms, and loading data from servers. It is also used outside the browser, for servers and apps. JavaScript is dynamically typed, which means a variable can hold different kinds of values at different times, and the type is checked while the program runs. Despite the similar name, JavaScript and Java are different languages.",
+
+            // HISTORY
+            "Brendan Eich created JavaScript at Netscape in May 1995, reportedly in about ten days. It was first called Mocha, then LiveScript, and was renamed JavaScript in December 1995 as part of a marketing agreement with Sun Microsystems, the company that created Java. In 1997, the language was standardized by Ecma International as ECMAScript (ECMA-262). The 2015 edition, known as ES6 or ES2015, added let and const, arrow functions, classes, modules and promises, and new editions have been published every year since. In 2009, Ryan Dahl released Node.js, which lets JavaScript run on servers outside the browser.",
+
+            // CORE CONCEPTS
+            "1. Variables: Named storage for values. Use let for a value that can change and const for a value that must not be reassigned. The older keyword var is still found in old code.\n\n" +
+            "2. Data types: JavaScript has eight: string, number, bigint, boolean, undefined, null, symbol, and object. Arrays and functions are kinds of objects.\n\n" +
+            "3. Functions: Reusable blocks of code. Functions are values, so they can be stored in variables, passed to other functions and returned from them.\n\n" +
+            "4. Objects and arrays: An object stores named properties, such as a student with a name and a course. An array stores an ordered list.\n\n" +
+            "5. DOM (Document Object Model): The browser's tree of objects that represents the HTML page. JavaScript changes the page by changing the DOM.\n\n" +
+            "6. Events: Things that happen on the page, such as a click, a key press or a form submission. You attach a function, called an event listener, that runs when the event happens.\n\n" +
+            "7. Asynchronous programming: Tasks that take time, such as loading data from a server, run in the background so the page does not freeze. They are handled with callbacks, promises, or the async and await keywords.\n\n" +
+            "8. Event loop: The mechanism that lets JavaScript, which runs one task at a time on a single thread, still handle events and background tasks without blocking.\n\n" +
+            "9. Equality: Use === (strict equality), which compares value and type. The == operator converts types first and can give surprising results.",
+
+            // HOW IT WORKS
+            "1. The browser downloads the HTML page and finds the script, either written inside the page or in a separate .js file.\n\n" +
+            "2. The browser's JavaScript engine reads and runs the code. Chrome and Edge use V8, Firefox uses SpiderMonkey, and Safari uses JavaScriptCore. Modern engines compile the code to machine code while it runs, which is called just-in-time compilation.\n\n" +
+            "3. The code reads and changes the DOM, so the visible page updates immediately.\n\n" +
+            "4. When the user clicks or types, the browser creates an event, and the matching listener function runs.\n\n" +
+            "5. When the code needs data from a server, it sends a request with fetch. The page keeps working, and a function runs when the response arrives.",
+
+            // TYPES
+            "Where JavaScript runs:\n\n" +
+            "1. In the browser (client side): Controls page behavior. This is its original use.\n\n" +
+            "2. On the server: Node.js, Deno and Bun run JavaScript outside a browser to build web servers and tools.\n\n" +
+            "3. In apps: Electron builds desktop apps, and React Native builds mobile apps, using JavaScript.\n\n" +
+            "Related tools:\n\n" +
+            "4. Libraries and frameworks: React, Vue and Angular help build large interfaces.\n\n" +
+            "5. TypeScript: A language built on JavaScript that adds types and is converted to JavaScript before it runs.",
+
+            // EXAMPLES
+            "1. Variables and a function:\n" +
+            "```\n" +
+            "let name = 'Ana';\n" +
+            "const course = 'BSIT';\n" +
+            "function greet(person) {\n" +
+            "  return 'Hello, ' + person + '!';\n" +
+            "}\n" +
+            "console.log(greet(name));\n" +
+            "```\n" +
+            "This prints Hello, Ana! in the console.\n\n" +
+            "2. Working with an array. The map method creates a new array by applying a function to every item:\n" +
+            "```\n" +
+            "const numbers = [1, 2, 3];\n" +
+            "const doubled = numbers.map(n => n * 2);\n" +
+            "console.log(doubled);\n" +
+            "```\n" +
+            "The result is [2, 4, 6].\n\n" +
+            "3. Changing a web page and reacting to a click:\n" +
+            "```\n" +
+            "document.getElementById('title').textContent = 'Welcome';\n" +
+            "document.querySelector('button').addEventListener('click', () => {\n" +
+            "  alert('Button clicked');\n" +
+            "});\n" +
+            "```\n\n" +
+            "4. Loading data from a server with fetch. This asks the Search IT server for articles about java:\n" +
+            "```\n" +
+            "fetch('http://localhost:8080/api/search?q=java')\n" +
+            "  .then(response => response.json())\n" +
+            "  .then(data => console.log(data.count));\n" +
+            "```\n\n" +
+            "5. A well-known surprise: '5' + 1 gives the text 51, because + joins text, but '5' - 1 gives the number 4, because - only works on numbers.",
+
+            // APPLICATIONS
+            "JavaScript is used in nearly every website for menus, forms, animations and live updates. It powers web apps such as online documents, chat and maps, and it is used on servers with Node.js. It is also used to build desktop and mobile apps, browser extensions and games, and the Search IT website in this project uses it to search and show articles.",
+
+            // ADVANTAGES
+            "It runs in every browser with nothing to install, so it is easy to start with. It is the only language browsers run directly, and a very large number of libraries and learning resources exist. The same language can be used on the page and on the server. It can update a page without reloading it.",
+
+            // LIMITATIONS
+            "Because types are checked only when the program runs, mistakes such as using the wrong kind of value can appear late. Automatic type conversion can give confusing results, which is why === is recommended. Long calculations can freeze a page because JavaScript runs on one thread. Code that puts user input directly into a page can allow cross-site scripting (XSS) attacks. The many frameworks change quickly, so there is a lot to keep up with.",
+
+            // RELATED TOPICS
+            "HTML and CSS, REST APIs and JSON, Web Development, Java Programming, Python Programming.",
+
+            // REFERENCES
+            Arrays.asList(
+                "JavaScript - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+                "ECMA-262 (ECMAScript language specification) - Ecma International: https://ecma-international.org/publications-and-standards/standards/ecma-262/",
+                "JavaScript - Wikipedia: https://en.wikipedia.org/wiki/JavaScript"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            27,
+
+            "Data Structures and Algorithms",
+
+            "Programming",
+
+            "An explanation of data structures (ways to organize data such as arrays, stacks, queues, hash tables and trees) and algorithms (step-by-step methods such as searching and sorting), with Big O notation and worked Java examples of binary search, a stack and bubble sort.",
+
+            // DEFINITION
+            "A data structure is a way of organizing and storing data in a computer so that it can be used efficiently. An algorithm is a finite, step-by-step set of instructions that solves a problem or completes a task. The two work together: the structure you choose decides how fast and how simply an algorithm can find, add or remove data. Studying them teaches you to compare different solutions to the same problem by how much time and memory they need.",
+
+            // HISTORY
+            "The word algorithm comes from the name of al-Khwarizmi, a mathematician who wrote in Baghdad in the 9th century. One of the oldest known algorithms, Euclid's method for finding the greatest common divisor of two numbers, dates to about 300 BC. Computer science added new ones: Tony Hoare invented quicksort in 1959, and Edsger Dijkstra devised his shortest-path algorithm in 1956. Donald Knuth began publishing The Art of Computer Programming in 1968, which set out how to analyze algorithms carefully. Today every major programming language ships ready-made data structures, such as the Java Collections Framework.",
+
+            // CORE CONCEPTS
+            "1. Data structure: A way to organize data, such as an array, list, stack, queue, hash table or tree.\n\n" +
+            "2. Algorithm: A clear, finite sequence of steps that always produces a result for valid input.\n\n" +
+            "3. Time complexity: How the number of steps grows as the amount of data (n) grows.\n\n" +
+            "4. Space complexity: How much extra memory an algorithm needs as n grows.\n\n" +
+            "5. Big O notation: A way to describe the growth of time or space in the worst case, ignoring small details. Common classes, from fastest to slowest growth: O(1) constant, O(log n) logarithmic, O(n) linear, O(n log n), and O(n squared) quadratic.\n\n" +
+            "6. Abstract data type: A description of what a structure does, such as a stack with push and pop, separate from how it is built inside.\n\n" +
+            "7. Trade-off: No structure is best for everything. One may be fast to read but slow to insert, so you choose the one that matches how your program uses the data.",
+
+            // HOW IT WORKS
+            "1. Define the problem clearly, including the input and the expected output.\n\n" +
+            "2. Choose a data structure that fits how the data will be used. For example, use a hash table when you must look items up by key.\n\n" +
+            "3. Design an algorithm, either from a known method or by breaking the problem into smaller steps.\n\n" +
+            "4. Trace the algorithm by hand on a small example to check that it is correct.\n\n" +
+            "5. Estimate its Big O time and memory use.\n\n" +
+            "6. Write the code, test it with normal, empty and unusual inputs, and compare it with other solutions if it is too slow.",
+
+            // TYPES
+            "Common data structures:\n\n" +
+            "1. Array: A fixed-size, ordered block of items. Reading an item by its index is O(1).\n\n" +
+            "2. ArrayList: A resizable array in Java. Reading by index is O(1), and adding at the end is usually O(1).\n\n" +
+            "3. Linked list: Items connected by links. Inserting after a known item is O(1), but finding an item is O(n).\n\n" +
+            "4. Stack: Last in, first out (LIFO). Operations: push and pop. Used for undo and the back button.\n\n" +
+            "5. Queue: First in, first out (FIFO). Used for print jobs and waiting lines.\n\n" +
+            "6. Hash table (Java HashMap): Stores key-value pairs. Lookup, insert and delete are O(1) on average.\n\n" +
+            "7. Tree: Items arranged in parent and child levels. A balanced binary search tree finds an item in O(log n).\n\n" +
+            "8. Graph: Items (nodes) connected by links (edges), such as a map of roads.\n\n" +
+            "Common algorithms:\n\n" +
+            "9. Searching: Linear search checks each item, O(n). Binary search halves a sorted list each step, O(log n).\n\n" +
+            "10. Sorting: Bubble sort is simple but O(n squared). Merge sort is O(n log n). Quicksort is O(n log n) on average.\n\n" +
+            "11. Graph algorithms: Breadth-first search, depth-first search and Dijkstra's shortest path.\n\n" +
+            "12. Techniques: Recursion, divide and conquer, greedy algorithms and dynamic programming.",
+
+            // EXAMPLES
+            "1. Binary search in Java. The array must already be sorted. Each step checks the middle item and throws away half of the remaining items:\n" +
+            "```\n" +
+            "int[] data = {2, 5, 8, 12, 16, 23, 38};\n" +
+            "int target = 23;\n" +
+            "int low = 0, high = data.length - 1;\n" +
+            "while (low <= high) {\n" +
+            "    int mid = (low + high) / 2;\n" +
+            "    if (data[mid] == target) {\n" +
+            "        System.out.println(\"Found at index \" + mid);\n" +
+            "        break;\n" +
+            "    } else if (data[mid] < target) {\n" +
+            "        low = mid + 1;\n" +
+            "    } else {\n" +
+            "        high = mid - 1;\n" +
+            "    }\n" +
+            "}\n" +
+            "```\n" +
+            "Trace: the first middle is index 3 (value 12), which is less than 23, so the search moves right. The next middle is index 5 (value 23), which is found after 2 checks. A linear search would need 6 checks. For one million sorted items, binary search needs at most about 20 checks, while linear search may need one million.\n\n" +
+            "2. A stack in Java:\n" +
+            "```\n" +
+            "Stack<Integer> stack = new Stack<>();\n" +
+            "stack.push(1);\n" +
+            "stack.push(2);\n" +
+            "int top = stack.pop();\n" +
+            "```\n" +
+            "After the pop, top is 2, because the last item pushed is the first removed.\n\n" +
+            "3. A hash map in Java:\n" +
+            "```\n" +
+            "Map<String, Integer> grades = new HashMap<>();\n" +
+            "grades.put(\"Ana\", 92);\n" +
+            "int g = grades.get(\"Ana\");\n" +
+            "```\n" +
+            "The value 92 is found directly from the key, without checking every entry.\n\n" +
+            "4. Bubble sort on [5, 2, 9, 1]. Each pass compares neighbors and swaps them when they are out of order.\n" +
+            "Pass 1: [2, 5, 1, 9]\n" +
+            "Pass 2: [2, 1, 5, 9]\n" +
+            "Pass 3: [1, 2, 5, 9]\n" +
+            "The list is sorted after three passes.",
+
+            // APPLICATIONS
+            "Search engines and databases use trees and hash tables to find records quickly, and database indexes are usually built on trees. Maps and navigation apps use graph algorithms to find routes. Operating systems use queues to schedule programs, text editors use stacks for undo, and compilers use trees to understand code. Games, social networks, online shops and AI programs all depend on well-chosen data structures and algorithms.",
+
+            // ADVANTAGES
+            "Choosing the right structure and algorithm can make a program thousands of times faster and make it use less memory. Knowing them helps you compare solutions with Big O instead of guessing, write cleaner code, and prepare for technical interviews, where these topics are common. The ideas apply in every programming language.",
+
+            // LIMITATIONS
+            "There is no single best structure, so choosing needs thought about how the data will be used. Big O describes how running time grows and ignores constant factors, so a simpler O(n squared) method can be faster than a complex O(n log n) method on small data. Worst-case and average-case speed can differ, as with quicksort. Complex structures are harder to write and debug, and for small programs a plain array or ArrayList is often enough.",
+
+            // RELATED TOPICS
+            "Introduction to Programming, Java Programming, Python Programming, Database Management, Artificial Intelligence.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Data structure - Wikipedia: https://en.wikipedia.org/wiki/Data_structure",
+                "Big-O Algorithm Complexity Cheat Sheet: https://www.bigocheatsheet.com/",
+                "Collections - The Java Tutorials, Oracle: https://docs.oracle.com/javase/tutorial/collections/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            28,
+
+            "Git and GitHub",
+
+            "Programming",
+
+            "An explanation of Git, the version control system that records every change to a project, and GitHub, the website that hosts Git repositories, covering commits, the staging area, branches, merging, remotes, the everyday commands add, commit and push, and how to keep secrets out of a repository.",
+
+            // DEFINITION
+            "Git is a free, distributed version control system. It records the history of a project as a series of saved snapshots called commits, so you can see what changed, who changed it and when, and return to an earlier version if something breaks. GitHub is a separate website and service that stores Git repositories online, so that people can back up their work, share it and work on it together. Git is the tool, and GitHub is one of the places that hosts it.",
+
+            // HISTORY
+            "Linus Torvalds created Git in April 2005 to manage the development of the Linux kernel, after the commercial tool that the Linux developers had been using became unavailable to them. He designed it to be fast, to work without a central server, and to keep the history safe. GitHub was launched in April 2008 by Tom Preston-Werner, Chris Wanstrath and PJ Hyett, and it became the most widely used place to host code. Microsoft announced in 2018 that it would buy GitHub for 7.5 billion US dollars. In 2020, GitHub changed the default name of the first branch of new repositories from master to main.",
+
+            // CORE CONCEPTS
+            "1. Repository (repo): A project folder together with its complete history, stored in a hidden folder named .git.\n\n" +
+            "2. Commit: A saved snapshot of the project with a message that explains the change. Each commit has a unique ID, a 40-character hash.\n\n" +
+            "3. Working directory: The files you see and edit.\n\n" +
+            "4. Staging area: A holding area where you choose which changes will go into the next commit. The command git add puts changes there.\n\n" +
+            "5. Branch: A separate line of development. You can try a new feature on a branch without disturbing the main code.\n\n" +
+            "6. Merge: Combining the changes of one branch into another. If both branches changed the same lines, a merge conflict occurs and you must choose the correct result by hand.\n\n" +
+            "7. Remote: A copy of the repository stored elsewhere, such as on GitHub. The default remote is named origin.\n\n" +
+            "8. Clone, push and pull: Clone downloads a full copy of a repository. Push uploads your commits to a remote. Pull downloads new commits from a remote and combines them with yours.\n\n" +
+            "9. Pull request: A request on GitHub to merge one branch into another, where teammates can review and discuss the changes first.\n\n" +
+            "10. .gitignore: A file that lists files and folders Git must not track, such as passwords, build output and personal settings.",
+
+            // HOW IT WORKS
+            "1. You edit files in the working directory.\n\n" +
+            "2. You run git status to see which files changed.\n\n" +
+            "3. You run git add to move the chosen changes into the staging area.\n\n" +
+            "4. You run git commit with a message. Git saves a snapshot of everything that was staged and gives it a hash.\n\n" +
+            "5. Each commit points to the commit before it, which forms the history of the project.\n\n" +
+            "6. You run git push to upload the new commits to the remote repository on GitHub.\n\n" +
+            "7. Other people run git pull to receive them. Because every copy holds the full history, work can continue offline and any copy can restore the project.",
+
+            // TYPES
+            "1. Local version control: Keeps versions only on one computer.\n\n" +
+            "2. Centralized version control: A single central server holds the history, as in Subversion. Everyone must connect to it.\n\n" +
+            "3. Distributed version control: Every user has a full copy of the history. Git and Mercurial work this way.\n\n" +
+            "Services that host Git repositories: GitHub, GitLab and Bitbucket.\n\n" +
+            "Common ways of working: committing directly to the main branch for solo projects, creating a branch for each feature, or forking a repository to your own account and proposing changes through a pull request.",
+
+            // EXAMPLES
+            "1. The everyday cycle used to save work to GitHub:\n" +
+            "```\n" +
+            "git status\n" +
+            "git add .\n" +
+            "git commit -m \"Add SQL Basics article\"\n" +
+            "git push\n" +
+            "```\n" +
+            "The first command lists what changed, the second stages everything, the third saves a snapshot with a clear message, and the last uploads it.\n\n" +
+            "2. Working on a feature in a branch, then merging it:\n" +
+            "```\n" +
+            "git switch -c add-articles\n" +
+            "git add .\n" +
+            "git commit -m \"Add new articles\"\n" +
+            "git switch main\n" +
+            "git merge add-articles\n" +
+            "```\n\n" +
+            "3. Looking at the history and the last change:\n" +
+            "```\n" +
+            "git log --oneline\n" +
+            "git diff\n" +
+            "```\n\n" +
+            "4. Keeping a private folder out of the repository. Add this line to .gitignore:\n" +
+            "```\n" +
+            "data/\n" +
+            "```\n" +
+            "If a file was already tracked, git rm --cached stops Git from tracking it. This is how the Search IT project keeps its accounts file, which contains password hashes, out of GitHub. Note that a file that was uploaded before stays in the old history, so a real password that was ever committed must be changed.",
+
+            // APPLICATIONS
+            "Git is used by almost all software teams to track changes and work together without overwriting each other. Students use it to submit and back up projects, open-source projects use GitHub to accept contributions from anyone, and writers and designers use it for text and configuration files. GitHub also provides issue tracking, project boards, automatic testing and free hosting for websites with GitHub Pages.",
+
+            // ADVANTAGES
+            "Nothing is lost: any earlier version can be restored. You can see who changed each line and why. Branches let people experiment safely, and many people can work on the same project at once. Because every copy has the full history, work is backed up in several places and most commands work without internet.",
+
+            // LIMITATIONS
+            "Git has a learning curve, because of ideas such as staging and branches and because commands can be confusing at first. Merge conflicts must be solved by hand. Git works best with text files and is less suited to very large files or many binary files. Mistakes, such as committing a password or a large file, are hard to fully remove from history. Anything pushed to a public repository can be seen by everyone, so private data must never be committed.",
+
+            // RELATED TOPICS
+            "Introduction to Programming, Java Programming, Web Development, Cybersecurity, Cloud Computing.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Pro Git book - Scott Chacon and Ben Straub: https://git-scm.com/book/en/v2",
+                "Get started with GitHub - GitHub Docs: https://docs.github.com/en/get-started",
+                "Git - Wikipedia: https://en.wikipedia.org/wiki/Git"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            29,
+
+            "Computer Hardware",
+
+            "Computer Fundamentals",
+
+            "An explanation of computer hardware: the physical parts of a computer, including the CPU, RAM, storage (HDD and SSD), motherboard, GPU, power supply and input and output devices, how they work together to run a program, and how to read a computer's specifications.",
+
+            // DEFINITION
+            "Computer hardware is the physical parts of a computer system, the components you can touch, such as the processor, memory, storage, motherboard, screen and keyboard. Hardware does nothing useful alone. It needs software, which is the programs and data that tell the hardware what to do. Every computer, from a phone to a large server, is built from the same kinds of hardware components.",
+
+            // HISTORY
+            "In 1837, Charles Babbage designed the Analytical Engine, a mechanical machine with a processing unit and a memory, though it was never finished. The ENIAC, completed in 1945 in the United States, used about 17,000 vacuum tubes and filled a large room. The transistor was invented at Bell Labs in 1947, and it replaced vacuum tubes with smaller, cooler and more reliable parts. Jack Kilby demonstrated the first integrated circuit in 1958, which put several transistors on one chip. In 1971, Intel released the 4004, the first commercial microprocessor, which placed a whole processor on one chip. The IBM Personal Computer arrived in 1981. In 1965, Gordon Moore observed that the number of transistors on a chip was doubling roughly every two years, an observation called Moore's law, and it held for decades. Solid-state drives (SSDs) based on flash memory gradually replaced hard disks in laptops and many desktops in the 2010s.",
+
+            // CORE CONCEPTS
+            "1. CPU (central processing unit): The processor, the part that runs program instructions. It is described by its number of cores (each core can work on a task), its clock speed in gigahertz (GHz, billions of cycles per second), and its cache, a very small, very fast memory inside the chip.\n\n" +
+            "2. RAM (random access memory): The computer's short-term working memory. It holds the programs and data that are in use right now and is much faster than storage. It is volatile, which means its contents are lost when the power is turned off. Sizes are measured in gigabytes (GB), and common types are DDR4 and DDR5.\n\n" +
+            "3. Storage: Keeps programs and files permanently, even without power (non-volatile). A hard disk drive (HDD) stores data on spinning magnetic platters. A solid-state drive (SSD) stores data in flash chips with no moving parts.\n\n" +
+            "4. Motherboard: The main circuit board that connects the CPU, RAM, storage and other parts, and carries the signals between them.\n\n" +
+            "5. GPU (graphics processing unit): A processor specialized for drawing images and doing many simple calculations at once. It is used for games, video editing and training AI models.\n\n" +
+            "6. Power supply unit (PSU): Converts the electricity from the wall socket into the lower voltages the components need.\n\n" +
+            "7. Firmware: Small permanent software stored on a chip on the motherboard, called BIOS or UEFI, that starts the computer and loads the operating system.\n\n" +
+            "8. Fetch, decode, execute: The cycle the CPU repeats billions of times per second. It fetches an instruction from memory, decodes what it means, and executes it.",
+
+            // HOW IT WORKS
+            "1. When you press the power button, the power supply delivers electricity to the motherboard and all components.\n\n" +
+            "2. The firmware (UEFI or BIOS) runs a self-test, called POST, to check that the CPU, RAM and other basic parts respond.\n\n" +
+            "3. The firmware finds the operating system on the storage drive and copies the first part of it into RAM.\n\n" +
+            "4. The CPU fetches instructions from RAM, decodes them, executes them, and writes results back to RAM. Frequently used data is kept in the fast cache.\n\n" +
+            "5. When you open a program or a file, it is copied from the storage drive into RAM so the CPU can reach it quickly.\n\n" +
+            "6. Input devices, such as a keyboard or touchscreen, send signals to the CPU. Output devices, such as the screen or speakers, receive the results. The GPU prepares the picture that appears on the screen.\n\n" +
+            "7. When you save a file, the data is written from RAM to the storage drive so it is kept after the power is turned off.",
+
+            // TYPES
+            "1. Input devices: Send data into the computer. Examples: keyboard, mouse, touchscreen, microphone, scanner and webcam.\n\n" +
+            "2. Output devices: Present results. Examples: monitor, printer and speakers.\n\n" +
+            "3. Processing devices: The CPU and the GPU.\n\n" +
+            "4. Memory: RAM for working memory, cache inside the CPU, and ROM, which holds fixed firmware.\n\n" +
+            "5. Storage devices: Hard disk drives, solid-state drives, USB flash drives, memory cards and optical discs.\n\n" +
+            "6. Communication devices: A network interface card (NIC), a Wi-Fi adapter, Bluetooth and a modem, which connect the computer to networks.\n\n" +
+            "Kinds of computers: desktop computers, laptops, tablets, smartphones, servers and embedded computers inside appliances and cars.",
+
+            // EXAMPLES
+            "1. Reading a specification. A laptop is listed as: Intel Core i5, 8 cores, 3.0 GHz, 16 GB DDR4 RAM, 512 GB SSD. This means a processor with 8 cores that runs at 3.0 billion cycles per second, 16 GB of working memory so several programs can be open at once, and 512 GB of permanent storage on a fast flash drive.\n\n" +
+            "2. Comparing storage types:\n" +
+            "```\n" +
+            "Type        How it stores        Typical speed        Moving parts\n" +
+            "HDD         Magnetic platters    about 100-150 MB/s   Yes\n" +
+            "SATA SSD    Flash chips          about 500 MB/s       No\n" +
+            "NVMe SSD    Flash chips          several GB/s         No\n" +
+            "```\n" +
+            "An SSD makes a computer start and open programs much faster than an HDD.\n\n" +
+            "3. Why more RAM helps: if the programs you use need more memory than you have, the operating system moves data to the much slower storage drive, and the computer becomes slow. Adding RAM prevents this.\n\n" +
+            "4. A tablet combines a processor, memory, flash storage, a touchscreen, a camera, a battery and wireless chips on one small board. A desktop computer uses the same kinds of parts, but as separate, replaceable components.",
+
+            // APPLICATIONS
+            "Knowing hardware helps you choose a computer for a task. Office work and web browsing need a modest CPU, 8 GB of RAM and an SSD. Programming with a code editor and several tools open is more comfortable with 16 GB of RAM. Video editing, 3D design and gaming need a strong CPU and a dedicated GPU. Servers need many cores, large RAM and reliable storage. It also helps you troubleshoot problems, such as a computer that is slow because of a nearly full drive or too little RAM.",
+
+            // ADVANTAGES
+            "Modern hardware is far faster, smaller and cheaper than earlier generations. Parts follow common standards, so many components can be upgraded or replaced separately, for example adding RAM or swapping a hard disk for an SSD. Solid-state storage is quiet, fast and more resistant to shocks.",
+
+            // LIMITATIONS
+            "Hardware wears out and becomes outdated, and heat is a constant problem, because fast processors need cooling. Batteries lose capacity over time. Some devices, especially thin laptops and tablets, have parts that cannot be upgraded. Power use and cost grow with performance, and discarded electronics create electronic waste that must be recycled properly. Parts must also be compatible with each other, such as the right type of RAM for the motherboard.",
+
+            // RELATED TOPICS
+            "Computer Software, Operating Systems, Binary Number System, Networking, Internet of Things.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Computer hardware - Wikipedia: https://en.wikipedia.org/wiki/Computer_hardware",
+                "Central processing unit - Wikipedia: https://en.wikipedia.org/wiki/Central_processing_unit",
+                "Timeline of Computer History - Computer History Museum: https://www.computerhistory.org/timeline/computers/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            30,
+
+            "DNS (Domain Name System)",
+
+            "Networking",
+
+            "An explanation of the Domain Name System (DNS), the internet service that translates domain names such as www.example.com into IP addresses, covering the DNS hierarchy, resolvers and name servers, common record types, caching and TTL, a step-by-step lookup, and DNS security problems.",
+
+            // DEFINITION
+            "The Domain Name System (DNS) is the internet's naming service. It translates human-friendly domain names, such as www.example.com, into the numeric IP addresses that computers use to find each other, such as 203.0.113.10. It is often compared to a phone book, because you look up a name and get a number. DNS is a hierarchical and distributed system, which means no single computer holds all the answers. The information is spread across millions of servers around the world.",
+
+            // HISTORY
+            "In the early days of the ARPANET, every computer name and address was listed in a single file called HOSTS.TXT, maintained by the Stanford Research Institute and copied by everyone. As the network grew, this became impossible to keep up to date. In 1983, Paul Mockapetris designed DNS, first described in RFC 882 and RFC 883, and the design was refined in RFC 1034 and RFC 1035 in 1987, which are still the base of the system. ICANN was created in 1998 to coordinate domain names and IP addresses. DNSSEC, a set of security extensions, was standardized in 2005, and DNS over HTTPS, which encrypts DNS queries, was standardized in 2018 in RFC 8484.",
+
+            // CORE CONCEPTS
+            "1. Domain name: A name that identifies a site or service, read from right to left in levels. In www.example.com, com is the top-level domain, example is the second-level domain, and www is a subdomain.\n\n" +
+            "2. DNS hierarchy: At the top is the root, then top-level domains (TLDs) such as .com and .org and country codes such as .ph, then individual domains and subdomains.\n\n" +
+            "3. Root name servers: The servers at the top of the hierarchy. They know where to find the servers for each TLD. There are 13 named root server addresses, labeled A to M, run by 12 organizations, and each is copied at hundreds of sites around the world.\n\n" +
+            "4. Authoritative name server: The server that holds the official records for a domain and gives the final answer for it.\n\n" +
+            "5. Recursive resolver: The server that does the searching for you. It is usually provided by your internet provider, or you can use a public one such as 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare).\n\n" +
+            "6. DNS records: The entries stored for a domain. A maps a name to an IPv4 address. AAAA maps to an IPv6 address. CNAME makes one name an alias of another. MX names the mail servers. NS names the domain's name servers. TXT holds text, often used for verification. PTR maps an address back to a name.\n\n" +
+            "7. TTL (time to live): The number of seconds that an answer may be kept in a cache before it must be looked up again.\n\n" +
+            "8. Caching: Storing recent answers on your device, in your browser and in the resolver, so repeated lookups are instant.\n\n" +
+            "9. Port 53: DNS normally uses port 53, over UDP for short queries and TCP for large answers.",
+
+            // HOW IT WORKS
+            "When you type www.example.com into a browser:\n\n" +
+            "1. The browser and the operating system check their caches. If the address is stored and still valid, the lookup ends here.\n\n" +
+            "2. If not, the computer sends a query to the recursive resolver.\n\n" +
+            "3. If the resolver has no cached answer, it asks a root server, which replies with the address of the servers for the .com TLD.\n\n" +
+            "4. The resolver asks a .com TLD server, which replies with the address of the authoritative name server for example.com.\n\n" +
+            "5. The resolver asks that authoritative server for www.example.com and receives the IP address.\n\n" +
+            "6. The resolver caches the answer for the length of its TTL and returns it to your computer.\n\n" +
+            "7. The browser connects to the IP address and requests the web page.\n\n" +
+            "The whole lookup usually takes only a few milliseconds to a few tens of milliseconds.",
+
+            // TYPES
+            "Types of DNS servers:\n\n" +
+            "1. Recursive resolvers: Look up answers on behalf of users.\n\n" +
+            "2. Root servers: Point to the TLD servers.\n\n" +
+            "3. TLD servers: Know the name servers of every domain under a TLD such as .com.\n\n" +
+            "4. Authoritative servers: Hold the real records for a domain.\n\n" +
+            "Types of queries: A recursive query asks a server to find the full answer itself. An iterative query lets a server answer with the best information it has, such as a referral to the next server.\n\n" +
+            "Security and privacy variants: DNSSEC adds digital signatures that prove an answer is genuine. DNS over HTTPS (DoH) and DNS over TLS (DoT) encrypt queries so that others on the network cannot read them.",
+
+            // EXAMPLES
+            "1. Looking up a name with the nslookup tool. The address shown is a reserved example address, used for illustration:\n" +
+            "```\n" +
+            "nslookup example.com\n" +
+            "Name:    example.com\n" +
+            "Address: 203.0.113.10\n" +
+            "```\n\n" +
+            "2. Records in a domain's zone. Each line gives the name, the TTL in seconds, the record type and the value:\n" +
+            "```\n" +
+            "example.com.      3600  IN  A      203.0.113.10\n" +
+            "www.example.com.  3600  IN  CNAME  example.com.\n" +
+            "example.com.      3600  IN  MX 10  mail.example.com.\n" +
+            "```\n" +
+            "The A record gives the address, the CNAME makes www an alias of the main name, and the MX record says where email for the domain is delivered.\n\n" +
+            "3. The name localhost is not looked up on the internet. Your computer's hosts file maps it to 127.0.0.1, the address of the computer itself. This is why the Search IT server at http://localhost:8080 works without any DNS server.\n\n" +
+            "4. Moving a website to a new server: the owner changes the A record to the new address. Because of caching, some users see the new server immediately and others only after the old TTL expires.",
+
+            // APPLICATIONS
+            "DNS is used every time a browser, app or game reaches a named server, which makes it essential to the web, email and nearly all online services. Companies use DNS to send visitors to the nearest server, spread traffic across several servers, and move services without changing the name. DNS filtering is used by schools, families and companies to block harmful or unwanted sites. Email systems depend on MX and TXT records to deliver mail and fight spam.",
+
+            // ADVANTAGES
+            "People can use easy-to-remember names instead of numbers. A site can change its server or IP address without telling its visitors, because only the DNS record changes. The distributed design and caching make lookups fast and let the system serve billions of users without one central point that could fail.",
+
+            // LIMITATIONS
+            "If DNS fails, websites become unreachable even though their servers are working. Traditional DNS queries are not encrypted, so others on the network can see which sites you look up. Attackers can attempt DNS spoofing or cache poisoning, which gives users a false address that leads to a fake site, and security researcher Dan Kaminsky demonstrated a serious cache poisoning flaw in 2008. DNS servers can be flooded with traffic, as in the 2016 attack on the provider Dyn, which made many popular sites unreachable. Because of caching, changes to a record can take hours to reach everyone.",
+
+            // RELATED TOPICS
+            "Networking, HTTP and the Web, Web Development, Cybersecurity, Cloud Computing.",
+
+            // REFERENCES
+            Arrays.asList(
+                "RFC 1034 - Domain Names: Concepts and Facilities: https://www.rfc-editor.org/rfc/rfc1034",
+                "RFC 1035 - Domain Names: Implementation and Specification: https://www.rfc-editor.org/rfc/rfc1035",
+                "What is DNS? - Cloudflare Learning Center: https://www.cloudflare.com/learning/dns/what-is-dns/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            31,
+
+            "Wireless Networks",
+
+            "Networking",
+
+            "An explanation of wireless networks, which connect devices with radio waves instead of cables, covering Wi-Fi standards and frequency bands, access points, how a device joins and sends data, Bluetooth, cellular and other wireless types, security (WPA2 and WPA3), and the common limits of range and interference.",
+
+            // DEFINITION
+            "A wireless network connects devices using radio waves instead of cables. The most common example is Wi-Fi, which lets laptops, phones and tablets join a local network and the internet without plugging in a cable. Other wireless technologies include Bluetooth, which connects nearby accessories, and cellular networks (4G and 5G), which cover large areas. Wireless networks still depend on wired connections behind the scenes, since the access point or tower is usually connected to the rest of the network by a cable.",
+
+            // HISTORY
+            "In 1971, Norman Abramson and his team at the University of Hawaii created ALOHAnet, the first wireless packet network, to link computers on different islands by radio. In 1997, the IEEE published the first 802.11 standard for wireless local area networks, with a speed of up to 2 Mbps. In 1999, the faster 802.11b (11 Mbps) and 802.11a (54 Mbps) were released, and the industry group now called the Wi-Fi Alliance introduced the name Wi-Fi. Later versions include 802.11n in 2009, 802.11ac in 2013 and 802.11ax in 2019, and from 2018 the generations have been numbered Wi-Fi 4, 5 and 6, with Wi-Fi 7 (802.11be) following. Cellular networks moved from 2G digital voice in the early 1990s, to 3G data around 2001, to 4G LTE around 2010, and to 5G from 2019.",
+
+            // CORE CONCEPTS
+            "1. Radio frequency bands: Wi-Fi uses 2.4 GHz, 5 GHz and, in newer versions, 6 GHz. Lower frequencies travel farther and pass through walls better, and higher frequencies carry more data over shorter distances.\n\n" +
+            "2. Access point (AP): The device that connects wireless devices to the network. A home wireless router combines an access point, a router and a small switch in one box.\n\n" +
+            "3. SSID: The name of a wireless network, which is what you see in the list of networks.\n\n" +
+            "4. Channel: A slice of a frequency band. Neighboring networks on the same or overlapping channels interfere with each other. In the 2.4 GHz band, only channels 1, 6 and 11 do not overlap.\n\n" +
+            "5. Signal strength: Measured in dBm, a negative number. Closer to zero is stronger, so minus 50 dBm is a very strong signal and minus 80 dBm is weak.\n\n" +
+            "6. Bandwidth and throughput: Bandwidth is the maximum speed the link supports, and throughput is the real speed you get, which is lower because of distance, interference, overhead and the number of users sharing the connection.\n\n" +
+            "7. Encryption and authentication: A password and an encryption standard, WPA2 or WPA3, make sure only authorized devices join and that the data cannot be read by others.\n\n" +
+            "8. CSMA/CA: The rule wireless devices follow to avoid collisions. Each device listens first and transmits only when the channel is free.\n\n" +
+            "9. Infrastructure and ad hoc modes: In infrastructure mode, devices connect through an access point. In ad hoc mode, devices connect directly to each other.",
+
+            // HOW IT WORKS
+            "1. The access point broadcasts its SSID, and the device scans and lists the networks it hears.\n\n" +
+            "2. The user selects a network and enters the password. The device and the access point perform a handshake that proves the password is correct and creates encryption keys.\n\n" +
+            "3. The device is now associated with the access point. A DHCP server, usually in the router, gives it an IP address.\n\n" +
+            "4. When the device sends data, it breaks it into frames, checks that the channel is free, encrypts the frames, and transmits them as radio waves.\n\n" +
+            "5. The access point receives the frames, decrypts them and forwards the data to the router and the internet.\n\n" +
+            "6. Replies travel the same way in reverse. If the signal gets weak, the device may switch to a stronger access point, which is called roaming.",
+
+            // TYPES
+            "By area covered:\n\n" +
+            "1. Wireless personal area network (WPAN): A few meters. Bluetooth, Zigbee and NFC.\n\n" +
+            "2. Wireless local area network (WLAN): A home, school or office, typically tens of meters indoors. Wi-Fi.\n\n" +
+            "3. Wireless wide area network (WWAN): Kilometers. Cellular networks such as 4G LTE and 5G.\n\n" +
+            "4. Low-power wide-area networks (LPWAN): Long range with very little power, for sensors. LoRaWAN and NB-IoT.\n\n" +
+            "5. Satellite networks: Used where no other coverage exists, such as ships, remote areas and aircraft.\n\n" +
+            "Wi-Fi generations, with the highest theoretical speeds (real speeds are lower):\n" +
+            "```\n" +
+            "Name     Standard     Year   Bands                Top speed (theory)\n" +
+            "Wi-Fi 4  802.11n      2009   2.4 and 5 GHz        600 Mbps\n" +
+            "Wi-Fi 5  802.11ac     2013   5 GHz                several Gbps\n" +
+            "Wi-Fi 6  802.11ax     2019   2.4 and 5 GHz        9.6 Gbps\n" +
+            "Wi-Fi 6E 802.11ax     2020   adds 6 GHz           9.6 Gbps\n" +
+            "Wi-Fi 7  802.11be     2024   2.4, 5 and 6 GHz     46 Gbps\n" +
+            "```",
+
+            // EXAMPLES
+            "1. Joining a home network: your tablet lists the SSIDs it hears, you choose one, you type the password, and within seconds the router gives the tablet an IP address and it can open websites.\n\n" +
+            "2. Choosing a band. A router offers a 2.4 GHz and a 5 GHz network.\n" +
+            "```\n" +
+            "2.4 GHz: longer range, passes through walls better, slower, crowded\n" +
+            "5 GHz:   shorter range, faster, less crowded\n" +
+            "```\n" +
+            "Use 5 GHz when you are in the same room as the router and 2.4 GHz when you are far away or behind walls.\n\n" +
+            "3. Bluetooth connects wireless earphones to a phone over a few meters, using very little power.\n\n" +
+            "4. A phone sends mobile data through a cellular tower, which can be several kilometers away.\n\n" +
+            "5. Basic safe setup for a home router: choose WPA3 if all devices support it, otherwise WPA2 with AES, use a long password, change the default administrator password of the router, and turn off WPS.\n\n" +
+            "6. Cloud tools such as the one used to build this project depend on a stable connection. A weak Wi-Fi signal can drop the connection to the online code editor.",
+
+            // APPLICATIONS
+            "Wireless networks are used in homes, schools and offices for laptops, phones and tablets, and in public places such as airports, cafes and libraries. Bluetooth connects headphones, keyboards, speakers and smartwatches. Cellular networks provide mobile calls and mobile internet. Wireless links are also used in smart homes, warehouses, hospitals and factories, in the Internet of Things, in vehicles, and in places where laying cables is difficult or costly.",
+
+            // ADVANTAGES
+            "Users can move around while staying connected. Installation is faster and cheaper than running cables, and new devices can be added easily without new wiring. Wireless access reaches places where cables are impractical, and it supports modern devices such as phones, tablets and sensors that have no cable port.",
+
+            // LIMITATIONS
+            "Range is limited, and walls, floors, metal and water reduce the signal. Interference from other networks, microwave ovens and Bluetooth devices can slow the connection. Speed and delay are usually worse than a wired Ethernet connection, and all devices on one access point share the same airtime. Because radio waves can be received by anyone nearby, security is a concern. Open networks send data that others can capture, the old WEP encryption is broken, and in 2017 a flaw called KRACK was found in WPA2, which was fixed by updates. Always use the latest security standard and keep router firmware updated.",
+
+            // RELATED TOPICS
+            "Networking, Internet of Things, Cybersecurity, Computer Hardware, DNS.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Wireless network - Wikipedia: https://en.wikipedia.org/wiki/Wireless_network",
+                "IEEE 802.11 Working Group (Wireless LAN): https://www.ieee802.org/11/",
+                "Wi-Fi Alliance: https://www.wi-fi.org/"
+            )
+
+        ));
+
     }
 }
