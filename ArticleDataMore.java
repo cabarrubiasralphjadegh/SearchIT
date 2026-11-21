@@ -1573,5 +1573,618 @@ public class ArticleDataMore {
 
         ));
 
+          manager.addArticle(new Article(
+
+            32,
+
+            "Network Security",
+
+            "Cybersecurity",
+
+            "An explanation of network security: the tools and practices that protect a network and its data from unauthorized access and attacks, covering the CIA triad, firewalls, intrusion detection and prevention, VPNs, authentication, segmentation, common attacks such as DDoS and man-in-the-middle, and a sample firewall rule set.",
+
+            // DEFINITION
+            "Network security is the set of policies, tools and practices used to protect a computer network and the data that travels across it from unauthorized access, misuse, damage and attack. Its goals are summarized by the CIA triad: confidentiality (only authorized people can read the data), integrity (the data cannot be changed without detection) and availability (the network and its services work when they are needed). Good network security uses several layers of protection together instead of relying on a single tool.",
+
+            // HISTORY
+            "On 2 November 1988, the Morris worm spread across the early internet and slowed or crashed about 10 percent of the roughly 60,000 connected computers. This was a turning point that led to the creation of the first computer emergency response team and to wider use of network defenses. Packet-filtering firewalls were developed in the late 1980s and became common in the 1990s. Netscape introduced SSL in 1995, which was later standardized as TLS in 1999 and is what makes HTTPS secure. Wi-Fi security moved from WEP (1997), which was broken, to WPA (2003), WPA2 (2004) and WPA3 (2018). In 2010, John Kindervag of Forrester Research described the zero trust model, which says that no user or device should be trusted automatically just because it is inside the network.",
+
+            // CORE CONCEPTS
+            "1. CIA triad: Confidentiality, integrity and availability, the three goals of security.\n\n" +
+            "2. Threat, vulnerability and risk: A threat is something that can cause harm, such as an attacker. A vulnerability is a weakness, such as unpatched software or a weak password. Risk is the chance that a threat uses a vulnerability, multiplied by the damage it would cause.\n\n" +
+            "3. Firewall: A system that allows or blocks network traffic according to rules about source, destination, port and protocol.\n\n" +
+            "4. IDS and IPS: An intrusion detection system (IDS) watches traffic and raises alerts about suspicious activity. An intrusion prevention system (IPS) can also block it automatically.\n\n" +
+            "5. VPN (virtual private network): Creates an encrypted tunnel across a public network so that data cannot be read on the way.\n\n" +
+            "6. Authentication, authorization and accounting (AAA): Proving who you are, deciding what you may do, and recording what you did. Multi-factor authentication (MFA) requires two or more proofs, such as a password and a code from a phone.\n\n" +
+            "7. Network segmentation: Dividing a network into separate zones, for example with VLANs, so that a problem in one zone cannot easily spread to the others. A DMZ is a zone for public-facing servers that is separated from the internal network.\n\n" +
+            "8. Least privilege: Giving each user and program only the access it needs and nothing more.\n\n" +
+            "9. Defense in depth: Using several layers of protection, so that if one fails, others still protect the network.\n\n" +
+            "10. Patching: Installing software updates that fix known vulnerabilities.",
+
+            // HOW IT WORKS
+            "1. Traffic arriving from the internet first meets a firewall, which compares each connection with its rules and blocks anything that is not allowed.\n\n" +
+            "2. Allowed traffic is watched by an IDS or IPS, which compares it with known attack patterns and with normal behavior, and alerts or blocks when something looks wrong.\n\n" +
+            "3. Users and devices must authenticate before they can use the network, and are given only the permissions their role needs.\n\n" +
+            "4. Data that crosses untrusted networks is encrypted, for example by TLS for websites or by a VPN for remote workers.\n\n" +
+            "5. The network is divided into segments, so servers with sensitive data sit in a more protected zone than ordinary user computers.\n\n" +
+            "6. Logs from firewalls, servers and devices are collected and reviewed, often by a security information and event management (SIEM) system, so problems are noticed quickly.\n\n" +
+            "7. Software and device firmware are kept updated, and the network is tested regularly for weaknesses.",
+
+            // TYPES
+            "Common attacks on networks:\n\n" +
+            "1. Denial of service (DoS) and distributed denial of service (DDoS): Flooding a server or network with traffic so real users cannot reach it.\n\n" +
+            "2. Man-in-the-middle: An attacker secretly sits between two parties, reading or changing their messages, for example through a fake Wi-Fi hotspot.\n\n" +
+            "3. Packet sniffing: Capturing unencrypted traffic to read passwords or messages.\n\n" +
+            "4. Spoofing: Pretending to be another device or site, such as ARP spoofing on a local network or DNS spoofing.\n\n" +
+            "5. Port scanning: Probing a computer to find open ports and services that might be vulnerable.\n\n" +
+            "6. Brute force and credential stuffing: Trying many passwords, or passwords leaked from other sites, until one works.\n\n" +
+            "7. Phishing: Tricking people into giving up passwords or running malware through fake messages and sites.\n\n" +
+            "8. Malware and ransomware: Harmful programs that spread across a network, and in the case of ransomware, lock files until a payment is made.\n\n" +
+            "Common defenses:\n\n" +
+            "9. Firewalls: packet-filtering, stateful (tracks connections), and next-generation firewalls, plus web application firewalls (WAF) that protect websites.\n\n" +
+            "10. IDS and IPS: network-based or host-based, using signatures of known attacks or detection of unusual behavior.\n\n" +
+            "11. VPNs: remote-access VPNs for individual users and site-to-site VPNs that join two office networks.\n\n" +
+            "12. Endpoint protection, email filtering, and network access control.",
+
+            // EXAMPLES
+            "1. A simple firewall rule set. Rules are checked in order, and the last rule blocks everything not allowed above it, which is called default deny:\n" +
+            "```\n" +
+            "Rule  Action  Source       Destination   Port  Protocol\n" +
+            "1     ALLOW   any          web server    443   TCP\n" +
+            "2     ALLOW   office net   database      3306  TCP\n" +
+            "3     DENY    any          any           any   any\n" +
+            "```\n" +
+            "Anyone may reach the web server over HTTPS (port 443). Only the office network may reach the database (port 3306). Everything else is blocked.\n\n" +
+            "2. Using public Wi-Fi at a cafe: an attacker on the same network may try to capture traffic. Websites that use HTTPS are encrypted, and a VPN adds encryption for everything the device sends.\n\n" +
+            "3. Multi-factor authentication: even if an attacker learns a password, they also need the code from the user's phone.\n\n" +
+            "4. A DDoS attack: thousands of infected devices send requests to one website at the same time, which overloads it. Defenses include filtering traffic and using services that spread the load across many servers.\n\n" +
+            "5. The Search IT project: user passwords are stored as salted PBKDF2 hashes, so a stolen accounts file does not directly reveal the passwords, and the file is kept out of GitHub with .gitignore. In the online code editor, a forwarded port set to Public can be opened by anyone who has the link, so it should be Private unless it must be shared.\n\n" +
+            "6. A home network checklist: use WPA3 or WPA2 on Wi-Fi with a long password, change the router's default administrator password, update the router firmware, and turn off features you do not use.",
+
+            // APPLICATIONS
+            "Network security protects school and company networks, online banking, hospitals, government systems and home Wi-Fi. Companies use firewalls and VPNs to let employees work remotely, and security teams monitor networks around the clock. Cloud providers and online shops depend on it to protect customer data and to keep their services running.",
+
+            // ADVANTAGES
+            "Good network security protects private data and the reputation of an organization, keeps services running, and helps meet legal rules about protecting personal information. Layered defense means that one failure does not necessarily lead to a breach, and early detection reduces the damage of an attack.",
+
+            // LIMITATIONS
+            "No network is completely secure, because new vulnerabilities and attack methods keep appearing, including zero-day flaws that have no fix yet. Security can make systems less convenient, and strict rules may block legitimate work. Encryption protects privacy but also hides attacks from inspection. Insiders and human mistakes, such as falling for phishing, can bypass technical defenses. Detection systems can raise false alarms. Good security costs money, time and trained staff, and it must be maintained continuously.",
+
+            // RELATED TOPICS
+            "Cybersecurity, Cryptography, Malware, Wireless Networks, DNS, Ethical Hacking.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Network security - Wikipedia: https://en.wikipedia.org/wiki/Network_security",
+                "Guidelines on Firewalls and Firewall Policy (SP 800-41 Rev. 1) - NIST: https://csrc.nist.gov/pubs/sp/800/41/r1/final",
+                "Cybersecurity Best Practices - CISA: https://www.cisa.gov/topics/cybersecurity-best-practices"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            33,
+
+            "Ethical Hacking",
+
+            "Cybersecurity",
+
+            "An explanation of ethical hacking: authorized, legal testing of systems to find security weaknesses before criminals do, covering permission and scope, the phases of a penetration test, white, gray and black box testing, bug bounty programs, a sample finding report, and the law in the Philippines.",
+
+            // DEFINITION
+            "Ethical hacking is the practice of testing a computer system, network or application for security weaknesses with the owner's written permission, in order to fix those weaknesses before criminals can use them. Ethical hackers use many of the same techniques as attackers, but they work legally, follow an agreed plan, keep what they find confidential, and report the problems so they can be repaired. Doing the same actions without permission is a crime. A penetration test, or pen test, is the most common form of ethical hacking.",
+
+            // HISTORY
+            "In the 1970s, the United States government used tiger teams, groups of experts who were asked to break into their own systems to find weaknesses. In 1995, Netscape ran one of the first bug bounty programs, which paid outsiders for reporting flaws in its browser. Google began a bug bounty program in 2010, and platforms such as HackerOne, started in 2012, now connect companies with researchers. The EC-Council launched the Certified Ethical Hacker (CEH) certification in 2003, and other certifications such as CompTIA PenTest+ and OSCP followed. In the Philippines, the Cybercrime Prevention Act of 2012 (Republic Act No. 10175) defines illegal access to a computer system as a crime, which is why permission is essential.",
+
+            // CORE CONCEPTS
+            "1. Authorization: Written permission from the system's owner before any test begins. Without it, the activity is illegal even if the intention is good.\n\n" +
+            "2. Scope and rules of engagement: The agreed list of what may be tested, what may not, when, and by which methods. Testers must stay inside it.\n\n" +
+            "3. Vulnerability: A weakness that could be used to harm a system, such as an unpatched program or a default password.\n\n" +
+            "4. Exploit: A method or tool that takes advantage of a vulnerability.\n\n" +
+            "5. CVE and CVSS: A CVE is a public ID for a known vulnerability, such as CVE-2021-44228. CVSS is a scoring system from 0.0 to 10.0 that rates how severe a vulnerability is.\n\n" +
+            "6. OWASP Top 10: A widely used list of the most serious security risks for web applications, published by the Open Worldwide Application Security Project.\n\n" +
+            "7. Responsible disclosure: Reporting a vulnerability privately to the owner and giving time to fix it before telling the public.\n\n" +
+            "8. Confidentiality: Findings and any data seen during testing must be protected and shared only with the client.",
+
+            // HOW IT WORKS
+            "A penetration test follows a series of phases:\n\n" +
+            "1. Planning and authorization: The client and tester agree on goals, scope, schedule and rules, and sign a contract and a permission document.\n\n" +
+            "2. Reconnaissance: Collecting information about the target, such as public websites, domain records and technologies in use.\n\n" +
+            "3. Scanning and enumeration: Finding which computers, open ports and services are present, and which versions of software they run.\n\n" +
+            "4. Vulnerability analysis: Comparing what was found with lists of known vulnerabilities and misconfigurations.\n\n" +
+            "5. Controlled exploitation: Carefully confirming that a weakness is real and measuring what it would allow, without causing damage.\n\n" +
+            "6. Impact assessment: Judging how serious the problem is, for example whether it would expose customer data.\n\n" +
+            "7. Reporting: Writing a clear report that describes each finding, its severity, the evidence, and how to fix it.\n\n" +
+            "8. Remediation and retesting: The client repairs the problems, and the tester checks that the fixes work.",
+
+            // TYPES
+            "By how much the tester knows:\n\n" +
+            "1. Black box testing: The tester gets no inside information, like an outside attacker.\n\n" +
+            "2. Gray box testing: The tester has limited information, such as a normal user account.\n\n" +
+            "3. White box testing: The tester has full information, such as source code and diagrams.\n\n" +
+            "By target:\n\n" +
+            "4. Network testing, web application testing, wireless testing, mobile app testing, cloud testing, and social engineering tests, which check whether people can be tricked, and physical security tests.\n\n" +
+            "By hat color:\n\n" +
+            "5. White hat: Works legally and with permission, which is the ethical hacker.\n\n" +
+            "6. Black hat: Attacks for personal gain or to cause harm, which is illegal.\n\n" +
+            "7. Gray hat: Tests systems without permission but without harmful intent, which is still illegal in most places.\n\n" +
+            "Team roles: Red teams play attackers, blue teams defend, and purple teams make the two work together. Bug bounty hunters test public programs that invite them and pay for valid reports.",
+
+            // EXAMPLES
+            "1. A scope statement: The client allows testing of the school's web server at one named address between 8 PM and 12 AM on a stated weekend, and forbids denial of service tests and access to student records.\n\n" +
+            "2. An entry from a report:\n" +
+            "```\n" +
+            "Finding:  Default administrator password on router\n" +
+            "Severity: High\n" +
+            "Evidence: The login page accepted the factory default credentials\n" +
+            "Impact:   Someone on the network could change the router settings\n" +
+            "Fix:      Set a strong unique password, update the firmware,\n" +
+            "          and turn off remote administration\n" +
+            "```\n\n" +
+            "3. Checking your own computer. Nmap is a well-known network scanner. Run only against systems you own or have written permission to test. This command lists the open ports and service versions on your own machine:\n" +
+            "```\n" +
+            "nmap -sV localhost\n" +
+            "```\n\n" +
+            "4. Legal places to practice: TryHackMe and Hack The Box offer guided online labs, and OWASP Juice Shop and DVWA are intentionally vulnerable web applications that you can run on your own computer.\n\n" +
+            "5. A bug bounty report: a researcher finds that a website shows another user's data when an ID in the address is changed, reports it privately through the company's program, and receives a reward after it is fixed.",
+
+            // APPLICATIONS
+            "Ethical hacking is used by banks, hospitals, schools, governments and online shops to test their systems before attackers do. Companies hire penetration testers or run bug bounty programs, and many security rules and standards require regular testing. It is also used to test new software and devices before release, and in training, where students practice in safe lab environments.",
+
+            // ADVANTAGES
+            "It finds real weaknesses before criminals do, which prevents data theft and costly outages. It shows which problems matter most, so limited money and time are spent on the highest risks. It checks whether defenses actually work, tests people as well as technology, and helps an organization meet legal and industry requirements.",
+
+            // LIMITATIONS
+            "A test shows the situation only at one point in time, and new vulnerabilities appear later. It is limited by its scope and time, so it cannot find everything. Testing can disrupt systems if it is done carelessly. It needs skilled people and can be costly. Most important, it is legal only with permission. Testing a system without authorization can lead to criminal charges, even if the tester means well.",
+
+            // RELATED TOPICS
+            "Network Security, Cybersecurity, Malware, Cryptography, Operating Systems.",
+
+            // REFERENCES
+            Arrays.asList(
+                "OWASP Top Ten - OWASP Foundation: https://owasp.org/www-project-top-ten/",
+                "Technical Guide to Information Security Testing and Assessment (SP 800-115) - NIST: https://csrc.nist.gov/pubs/sp/800/115/final",
+                "Republic Act No. 10175, Cybercrime Prevention Act of 2012 - Official Gazette of the Philippines: https://www.officialgazette.gov.ph/2012/09/12/republic-act-no-10175/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            34,
+
+            "Programming Languages Compared",
+
+            "Programming",
+
+            "A side-by-side comparison of popular programming languages (C, C++, Java, C#, Python, JavaScript, PHP, Kotlin, Swift and Rust) by how they run, how they check types, how they manage memory and what they are mainly used for, with Hello World examples and a guide to choosing one.",
+
+            // DEFINITION
+            "A programming language is a formal language used to write instructions that a computer can carry out. There are hundreds of them, and each is designed with different goals, such as speed, safety, simplicity or a specific kind of program. No language is best for everything, so programmers choose one by comparing how it runs, how it handles data types and memory, which libraries it has, and what kind of software they want to build.",
+
+            // HISTORY
+            "FORTRAN, created at IBM by John Backus's team in 1957, was one of the first widely used high-level languages, followed by LISP in 1958 and COBOL in 1959. Dennis Ritchie created C at Bell Labs around 1972. Bjarne Stroustrup began extending C with classes in 1979, and the language was named C++ in 1983. Guido van Rossum released Python in 1991. In 1995, three important languages appeared: Java from Sun Microsystems, led by James Gosling, JavaScript from Brendan Eich at Netscape, and PHP from Rasmus Lerdorf. Microsoft released C# in 2000, designed by a team led by Anders Hejlsberg. Go came from Google in 2009, Rust reached version 1.0 in 2015, Swift was introduced by Apple in 2014, and Kotlin 1.0 was released by JetBrains in 2016, with Google announcing official Kotlin support for Android in 2017.",
+
+            // CORE CONCEPTS
+            "1. Compiled language: The whole program is translated by a compiler into machine code before it runs. This usually gives fast programs. Examples: C, C++, Rust.\n\n" +
+            "2. Interpreted language: A program called an interpreter reads and runs the code directly, line by line or in parts, with no separate build step. Example: Python.\n\n" +
+            "3. Bytecode and virtual machine: The compiler translates the code to an intermediate form called bytecode, which a virtual machine runs. The same bytecode runs on any system that has the virtual machine. Examples: Java on the JVM and C# on .NET.\n\n" +
+            "4. Just-in-time (JIT) compilation: The runtime compiles frequently used code to machine code while the program runs. JavaScript engines and the JVM do this.\n\n" +
+            "5. Static typing: The type of each variable is checked before the program runs, so many mistakes are caught early. Examples: Java, C, C++, C#.\n\n" +
+            "6. Dynamic typing: Types are checked while the program runs, which makes code shorter but moves some errors to run time. Examples: Python, JavaScript, PHP.\n\n" +
+            "7. Memory management: In C and C++ the programmer allocates and frees memory manually, which is fast but error-prone. Java, C#, Python and JavaScript use a garbage collector that frees unused memory automatically. Rust uses ownership rules checked at compile time, and Swift uses automatic reference counting.\n\n" +
+            "8. Paradigm: The style of programming a language supports. Procedural (C), object-oriented (Java, C#, C++), functional (parts of JavaScript, Kotlin and Rust) and scripting (Python, PHP).\n\n" +
+            "9. Ecosystem: The libraries, frameworks, tools and community around a language, which often matter as much as the language itself.",
+
+            // HOW IT WORKS
+            "The same idea, source code to running program, happens in different ways:\n\n" +
+            "1. C and C++: A compiler such as gcc turns the source files into a native executable for one type of computer. The executable runs directly on the processor.\n\n" +
+            "2. Java: The compiler javac turns .java files into .class files containing bytecode, and the Java Virtual Machine (JVM) runs them. This is exactly what happens in this project when you run javac -d out *.java and then java -cp out org.example.SearchITWindow.\n\n" +
+            "3. Python: The interpreter reads the .py file, converts it internally to bytecode, and runs it immediately, with no separate compile command.\n\n" +
+            "4. JavaScript: The browser or Node.js engine reads the source, compiles frequently used parts to machine code while the program runs, and executes it.\n\n" +
+            "5. PHP: The PHP engine on a web server runs the script for each request and sends the resulting HTML to the browser.",
+
+            // TYPES
+            "A comparison of widely used languages:\n" +
+            "```\n" +
+            "Language    Typing   Runs as                  Memory             Mainly used for\n" +
+            "C           static   native machine code      manual             operating systems, embedded\n" +
+            "C++         static   native machine code      manual             games, browsers, performance\n" +
+            "Java        static   bytecode on the JVM      garbage collector  enterprise, desktop, Android\n" +
+            "C#          static   bytecode on .NET         garbage collector  Windows apps, Unity games\n" +
+            "Python      dynamic  interpreted              garbage collector  data science, AI, scripting\n" +
+            "JavaScript  dynamic  JIT in browser or Node   garbage collector  websites and web apps\n" +
+            "PHP         dynamic  interpreted on server    garbage collector  websites, WordPress\n" +
+            "Kotlin      static   bytecode on the JVM      garbage collector  Android apps\n" +
+            "Swift       static   native machine code      reference counting iPhone and Mac apps\n" +
+            "Rust        static   native machine code      ownership rules    safe systems programming\n" +
+            "```",
+
+            // EXAMPLES
+            "The classic first program, Hello World, in five languages:\n\n" +
+            "1. Java:\n" +
+            "```\n" +
+            "public class Hello {\n" +
+            "    public static void main(String[] args) {\n" +
+            "        System.out.println(\"Hello, World!\");\n" +
+            "    }\n" +
+            "}\n" +
+            "```\n\n" +
+            "2. Python:\n" +
+            "```\n" +
+            "print(\"Hello, World!\")\n" +
+            "```\n\n" +
+            "3. JavaScript:\n" +
+            "```\n" +
+            "console.log('Hello, World!');\n" +
+            "```\n\n" +
+            "4. C:\n" +
+            "```\n" +
+            "#include <stdio.h>\n" +
+            "int main(void) {\n" +
+            "    printf(\"Hello, World!\\n\");\n" +
+            "    return 0;\n" +
+            "}\n" +
+            "```\n\n" +
+            "5. C++:\n" +
+            "```\n" +
+            "#include <iostream>\n" +
+            "int main() {\n" +
+            "    std::cout << \"Hello, World!\" << std::endl;\n" +
+            "    return 0;\n" +
+            "}\n" +
+            "```\n\n" +
+            "Notice how Python needs one line, while Java needs a class and a main method. Java and C require the types to be written, so mistakes are found before the program runs.\n\n" +
+            "Choosing a language for a goal:\n" +
+            "```\n" +
+            "Goal                          Common choices\n" +
+            "Interactive website           JavaScript (with HTML and CSS)\n" +
+            "Server side of a website      JavaScript (Node.js), Python, PHP, Java, C#\n" +
+            "Data analysis and AI          Python\n" +
+            "Android app                   Kotlin or Java\n" +
+            "iPhone app                    Swift\n" +
+            "Games                         C++ or C# (Unity)\n" +
+            "Operating system or driver    C, C++ or Rust\n" +
+            "Large business system         Java or C#\n" +
+            "Learning to program           Python or Java\n" +
+            "```",
+
+            // APPLICATIONS
+            "Knowing the strengths of each language helps you choose the right tool for a project, read other people's code, and move to a new language more easily. Many real systems use several languages together. For example, a website may use JavaScript in the browser, Java or Python on the server and SQL in the database, as the Search IT project does with Java, JavaScript and HTML.",
+
+            // ADVANTAGES
+            "Learning more than one language makes the core ideas clearer, such as variables, loops, functions and objects, because they appear in almost every language. Static typing finds many errors early, dynamic typing makes short programs quick to write, and compiled languages are usually faster. Once you know one language well, a second one takes much less time to learn.",
+
+            // LIMITATIONS
+            "There is no single best language, and a comparison table simplifies a lot. Performance depends as much on how the code is written as on the language. Popularity changes over time, and rankings such as the TIOBE index and the Stack Overflow Developer Survey measure different things. Fast languages such as C and C++ give more control but make mistakes with memory easier, while easy languages such as Python are slower for heavy calculations. Choosing also depends on the team, the existing code and the available libraries.",
+
+            // RELATED TOPICS
+            "Introduction to Programming, Java Programming, Python Programming, JavaScript, Object-Oriented Programming.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Comparison of programming languages - Wikipedia: https://en.wikipedia.org/wiki/Comparison_of_programming_languages",
+                "TIOBE Programming Community Index: https://www.tiobe.com/tiobe-index/",
+                "Stack Overflow Developer Survey: https://survey.stackoverflow.co/"
+            )
+
+        ));
+
+                 manager.addArticle(new Article(
+
+            35,
+
+            "C++",
+
+            "Programming",
+
+            "An introduction to C++, a fast compiled language that adds classes, templates and a large standard library to C, covering pointers and manual memory, smart pointers, the Standard Template Library, the build process, worked examples, and how C++ differs from Java.",
+
+            // DEFINITION
+            "C++ is a general-purpose, compiled programming language that supports several styles of programming: procedural, object-oriented and generic. It was created as an extension of C, so most C code also works in C++, and it adds features such as classes, templates and a large standard library. C++ gives the programmer direct control over memory and hardware, which makes it very fast, and it is used where performance matters, such as in games, browsers and system software.",
+
+            // HISTORY
+            "Bjarne Stroustrup began work on the language at Bell Labs in 1979 under the name C with Classes, because he wanted the speed of C together with the classes of Simula. It was renamed C++ in 1983, where the ++ refers to the increment operator of C, and the first commercial release came in 1985. C++ was first standardized by ISO in 1998 and has been updated several times: C++03, then a major modernization in C++11, followed by C++14, C++17, C++20 and C++23. C++11 added features such as auto, lambda expressions, smart pointers and range-based for loops, and C++20 added concepts, ranges, coroutines and modules.",
+
+            // CORE CONCEPTS
+            "1. Classes and objects: A class describes a kind of object with data and functions. C++ supports encapsulation, inheritance and polymorphism, including multiple inheritance, where a class has more than one parent.\n\n" +
+            "2. Pointers and references: A pointer stores the memory address of a value, and a reference is another name for an existing value. They allow efficient access, but pointers must be handled carefully.\n\n" +
+            "3. Manual memory management: Memory created with new must be released with delete. Forgetting to release it causes a memory leak, and using it after release is a serious bug.\n\n" +
+            "4. RAII and smart pointers: Resource Acquisition Is Initialization ties a resource to the lifetime of an object, so it is released automatically. Smart pointers such as unique_ptr and shared_ptr use this to manage memory safely, and modern C++ prefers them over raw new and delete.\n\n" +
+            "5. Templates: Code that works with any type, written once, such as a vector that can hold integers, text or students. This is called generic programming.\n\n" +
+            "6. Standard Template Library (STL): Ready-made containers such as vector and map, algorithms such as sort and find, and iterators that connect them.\n\n" +
+            "7. Header files and namespaces: Declarations are shared through header files with the #include command, and names such as cout and vector live in the namespace std.\n\n" +
+            "8. Undefined behavior: Some mistakes, such as reading outside an array, have no defined result. The program may crash, give wrong answers, or appear to work, which makes bugs hard to find.",
+
+            // HOW IT WORKS
+            "1. You write the source code in a .cpp file, and shared declarations in .h or .hpp header files.\n\n" +
+            "2. The preprocessor handles lines that start with #, such as #include, by inserting the contents of the header files.\n\n" +
+            "3. The compiler translates each .cpp file into an object file of machine code.\n\n" +
+            "4. The linker joins the object files and libraries into one executable file.\n\n" +
+            "5. The operating system runs the executable directly on the processor, with no virtual machine. This is why C++ programs are fast.\n\n" +
+            "Common compilers are GCC (g++), Clang and Microsoft Visual C++. A typical command with GCC is:\n" +
+            "```\n" +
+            "g++ -std=c++17 hello.cpp -o hello\n" +
+            "./hello\n" +
+            "```",
+
+            // TYPES
+            "C++ standards (each adds new features):\n\n" +
+            "1. C++98 and C++03: The first ISO standard and a small fix.\n\n" +
+            "2. C++11: Modern C++ begins, with auto, lambdas, smart pointers and move semantics.\n\n" +
+            "3. C++14 and C++17: Smaller improvements, such as simpler generic code and filesystem support.\n\n" +
+            "4. C++20 and C++23: Concepts, ranges, coroutines, modules and more library features.\n\n" +
+            "Programming styles supported:\n\n" +
+            "5. Procedural, object-oriented, generic (templates), and functional ideas such as lambdas.",
+
+            // EXAMPLES
+            "1. A program that uses a vector and a loop to find an average:\n" +
+            "```\n" +
+            "#include <iostream>\n" +
+            "#include <vector>\n" +
+            "int main() {\n" +
+            "    std::vector<int> scores = {90, 85, 77};\n" +
+            "    int total = 0;\n" +
+            "    for (int s : scores) {\n" +
+            "        total += s;\n" +
+            "    }\n" +
+            "    std::cout << \"Average: \" << total / scores.size() << std::endl;\n" +
+            "    return 0;\n" +
+            "}\n" +
+            "```\n" +
+            "The output is Average: 84. The total is 252, and the loop adds each score from the vector.\n\n" +
+            "2. A class:\n" +
+            "```\n" +
+            "#include <iostream>\n" +
+            "#include <string>\n" +
+            "class Student {\n" +
+            "public:\n" +
+            "    std::string name;\n" +
+            "    int grade;\n" +
+            "    Student(std::string n, int g) : name(n), grade(g) {}\n" +
+            "    void show() { std::cout << name << \": \" << grade << std::endl; }\n" +
+            "};\n" +
+            "```\n" +
+            "Creating Student s(\"Ana\", 92); and calling s.show(); prints Ana: 92.\n\n" +
+            "3. A pointer and a smart pointer:\n" +
+            "```\n" +
+            "int x = 10;\n" +
+            "int* p = &x;\n" +
+            "*p = 20;\n" +
+            "auto q = std::make_unique<int>(5);\n" +
+            "```\n" +
+            "The pointer p holds the address of x, and *p = 20 changes x to 20. The smart pointer q owns an integer with the value 5, and frees it automatically when q goes out of scope. Smart pointers need the memory header.\n\n" +
+            "4. C++ compared with Java, the language of this course:\n" +
+            "```\n" +
+            "Feature            C++                          Java\n" +
+            "Runs as            native machine code          bytecode on the JVM\n" +
+            "Memory             manual, or smart pointers    garbage collector\n" +
+            "Pointers           yes                          no explicit pointers\n" +
+            "Multiple parents   allowed for classes          only through interfaces\n" +
+            "Portability        compile again for each OS    same bytecode runs anywhere\n" +
+            "Speed              usually faster               slightly slower start and more memory\n" +
+            "```",
+
+            // APPLICATIONS
+            "C++ is used for game engines such as Unreal Engine, for web browsers such as Chrome and Firefox, for databases such as MongoDB, and for much of the Adobe software and desktop applications. It is used in trading systems that must respond in microseconds, in embedded systems and robotics, in simulations, and in parts of operating systems and virtual reality software.",
+
+            // ADVANTAGES
+            "C++ programs are very fast and use memory efficiently, and the programmer can control exactly how hardware and memory are used. It supports several styles of programming and has a mature, standardized language with huge libraries. Code can be compiled for almost any platform, and it can work directly with existing C libraries.",
+
+            // LIMITATIONS
+            "C++ is large and complex, so it takes a long time to learn well. Manual memory handling makes errors such as leaks, dangling pointers and buffer overflows possible, and these are a common cause of security problems. Undefined behavior makes some bugs hard to find. Compile times can be long, error messages from templates are difficult to read, and programs must be compiled separately for each operating system. For these reasons, newer languages such as Rust and safer parts of modern C++ aim to reduce memory errors.",
+
+            // RELATED TOPICS
+            "Programming Languages Compared, Introduction to Programming, Java Programming, Object-Oriented Programming, Data Structures and Algorithms, Operating Systems.",
+
+            // REFERENCES
+            Arrays.asList(
+                "Standard C++ Foundation: https://isocpp.org/",
+                "C++ reference - cppreference.com: https://en.cppreference.com/",
+                "Bjarne Stroustrup's homepage: https://www.stroustrup.com/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            36,
+
+            "PHP",
+
+            "Programming",
+
+            "An introduction to PHP, the server-side scripting language behind many websites, covering how a PHP page is processed by the web server, variables and forms, connecting to a database safely with prepared statements, frameworks and WordPress, and common security mistakes.",
+
+            // DEFINITION
+            "PHP is a server-side scripting language designed for building websites and web applications. A PHP script runs on the web server, not in the visitor's browser. It can read form data, talk to a database, and create the HTML page that is sent back. The visitor only receives the finished HTML, never the PHP code. The name PHP is a recursive acronym that stands for PHP: Hypertext Preprocessor.",
+
+            // HISTORY
+            "Rasmus Lerdorf created the first version in 1994 as a set of tools for his personal home page, which is where the original name Personal Home Page came from, and released it publicly in 1995. In 1998, Zeev Suraski and Andi Gutmans rewrote the engine for PHP 3, and the language was renamed PHP: Hypertext Preprocessor. PHP 4 introduced the Zend Engine in 2000, and PHP 5 in 2004 greatly improved object-oriented programming. PHP 7, released in December 2015, made scripts much faster, and PHP 8, released in November 2020, added a just-in-time compiler, named arguments, union types and the match expression. New versions are released every year, in November. Popular PHP projects include WordPress, Wikipedia's MediaWiki software, and the Laravel framework, first released in 2011.",
+
+            // CORE CONCEPTS
+            "1. Server-side execution: The code runs on the web server and produces HTML, so the browser never sees the PHP source.\n\n" +
+            "2. PHP tags: PHP code is placed between the tags that open with a less-than sign, a question mark and the letters php, and close with a question mark and a greater-than sign. Everything outside these tags is sent as plain HTML.\n\n" +
+            "3. Variables: Names that start with a dollar sign, such as $name. PHP is dynamically typed, and newer versions allow optional type declarations.\n\n" +
+            "4. Superglobals: Built-in arrays that are always available, such as $_GET for data in the address, $_POST for submitted form data, $_SESSION for data kept between pages, and $_COOKIE.\n\n" +
+            "5. Sessions and cookies: Ways to remember a user between page requests, for example to keep someone logged in.\n\n" +
+            "6. Database access: PHP connects to databases such as MySQL through PDO or MySQLi. Prepared statements keep user input separate from the SQL command.\n\n" +
+            "7. Composer: PHP's package manager, which downloads and updates libraries for a project.\n\n" +
+            "8. Shared-nothing request model: Each request starts a fresh run of the script, and nothing is kept in memory afterward unless it is stored in a session, a database or a cache.",
+
+            // HOW IT WORKS
+            "1. A visitor's browser requests a page such as search.php from the web server, for example Apache or Nginx.\n\n" +
+            "2. The web server sees that the file is PHP and passes it to the PHP interpreter.\n\n" +
+            "3. PHP runs the script from top to bottom. It may read form data, check a session, and query a database.\n\n" +
+            "4. The output of the script, usually HTML, replaces the PHP code.\n\n" +
+            "5. The web server sends the finished HTML to the browser, which displays it.\n\n" +
+            "6. The script ends, and its memory is released. The next request starts again from the beginning.",
+
+            // TYPES
+            "Ways PHP is used:\n\n" +
+            "1. Dynamic web pages: Scripts embedded in or generating HTML. This is the main use.\n\n" +
+            "2. Content management systems (CMS): WordPress, Drupal and Joomla are written in PHP.\n\n" +
+            "3. Web frameworks: Laravel and Symfony give structure for larger applications, including routing, database tools and security features.\n\n" +
+            "4. Command-line scripts: PHP can run tasks from the terminal, such as scheduled jobs.\n\n" +
+            "5. Web APIs: PHP programs can return JSON to mobile apps and JavaScript front ends.",
+
+            // EXAMPLES
+            "1. A page that mixes PHP with HTML:\n" +
+            "```\n" +
+            "<?php\n" +
+            "$name = 'Ana';\n" +
+            "echo '<h1>Hello, ' . $name . '!</h1>';\n" +
+            "?>\n" +
+            "```\n" +
+            "The browser receives only the heading Hello, Ana!\n\n" +
+            "2. Reading a search word from the address. Opening search.php?q=java shows the text You searched for: java:\n" +
+            "```\n" +
+            "<?php\n" +
+            "$q = $_GET['q'] ?? '';\n" +
+            "echo 'You searched for: ' . htmlspecialchars($q);\n" +
+            "?>\n" +
+            "```\n" +
+            "The function htmlspecialchars converts special characters so that a visitor cannot inject a script into the page.\n\n" +
+            "3. A safe database query with a prepared statement. The question mark is filled in by the database driver, so the input cannot change the SQL command:\n" +
+            "```\n" +
+            "$pdo = new PDO('mysql:host=localhost;dbname=school', 'user', 'pass');\n" +
+            "$stmt = $pdo->prepare('SELECT name FROM students WHERE course = ?');\n" +
+            "$stmt->execute(['BSIT']);\n" +
+            "$rows = $stmt->fetchAll();\n" +
+            "```\n\n" +
+            "4. Trying PHP on your own computer with its built-in test server:\n" +
+            "```\n" +
+            "php -S localhost:8000\n" +
+            "```\n" +
+            "Then open http://localhost:8000 in the browser. This is for learning only and is not for a real website.\n\n" +
+            "5. Compared with the Search IT project: the Java server answers a request to /api/search with JSON, and the same job in PHP would be a script that reads $_GET['q'], searches the data, and prints JSON.",
+
+            // APPLICATIONS
+            "PHP runs a large share of the websites on the internet, mostly because it powers WordPress, which is used for blogs, company sites and online shops. It is used for e-commerce platforms such as WooCommerce and Magento, for forums, for the MediaWiki software behind Wikipedia, and for custom business applications built with Laravel. Facebook was originally written in PHP, and Slack and Etsy also used it.",
+
+            // ADVANTAGES
+            "PHP is easy to start with, and almost every web hosting company supports it, often at low cost. It was built for the web, so common tasks such as handling forms, sessions and cookies are simple. It has good documentation, a very large community, and ready-made systems like WordPress. Since PHP 7, performance is much better, and modern PHP supports classes, types and tools such as Composer.",
+
+            // LIMITATIONS
+            "Older PHP code often has inconsistent function names and poor structure, and it is easy to write messy code. Careless code is open to serious security problems, such as SQL injection, cross-site scripting, and unsafe file uploads, so input must always be validated and database queries should use prepared statements. Because each request starts fresh, PHP is less natural for long-running or real-time applications, although tools exist for that. Many new projects choose other technologies such as Node.js, Python or Java.",
+
+            // RELATED TOPICS
+            "Programming Languages Compared, JavaScript, HTML and CSS, SQL Basics, REST APIs and JSON, Web Development.",
+
+            // REFERENCES
+            Arrays.asList(
+                "PHP Manual - php.net: https://www.php.net/manual/en/",
+                "History of PHP - php.net: https://www.php.net/manual/en/history.php.php",
+                "PHP: The Right Way: https://phptherightway.com/"
+            )
+
+        ));
+
+                manager.addArticle(new Article(
+
+            37,
+
+            "C# (C Sharp)",
+
+            "Programming",
+
+            "An introduction to C# (pronounced C sharp), Microsoft's object-oriented language that runs on the .NET platform, covering classes and properties, how code is compiled to intermediate language and run by the CLR, LINQ, async and await, a comparison with Java, and what it is used for, including Unity games.",
+
+            // DEFINITION
+            "C# (pronounced C sharp) is a modern, statically typed, object-oriented programming language created by Microsoft. C# programs run on .NET, a software platform that provides a runtime, a large class library and tools. The language is used to build desktop apps, websites and web services, cloud services, mobile apps and games. Its syntax is similar to Java and C++, so programmers who know one of them can learn it quickly.",
+
+            // HISTORY
+            "C# was designed at Microsoft by a team led by Anders Hejlsberg, who had earlier created Turbo Pascal and Delphi. It was announced in 2000 as part of Microsoft's .NET initiative, and the first version of the .NET Framework was released in 2002. C# was standardized by Ecma International (ECMA-334) in 2002 and by ISO in 2003. Important additions over the years include generics in C# 2.0 (2005), LINQ in C# 3.0 (2007), and async and await in C# 5.0 (2012). In 2016, Microsoft released .NET Core, an open-source version that runs on Windows, Linux and macOS, and in 2020 it was combined with the other .NET versions under the name .NET 5. A new version of .NET and C# is released every year in November.",
+
+            // CORE CONCEPTS
+            "1. .NET and the CLR: The Common Language Runtime (CLR) is the engine that runs C# programs, manages memory and handles errors. The .NET class library supplies ready-made code for files, networking, data and more.\n\n" +
+            "2. Intermediate Language (IL): The C# compiler turns source code into IL, a form similar to Java bytecode. The CLR then compiles IL to machine code just in time while the program runs.\n\n" +
+            "3. Classes and objects: C# is fully object-oriented, with encapsulation, inheritance and polymorphism. A class can inherit from only one class but can implement many interfaces.\n\n" +
+            "4. Properties: A shorter way to write getters and setters. A property looks like a field but can run code when it is read or changed.\n\n" +
+            "5. Value types and reference types: A struct is a value type that is copied when assigned, and a class is a reference type that is shared through a reference.\n\n" +
+            "6. Generics: Code that works with any type, such as a list of integers or a list of students, while still being type-checked.\n\n" +
+            "7. LINQ (Language Integrated Query): Query syntax built into the language for filtering, sorting and grouping collections, arrays, databases and XML.\n\n" +
+            "8. Delegates, events and lambdas: Ways to pass methods around and react to events, such as a button click.\n\n" +
+            "9. async and await: A simple way to write code that waits for slow work, such as a network request, without freezing the program.\n\n" +
+            "10. Garbage collection and NuGet: Memory is freed automatically, and NuGet is the package manager for libraries.",
+
+            // HOW IT WORKS
+            "1. You write source code in .cs files, using an editor such as Visual Studio or Visual Studio Code.\n\n" +
+            "2. The C# compiler checks the types and translates the code into IL, stored in an assembly, which is a .dll or .exe file.\n\n" +
+            "3. When the program starts, the CLR loads the assembly.\n\n" +
+            "4. The just-in-time compiler converts the IL into machine code for the current computer, and the program runs.\n\n" +
+            "5. The garbage collector frees memory that is no longer used.\n\n" +
+            "With the .NET command-line tool, the steps for a new console program are:\n" +
+            "```\n" +
+            "dotnet new console -o Hello\n" +
+            "cd Hello\n" +
+            "dotnet run\n" +
+            "```",
+
+            // TYPES
+            "Kinds of programs built with C#:\n\n" +
+            "1. Desktop apps: Windows Forms and WPF for Windows, and cross-platform interfaces such as .NET MAUI and Avalonia.\n\n" +
+            "2. Web applications and APIs: ASP.NET Core, which runs on Windows, Linux and macOS.\n\n" +
+            "3. Games: The Unity game engine uses C# as its scripting language.\n\n" +
+            "4. Cloud and enterprise services: Widely used with Microsoft Azure.\n\n" +
+            "5. Mobile apps: .NET MAUI and its predecessor Xamarin.\n\n" +
+            "6. Console tools and background services.",
+
+            // EXAMPLES
+            "1. A complete program, using a feature called top-level statements:\n" +
+            "```\n" +
+            "Console.WriteLine(\"Hello, World!\");\n" +
+            "```\n\n" +
+            "2. A class with properties:\n" +
+            "```\n" +
+            "public class Student\n" +
+            "{\n" +
+            "    public string Name { get; set; }\n" +
+            "    public int Grade { get; set; }\n" +
+            "}\n" +
+            "```\n" +
+            "The properties replace the separate getName and setName methods that Java would need.\n\n" +
+            "3. LINQ to filter a list:\n" +
+            "```\n" +
+            "var scores = new List<int> { 90, 85, 77 };\n" +
+            "var high = scores.Where(s => s >= 80).ToList();\n" +
+            "Console.WriteLine(high.Count);\n" +
+            "```\n" +
+            "The output is 2, because only 90 and 85 are at least 80.\n\n" +
+            "4. C# compared with Java, the language of this course:\n" +
+            "```\n" +
+            "Feature            C#                              Java\n" +
+            "Runs on            CLR (.NET)                      JVM\n" +
+            "Compiled to        IL                              bytecode\n" +
+            "Getters/setters    properties                      methods\n" +
+            "Value types        struct                          primitives only\n" +
+            "Query collections  LINQ                            streams\n" +
+            "Owner              Microsoft                       Oracle\n" +
+            "```\n" +
+            "The two languages are very similar, so knowing Java makes C# easy to learn.",
+
+            // APPLICATIONS
+            "C# is used for Windows desktop software, web services built with ASP.NET Core, and business systems in banks and large companies. It is the main language for Unity, one of the most widely used game engines, which makes it popular for mobile and indie games. It is also used heavily on Microsoft Azure for cloud services.",
+
+            // ADVANTAGES
+            "C# is a clean, modern language with strong tooling, especially in Visual Studio. Static typing finds many mistakes before the program runs, and features such as properties, LINQ and async and await make code short and readable. With .NET, programs run on Windows, Linux and macOS, and a large library and a large community support it. Performance is good, and it is well suited to large projects.",
+
+            // LIMITATIONS
+            "The language is closely connected to Microsoft's ecosystem, and some tools and frameworks work best on Windows. The .NET platform is large, and its many versions and frameworks, such as the older .NET Framework and the newer .NET, can be confusing at first. Programs need the .NET runtime to run unless they are packaged together with it. Memory use is higher than in C or C++, and the garbage collector can cause short pauses. Fewer open-source libraries exist than for some other languages.",
+
+            // RELATED TOPICS
+            "Programming Languages Compared, Java Programming, Object-Oriented Programming, C++, Cloud Computing.",
+
+            // REFERENCES
+            Arrays.asList(
+                "C# documentation - Microsoft Learn: https://learn.microsoft.com/en-us/dotnet/csharp/",
+                ".NET - Microsoft: https://dotnet.microsoft.com/",
+                "ECMA-334 C# Language Specification - Ecma International: https://ecma-international.org/publications-and-standards/standards/ecma-334/"
+            )
+
+        ));
+
     }
 }
