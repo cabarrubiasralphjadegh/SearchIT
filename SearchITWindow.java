@@ -6,19 +6,36 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Random;
+import java.util.function.Consumer;
 
 public class SearchITWindow {
     private static String currentUser = "";
-    private static final Color BG = new Color(0x080d1b);
-    private static final Color PANEL = new Color(0x101a30);
+
     private static final Color CARD = new Color(0x142039);
-    private static final Color FIELD = new Color(0x17243b);
     private static final Color BORDER = new Color(0x263653);
     private static final Color ACCENT = new Color(0x38bdf8);
     private static final Color BLUE = new Color(0x2563eb);
+    private static final Color VIOLET = new Color(0x8b5cf6);
     private static final Color TEXT = new Color(0xe2e8f0);
     private static final Color MUTED = new Color(0xaab6cc);
     private static final String FENCE = "```";
+
+    private static final String[] CATEGORIES = {
+        "Programming", "Computer Fundamentals", "Networking",
+        "Web Development", "Database Management", "Cybersecurity",
+        "Emerging Technologies"
+    };
+
+    private static final Color[] GLOWS = {
+        new Color(0x38bdf8), new Color(0x8b5cf6), new Color(0x22d3ee),
+        new Color(0xa78bfa), new Color(0x60a5fa), new Color(0xc084fc),
+        new Color(0x2dd4bf)
+    };
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
@@ -33,7 +50,7 @@ public class SearchITWindow {
     }
 
     public static void showApp(String username) {
-            currentUser = username;
+        currentUser = username;
         ArticleManager manager = new ArticleManager();
         ArticleData.loadArticles(manager);
         ArticleDataProgramming.load(manager);
@@ -47,129 +64,46 @@ public class SearchITWindow {
     private static void createWindow(ArticleManager manager) {
 
         JFrame frame = new JFrame("SEARCH IT | IT Learning Platform");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1200, 780);
+        frame.setMinimumSize(new Dimension(900, 600));
+        frame.setLocationRelativeTo(null);
 
-frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-frame.setSize(1200, 780);
-frame.setMinimumSize(new Dimension(900, 600));
-frame.setLocationRelativeTo(null);
-frame.getContentPane().setBackground(BG);
-frame.setLayout(new BorderLayout());
+        Backdrop backdrop = new Backdrop(new BorderLayout());
+        frame.setContentPane(backdrop);
 
-        JLabel title = new JLabel("SEARCH IT");
-        title.setFont(new Font("SansSerif", Font.BOLD, 26));
-        title.setForeground(ACCENT);
+        CardLayout centerCards = new CardLayout();
+        JPanel centerPanel = new JPanel(centerCards);
+        centerPanel.setOpaque(false);
 
-        JLabel tagline = new JLabel("Search. Discover. Learn.");
-        tagline.setForeground(MUTED);
-tagline.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        // ---------- search bar ----------
+        HintField searchField = new HintField("Search topics: Java, DNS, blockchain...");
+        NeonButton searchButton = new NeonButton("SEARCH", true);
+        Pill pill = new Pill();
+        pill.setLayout(new BorderLayout(6, 0));
+        pill.add(searchField, BorderLayout.CENTER);
+        pill.add(searchButton, BorderLayout.EAST);
+        searchField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                pill.setFocused(true);
+                searchField.repaint();
+            }
 
-        JPanel heading = new JPanel(new GridLayout(2, 1));
-        heading.setOpaque(false);
-        heading.add(title);
-        heading.add(tagline);
+            @Override
+            public void focusLost(FocusEvent e) {
+                pill.setFocused(false);
+                searchField.repaint();
+            }
+        });
 
-        JTextField searchField = new JTextField();
-        searchField.setBackground(FIELD);
-        searchField.setForeground(TEXT);
-        searchField.setCaretColor(TEXT);
-        searchField.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        searchField.setBorder(BorderFactory.createCompoundBorder(
-                new LineBorder(BORDER), new EmptyBorder(8, 10, 8, 10)));
-
-        JButton searchButton = new JButton("Search");
-        searchButton.setBackground(BLUE);
-        searchButton.setForeground(Color.WHITE);
-        searchButton.setFont(new Font("SansSerif", Font.BOLD, 15));
-        searchButton.setFocusPainted(false);
-        searchButton.setOpaque(true);
-        searchButton.setBorder(new EmptyBorder(10, 22, 10, 22));
-
-        JPanel searchRow = new JPanel(new BorderLayout(8, 0));
-        searchRow.setOpaque(false);
-        searchRow.add(searchField, BorderLayout.CENTER);
-        searchRow.add(searchButton, BorderLayout.EAST);
-
-        JPanel top = new JPanel(new BorderLayout(0, 16));
-top.setBackground(PANEL);
-top.setBorder(new EmptyBorder(22, 26, 22, 26));
-        top.add(heading, BorderLayout.NORTH);
-                String[] categories = {"Programming", "Computer Fundamentals", "Networking",
-                "Web Development", "Database Management", "Cybersecurity",
-                "Emerging Technologies"};
-
-        JPanel categoryRow = new JPanel();
-categoryRow.setLayout(new BoxLayout(categoryRow, BoxLayout.Y_AXIS));
-categoryRow.setOpaque(false);
-
-        for (String name : categories) {
-            JButton button = new JButton(name);
-            button.setAlignmentX(Component.LEFT_ALIGNMENT);
-button.setMaximumSize(new Dimension(220, 42));
-button.setPreferredSize(new Dimension(220, 42));
-button.setHorizontalAlignment(SwingConstants.LEFT);
-            button.setBackground(new Color(0x172944));
-button.setForeground(TEXT);
-button.setFocusPainted(false);
-button.setOpaque(true);
-button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-button.setFont(new Font("SansSerif", Font.PLAIN, 13));
-
-button.setBorder(BorderFactory.createCompoundBorder(
-        new LineBorder(new Color(0x304568), 1, true),
-        new EmptyBorder(10, 14, 10, 14)
-));
-button.addMouseListener(new java.awt.event.MouseAdapter() {
-    @Override
-    public void mouseEntered(java.awt.event.MouseEvent e) {
-        button.setBackground(new Color(0x23446b));
-        button.setForeground(ACCENT);
-    }
-
-    @Override
-    public void mouseExited(java.awt.event.MouseEvent e) {
-        button.setBackground(new Color(0x172944));
-        button.setForeground(TEXT);
-    }
-});
-            button.addActionListener(e -> {
-                searchField.setText(name);
-                searchButton.doClick();
-            });
-            categoryRow.add(button);
-        }
-
-        JPanel searchArea = new JPanel(new BorderLayout());
-searchArea.setOpaque(false);
-searchArea.add(searchRow, BorderLayout.CENTER);
-
-top.add(searchArea, BorderLayout.CENTER);
-
-// Sidebar navigation
-JPanel sidebar = new JPanel(new BorderLayout(0, 12));
-sidebar.setBackground(PANEL);
-sidebar.setPreferredSize(new Dimension(245, 0));
-sidebar.setBorder(new EmptyBorder(18, 12, 18, 12));
-
-JLabel navTitle = new JLabel("EXPLORE TOPICS");
-navTitle.setFont(new Font("SansSerif", Font.BOLD, 14));
-navTitle.setForeground(ACCENT);
-
-JScrollPane categoryScroll = new JScrollPane(categoryRow);
-categoryScroll.setBorder(null);
-categoryScroll.getViewport().setBackground(PANEL);
-categoryScroll.setHorizontalScrollBarPolicy(
-        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
-);
-
-sidebar.add(navTitle, BorderLayout.NORTH);
-sidebar.add(categoryScroll, BorderLayout.CENTER);
-
+        // ---------- article list and reader ----------
         DefaultListModel<Article> model = new DefaultListModel<>();
         JList<Article> resultList = new JList<>(model);
         resultList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         resultList.setBackground(CARD);
         resultList.setForeground(TEXT);
-        resultList.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        resultList.setFont(Fx.body(Font.BOLD, 14f));
         resultList.setSelectionBackground(BLUE);
         resultList.setSelectionForeground(Color.WHITE);
         resultList.setCellRenderer(new DefaultListCellRenderer() {
@@ -178,17 +112,23 @@ sidebar.add(categoryScroll, BorderLayout.CENTER);
                     int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 setText(((Article) value).getTitle());
-                setBorder(new EmptyBorder(8, 10, 8, 10));
+                setBorder(new EmptyBorder(9, 12, 9, 12));
                 return this;
             }
         });
 
+        String bodyFamily = Fx.body(Font.PLAIN, 14f).getFamily();
+        String headFamily = Fx.heading(Font.PLAIN, 14f).getFamily();
+
         HTMLEditorKit kit = new HTMLEditorKit();
         StyleSheet css = kit.getStyleSheet();
-        css.addRule("body { font-family: SansSerif; font-size: 14px; color: #e2e8f0; background-color: #0b1220; margin: 14px; }");
+        css.addRule("body { color: #e2e8f0; background-color: #0b1220; margin: 16px; font-size: 17px; }");
+        css.addRule("body { font-family: " + bodyFamily + "; }");
         css.addRule("h1 { color: #38bdf8; font-size: 24px; }");
-        css.addRule("h2 { color: #a78bfa; font-size: 18px; margin-top: 18px; }");
-        css.addRule("h3 { color: #7dd3fc; font-size: 15px; }");
+        css.addRule("h1 { font-family: " + headFamily + "; }");
+        css.addRule("h2 { color: #a78bfa; font-size: 17px; margin-top: 18px; }");
+        css.addRule("h2 { font-family: " + headFamily + "; }");
+        css.addRule("h3 { color: #7dd3fc; font-size: 17px; }");
         css.addRule("pre { background-color: #020b04; color: #38bdf8; font-family: Monospaced; font-size: 13px; padding: 8px; }");
         css.addRule("b { color: #ffffff; }");
         css.addRule("li { margin-bottom: 4px; }");
@@ -198,10 +138,6 @@ sidebar.add(categoryScroll, BorderLayout.CENTER);
         viewer.setEditable(false);
         viewer.setBackground(new Color(0x0b1220));
         viewer.setText(page("<p>Type a topic and press Search.</p>"));
-
-                CardLayout centerCards = new CardLayout();
-        JPanel centerPanel = new JPanel(centerCards);
-        centerPanel.setBackground(BG);
 
         Runnable doSearch = () -> {
             centerCards.show(centerPanel, "search");
@@ -213,6 +149,9 @@ sidebar.add(categoryScroll, BorderLayout.CENTER);
                     ? "No matching articles found."
                     : model.size() + " result(s) found. Select an article from the list.";
             viewer.setText(page("<p>" + msg + "</p>"));
+            if (!model.isEmpty()) {
+                resultList.setSelectedIndex(0);
+            }
         };
 
         searchButton.addActionListener(e -> doSearch.run());
@@ -228,11 +167,18 @@ sidebar.add(categoryScroll, BorderLayout.CENTER);
             }
         });
 
+        Consumer<Article> openArticle = a -> {
+            centerCards.show(centerPanel, "search");
+            model.clear();
+            model.addElement(a);
+            resultList.setSelectedIndex(0);
+        };
+
         JScrollPane listScroll = new JScrollPane(resultList);
         listScroll.setBorder(new LineBorder(BORDER));
         listScroll.getViewport().setBackground(CARD);
         listScroll.setPreferredSize(new Dimension(280, 0));
-listScroll.getVerticalScrollBar().setUnitIncrement(16);
+        listScroll.getVerticalScrollBar().setUnitIncrement(16);
 
         JScrollPane viewerScroll = new JScrollPane(viewer);
         viewerScroll.setBorder(new LineBorder(BORDER));
@@ -242,64 +188,336 @@ listScroll.getVerticalScrollBar().setUnitIncrement(16);
         split.setDividerLocation(270);
         split.setDividerSize(6);
         split.setContinuousLayout(true);
-        split.setBackground(BG);
-        split.setBorder(new EmptyBorder(12, 12, 12, 12));
-                DashboardPanel dashboard = new DashboardPanel(currentUser, manager, categories,
+        split.setOpaque(false);
+        split.setBorder(new EmptyBorder(14, 14, 14, 14));
+
+        Fx.FadePanel searchView = new Fx.FadePanel(new BorderLayout());
+        searchView.setOpaque(false);
+        searchView.add(split, BorderLayout.CENTER);
+
+        // ---------- dashboard ----------
+        DashboardPanel dashboard = new DashboardPanel(currentUser, manager, CATEGORIES,
                 name -> {
                     searchField.setText(name);
                     searchButton.doClick();
-                });
+                }, openArticle);
+
         centerPanel.add(dashboard, "home");
-        centerPanel.add(split, "search");
+        centerPanel.add(searchView, "search");
         centerCards.show(centerPanel, "home");
 
-        // Main application layout
-JPanel mainContent = new JPanel(new BorderLayout());
-mainContent.setBackground(BG);
+        // ---------- header ----------
+        JLabel logo = new JLabel("SEARCH IT");
+        logo.setFont(Fx.heading(Font.BOLD, 22f));
+        logo.setForeground(ACCENT);
+        JLabel tag = new JLabel("IT LEARNING PLATFORM");
+        tag.setFont(Fx.body(Font.BOLD, 11f));
+        tag.setForeground(MUTED);
+        JPanel brand = new JPanel(new GridLayout(2, 1));
+        brand.setOpaque(false);
+        brand.add(logo);
+        brand.add(tag);
 
-mainContent.add(sidebar, BorderLayout.WEST);
-mainContent.add(centerPanel, BorderLayout.CENTER);
-
-        JPanel userBar = new JPanel(new BorderLayout());
-        userBar.setBackground(new Color(0x080d1b));
-        userBar.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 16, 8, 16));
-
-        JLabel welcomeLabel = new JLabel("Welcome, " + currentUser);
-        welcomeLabel.setForeground(new Color(0x38bdf8));
-        welcomeLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
-
-        JButton logoutButton = new JButton("Logout");
-        logoutButton.setBackground(new Color(0x2563eb));
-        logoutButton.setForeground(Color.WHITE);
-        logoutButton.setFocusPainted(false);
+        JLabel userLabel = new JLabel("Welcome, " + currentUser);
+        userLabel.setFont(Fx.body(Font.BOLD, 14f));
+        userLabel.setForeground(ACCENT);
+        NeonButton homeButton = new NeonButton("HOME", false);
+        homeButton.addActionListener(ev -> centerCards.show(centerPanel, "home"));
+        NeonButton logoutButton = new NeonButton("LOGOUT", false);
         logoutButton.addActionListener(ev -> {
             frame.dispose();
             main(new String[0]);
         });
 
-        JButton homeButton = new JButton("Home");
-        homeButton.setBackground(new Color(0x172944));
-        homeButton.setForeground(new Color(0x38bdf8));
-        homeButton.setFocusPainted(false);
-        homeButton.addActionListener(ev -> centerCards.show(centerPanel, "home"));
+        JPanel actions = new JPanel(new GridBagLayout());
+        actions.setOpaque(false);
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.insets = new Insets(0, 10, 0, 0);
+        gc.gridx = 0;
+        actions.add(userLabel, gc);
+        gc.gridx = 1;
+        actions.add(homeButton, gc);
+        gc.gridx = 2;
+        actions.add(logoutButton, gc);
 
-        JPanel barButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
-        barButtons.setOpaque(false);
-        barButtons.add(homeButton);
-        barButtons.add(logoutButton);
+        HeaderPanel header = new HeaderPanel();
+        header.setLayout(new BorderLayout(20, 0));
+        header.setBorder(new EmptyBorder(12, 24, 14, 24));
+        header.add(brand, BorderLayout.WEST);
+        header.add(centered(pill), BorderLayout.CENTER);
+        header.add(actions, BorderLayout.EAST);
 
-        userBar.add(welcomeLabel, BorderLayout.WEST);
-        userBar.add(barButtons, BorderLayout.EAST);
+        // ---------- sidebar ----------
+        JLabel navTitle = new JLabel("EXPLORE TOPICS");
+        navTitle.setFont(Fx.heading(Font.BOLD, 12f));
+        navTitle.setForeground(ACCENT);
 
-        JPanel northWrap = new JPanel(new BorderLayout());
-        northWrap.add(userBar, BorderLayout.NORTH);
-        northWrap.add(top, BorderLayout.CENTER);
-        frame.add(northWrap, BorderLayout.NORTH);
-frame.add(mainContent, BorderLayout.CENTER);
+        JPanel navList = new JPanel(new GridLayout(0, 1, 0, 10));
+        navList.setOpaque(false);
+        for (int i = 0; i < CATEGORIES.length; i++) {
+            String category = CATEGORIES[i];
+            int count = 0;
+            for (Article a : manager.getAllArticles()) {
+                if (a.getCategory().equalsIgnoreCase(category)) {
+                    count++;
+                }
+            }
+            NavButton b = new NavButton(category,
+                    count + (count == 1 ? " article" : " articles"),
+                    GLOWS[i % GLOWS.length]);
+            b.addActionListener(e -> {
+                searchField.setText(category);
+                searchButton.doClick();
+            });
+            navList.add(b);
+        }
+        NavButton surprise = new NavButton("Surprise me", "Open a random article", VIOLET);
+        surprise.addActionListener(e -> {
+            java.util.List<Article> all = manager.getAllArticles();
+            if (!all.isEmpty()) {
+                openArticle.accept(all.get(new Random().nextInt(all.size())));
+            }
+        });
+        navList.add(surprise);
 
-frame.setVisible(true);
-frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        SidePanel sidebar = new SidePanel();
+        sidebar.setLayout(new BorderLayout(0, 14));
+        sidebar.setPreferredSize(new Dimension(250, 0));
+        sidebar.setBorder(new EmptyBorder(20, 16, 20, 16));
+        sidebar.add(navTitle, BorderLayout.NORTH);
+        sidebar.add(navList, BorderLayout.CENTER);
+
+        // ---------- assemble ----------
+        JPanel body = new JPanel(new BorderLayout());
+        body.setOpaque(false);
+        body.add(sidebar, BorderLayout.WEST);
+        body.add(centerPanel, BorderLayout.CENTER);
+
+        backdrop.add(header, BorderLayout.NORTH);
+        backdrop.add(body, BorderLayout.CENTER);
+        backdrop.setActiveWhen(dashboard::isShowing);
+
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setVisible(true);
     }
+
+    private static JPanel centered(JComponent c) {
+        JPanel p = new JPanel(new GridBagLayout());
+        p.setOpaque(false);
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.weightx = 1;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.anchor = GridBagConstraints.CENTER;
+        p.add(c, gc);
+        return p;
+    }
+
+    // ---------- custom components ----------
+
+    /** Text field that shows a hint while it is empty. */
+    private static class HintField extends JTextField {
+        private final String hint;
+
+        HintField(String hint) {
+            this.hint = hint;
+            setOpaque(false);
+            setForeground(TEXT);
+            setCaretColor(ACCENT);
+            setFont(Fx.body(Font.PLAIN, 16f));
+            setBorder(new EmptyBorder(8, 16, 8, 8));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (getText().isEmpty() && !isFocusOwner()) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                g2.setColor(new Color(0x7f8ea8));
+                g2.setFont(getFont());
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(hint, getInsets().left,
+                        (getHeight() + fm.getAscent() - fm.getDescent()) / 2);
+                g2.dispose();
+            }
+        }
+    }
+
+    /** Rounded search bar container that glows when focused. */
+    private static class Pill extends JPanel {
+        private boolean focused;
+
+        Pill() {
+            setOpaque(false);
+            setBorder(new EmptyBorder(4, 4, 4, 4));
+        }
+
+        void setFocused(boolean focused) {
+            this.focused = focused;
+            repaint();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            int w = getWidth() - 4;
+            int h = getHeight() - 4;
+            if (focused) {
+                for (int i = 5; i >= 1; i--) {
+                    g2.setColor(new Color(56, 189, 248, 26));
+                    g2.setStroke(new BasicStroke(i * 2));
+                    g2.drawRoundRect(2, 2, w, h, h, h);
+                }
+            }
+            g2.setColor(new Color(11, 19, 38, 225));
+            g2.fillRoundRect(2, 2, w, h, h, h);
+            g2.setColor(new Color(56, 189, 248, focused ? 255 : 120));
+            g2.setStroke(new BasicStroke(1.5f));
+            g2.drawRoundRect(2, 2, w, h, h, h);
+            g2.dispose();
+            super.paintComponent(g);
+        }
+    }
+
+    /** Dark translucent header with a glowing gradient line at the bottom. */
+    private static class HeaderPanel extends JPanel {
+        HeaderPanel() {
+            setOpaque(false);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            int w = getWidth();
+            int h = getHeight();
+            if (w <= 0) {
+                return;
+            }
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(new Color(5, 8, 22, 185));
+            g2.fillRect(0, 0, w, h);
+            float[] stops = {0f, 0.5f, 1f};
+            g2.setPaint(new LinearGradientPaint(0, 0, w, 0, stops, new Color[]{
+                new Color(56, 189, 248, 70), new Color(139, 92, 246, 70), new Color(34, 211, 238, 70)}));
+            g2.fillRect(0, h - 8, w, 6);
+            g2.setPaint(new LinearGradientPaint(0, 0, w, 0, stops, new Color[]{
+                new Color(0x38bdf8), new Color(0x8b5cf6), new Color(0x22d3ee)}));
+            g2.fillRect(0, h - 2, w, 2);
+            g2.dispose();
+            super.paintComponent(g);
+        }
+    }
+
+    /** Dark translucent sidebar with a thin glowing edge. */
+    private static class SidePanel extends JPanel {
+        SidePanel() {
+            setOpaque(false);
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(new Color(5, 8, 22, 160));
+            g2.fillRect(0, 0, getWidth(), getHeight());
+            g2.setColor(new Color(56, 189, 248, 70));
+            g2.fillRect(getWidth() - 1, 0, 1, getHeight());
+            g2.dispose();
+            super.paintComponent(g);
+        }
+    }
+
+    /** Large glowing sidebar button with a title and a small caption. */
+    private static class NavButton extends JButton {
+        private final String name;
+        private final String sub;
+        private final Color glow;
+        private final Font subFont = Fx.body(Font.PLAIN, 12f);
+        private boolean hover;
+        private int fitWidth = -1;
+        private Font fitFont;
+
+        NavButton(String name, String sub, Color glow) {
+            this.name = name;
+            this.sub = sub;
+            this.glow = glow;
+            setContentAreaFilled(false);
+            setBorderPainted(false);
+            setFocusPainted(false);
+            setOpaque(false);
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    hover = true;
+                    repaint();
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    hover = false;
+                    repaint();
+                }
+            });
+        }
+
+        private Font fit(Graphics2D g2, int maxWidth) {
+            float size = 13f;
+            Font f = Fx.heading(Font.BOLD, size);
+            while (size > 8f && g2.getFontMetrics(f).stringWidth(name) > maxWidth) {
+                size -= 0.5f;
+                f = Fx.heading(Font.BOLD, size);
+            }
+            return f;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            int w = getWidth();
+            int h = getHeight();
+
+            if (hover) {
+                for (int i = 4; i >= 1; i--) {
+                    g2.setColor(new Color(glow.getRed(), glow.getGreen(), glow.getBlue(), 28));
+                    g2.setStroke(new BasicStroke(i * 2));
+                    g2.drawRoundRect(4, 4, w - 8, h - 8, 18, 18);
+                }
+            }
+
+            g2.setColor(hover ? new Color(27, 47, 82, 240) : new Color(16, 27, 51, 205));
+            g2.fillRoundRect(4, 4, w - 8, h - 8, 18, 18);
+
+            g2.setColor(glow);
+            g2.fillRoundRect(4, 12, 4, Math.max(8, h - 24), 4, 4);
+
+            g2.setColor(new Color(glow.getRed(), glow.getGreen(), glow.getBlue(),
+                    hover ? 255 : 110));
+            g2.setStroke(new BasicStroke(1.3f));
+            g2.drawRoundRect(4, 4, w - 8, h - 8, 18, 18);
+
+            int avail = w - 52;
+            if (fitFont == null || fitWidth != avail) {
+                fitFont = fit(g2, avail);
+                fitWidth = avail;
+            }
+            int cy = h / 2;
+            g2.setFont(fitFont);
+            g2.setColor(hover ? glow : TEXT);
+            g2.drawString(name, 22, cy - 2);
+            g2.setFont(subFont);
+            g2.setColor(MUTED);
+            g2.drawString(sub, 22, cy + 16);
+            g2.dispose();
+        }
+    }
+
+    // ---------- article formatting ----------
 
     private static String page(String body) {
         return "<html><body>" + body + "</body></html>";

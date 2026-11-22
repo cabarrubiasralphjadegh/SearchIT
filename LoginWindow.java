@@ -187,21 +187,21 @@ public class LoginWindow extends JFrame {
         f.setBackground(new Color(0x0b1326));
         f.setForeground(TEXT);
         f.setCaretColor(ACCENT);
-        f.setFont(new Font("SansSerif", Font.PLAIN, 15));
+        f.setFont(Fx.body(Font.PLAIN, 15f));
         f.setBorder(BorderFactoryHelper.input());
         return f;
     }
 
     private static JLabel title(String text) {
         JLabel l = new JLabel(text);
-        l.setFont(new Font("SansSerif", Font.BOLD, 28));
+        l.setFont(Fx.heading(Font.BOLD, 24f));
         l.setForeground(TEXT);
         return l;
     }
 
     private static JLabel small(String text) {
         JLabel l = new JLabel(text);
-        l.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        l.setFont(Fx.body(Font.PLAIN, 13f));
         l.setForeground(MUTED);
         return l;
     }
@@ -210,7 +210,7 @@ public class LoginWindow extends JFrame {
         JButton b = new JButton(text);
         b.setBackground(ACCENT);
         b.setForeground(BG);
-        b.setFont(new Font("SansSerif", Font.BOLD, 15));
+        b.setFont(Fx.body(Font.BOLD, 15f));
         b.setFocusPainted(false);
         b.setOpaque(true);
         b.setBorder(new EmptyBorder(10, 16, 10, 16));
