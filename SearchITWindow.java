@@ -199,7 +199,12 @@ sidebar.add(categoryScroll, BorderLayout.CENTER);
         viewer.setBackground(new Color(0x0b1220));
         viewer.setText(page("<p>Type a topic and press Search.</p>"));
 
+                CardLayout centerCards = new CardLayout();
+        JPanel centerPanel = new JPanel(centerCards);
+        centerPanel.setBackground(BG);
+
         Runnable doSearch = () -> {
+            centerCards.show(centerPanel, "search");
             model.clear();
             for (Article a : manager.searchArticles(searchField.getText())) {
                 model.addElement(a);
@@ -239,13 +244,21 @@ listScroll.getVerticalScrollBar().setUnitIncrement(16);
         split.setContinuousLayout(true);
         split.setBackground(BG);
         split.setBorder(new EmptyBorder(12, 12, 12, 12));
+                DashboardPanel dashboard = new DashboardPanel(currentUser, manager, categories,
+                name -> {
+                    searchField.setText(name);
+                    searchButton.doClick();
+                });
+        centerPanel.add(dashboard, "home");
+        centerPanel.add(split, "search");
+        centerCards.show(centerPanel, "home");
 
         // Main application layout
 JPanel mainContent = new JPanel(new BorderLayout());
 mainContent.setBackground(BG);
 
 mainContent.add(sidebar, BorderLayout.WEST);
-mainContent.add(split, BorderLayout.CENTER);
+mainContent.add(centerPanel, BorderLayout.CENTER);
 
         JPanel userBar = new JPanel(new BorderLayout());
         userBar.setBackground(new Color(0x080d1b));
@@ -264,8 +277,19 @@ mainContent.add(split, BorderLayout.CENTER);
             main(new String[0]);
         });
 
+        JButton homeButton = new JButton("Home");
+        homeButton.setBackground(new Color(0x172944));
+        homeButton.setForeground(new Color(0x38bdf8));
+        homeButton.setFocusPainted(false);
+        homeButton.addActionListener(ev -> centerCards.show(centerPanel, "home"));
+
+        JPanel barButtons = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        barButtons.setOpaque(false);
+        barButtons.add(homeButton);
+        barButtons.add(logoutButton);
+
         userBar.add(welcomeLabel, BorderLayout.WEST);
-        userBar.add(logoutButton, BorderLayout.EAST);
+        userBar.add(barButtons, BorderLayout.EAST);
 
         JPanel northWrap = new JPanel(new BorderLayout());
         northWrap.add(userBar, BorderLayout.NORTH);
@@ -274,6 +298,7 @@ mainContent.add(split, BorderLayout.CENTER);
 frame.add(mainContent, BorderLayout.CENTER);
 
 frame.setVisible(true);
+frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private static String page(String body) {
