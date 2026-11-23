@@ -3,6 +3,10 @@ package org.example;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +25,15 @@ public class DashboardPanel extends JPanel {
         new Color(0x2dd4bf)
     };
 
+    private static final int RECENT_MAX = 3;
+
     private final List<GlowCard> cards = new ArrayList<>();
+    private final List<GlowCard> recentCards = new ArrayList<>();
+    private final List<Article> recent = new ArrayList<>();
+    private final JPanel recentRow = new JPanel(new GridLayout(1, RECENT_MAX, 14, 14));
+    private final ArticleManager manager;
+    private final Consumer<Article> openHandler;
+    private final File recentFile;
     private final List<JLabel> statLabels = new ArrayList<>();
     private final List<Integer> statTargets = new ArrayList<>();
     private final JLabel sub = new JLabel(" ");
@@ -38,6 +50,12 @@ public class DashboardPanel extends JPanel {
 
         setOpaque(false);
         setLayout(new BorderLayout());
+
+        this.manager = manager;
+        this.openHandler = onOpen;
+        this.recentFile = new File("data",
+                "recent_" + username.replaceAll("[^A-Za-z0-9_-]", "_") + ".txt");
+        loadRecent();
 
         List<Article> all = manager.getAllArticles();
         int refs = 0;
@@ -102,6 +120,12 @@ public class DashboardPanel extends JPanel {
             }
         }));
 
+        JLabel recentHeading = new JLabel("RECENTLY VIEWED");
+        recentHeading.setFont(Fx.heading(Font.BOLD, 15f));
+        recentHeading.setForeground(new Color(0xa78bfa));
+        recentRow.setOpaque(false);
+        rebuildRecent();
+
         JLabel heading = new JLabel("BROWSE BY CATEGORY");
         heading.setFont(Fx.heading(Font.BOLD, 15f));
         heading.setForeground(new Color(0x38bdf8));
@@ -114,6 +138,10 @@ public class DashboardPanel extends JPanel {
         content.add(fullWidth(banner));
         content.add(Box.createVerticalStrut(16));
         content.add(fullWidth(stats));
+        content.add(Box.createVerticalStrut(24));
+        content.add(fullWidth(recentHeading));
+        content.add(Box.createVerticalStrut(10));
+        content.add(fullWidth(recentRow));
         content.add(Box.createVerticalStrut(24));
         content.add(fullWidth(heading));
         content.add(Box.createVerticalStrut(10));
@@ -136,8 +164,10 @@ public class DashboardPanel extends JPanel {
 
     private void playIntro() {
         // Cards fade and slide in one after another
-        for (int i = 0; i < cards.size(); i++) {
-            GlowCard c = cards.get(i);
+        List<GlowCard> animated = new ArrayList<>(cards);
+        animated.addAll(recentCards);
+        for (int i = 0; i < animated.size(); i++) {
+            GlowCard c = animated.get(i);
             c.setAlpha(0f);
             Fx.later(60 * i, () -> Fx.animate(450, p -> c.setAlpha((float) p)));
         }
@@ -160,8 +190,14 @@ public class DashboardPanel extends JPanel {
     }
 
     private GlowCard card(String title, String subtitle, Color glow, Runnable onClick) {
-        GlowCard card = new GlowCard(glow);
+        GlowCard card = makeCard(title, subtitle, glow, onClick);
         cards.add(card);
+        return card;
+    }
+
+    private GlowCard makeCard(String title, String subtitle, Color glow, Runnable onClick) {
+        GlowCard card = new GlowCard(glow);
+        card.setAlpha(1f);
         card.setLayout(new GridLayout(0, 1, 0, 4));
         card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -208,6 +244,72 @@ public class DashboardPanel extends JPanel {
         statLabels.add(big);
         statTargets.add(target);
         return card;
+    }
+
+    /** Called by the main window whenever an article is opened in the reader. */
+    public void addRecent(Article a) {
+        recent.removeIf(x -> x.getTitle().equals(a.getTitle()));
+        recent.add(0, a);
+        while (recent.size() > RECENT_MAX) {
+            recent.remove(recent.size() - 1);
+        }
+        saveRecent();
+        rebuildRecent();
+    }
+
+    private void rebuildRecent() {
+        recentRow.removeAll();
+        recentCards.clear();
+        for (int i = 0; i < RECENT_MAX; i++) {
+            if (i < recent.size()) {
+                Article a = recent.get(i);
+                GlowCard c = makeCard(a.getTitle(), a.getCategory(),
+                        GLOWS[i % GLOWS.length], () -> openHandler.accept(a));
+                recentCards.add(c);
+                recentRow.add(c);
+            } else if (i == 0) {
+                GlowCard c = makeCard("Nothing here yet",
+                        "Open an article and it will show up here", GLOWS[1], () -> { });
+                c.setCursor(Cursor.getDefaultCursor());
+                recentCards.add(c);
+                recentRow.add(c);
+            } else {
+                JPanel spacer = new JPanel();
+                spacer.setOpaque(false);
+                recentRow.add(spacer);
+            }
+        }
+        recentRow.revalidate();
+        recentRow.repaint();
+    }
+
+    private void loadRecent() {
+        if (!recentFile.exists()) {
+            return;
+        }
+        try {
+            for (String line : Files.readAllLines(recentFile.toPath(), StandardCharsets.UTF_8)) {
+                Article a = manager.getArticleByTitle(line.trim());
+                if (a != null && recent.size() < RECENT_MAX) {
+                    recent.add(a);
+                }
+            }
+        } catch (IOException ignored) {
+            // no saved history yet, start empty
+        }
+    }
+
+    private void saveRecent() {
+        List<String> lines = new ArrayList<>();
+        for (Article a : recent) {
+            lines.add(a.getTitle());
+        }
+        try {
+            recentFile.getParentFile().mkdirs();
+            Files.write(recentFile.toPath(), lines, StandardCharsets.UTF_8);
+        } catch (IOException ignored) {
+            // history is a convenience, never stop the app because of it
+        }
     }
 
     private static JComponent fullWidth(JComponent c) {

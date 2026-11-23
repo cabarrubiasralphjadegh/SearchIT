@@ -336,6 +336,15 @@ public class SearchITWindow {
                     searchButton.doClick();
                 }, openArticle);
 
+                        resultList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                Article viewed = resultList.getSelectedValue();
+                if (viewed != null) {
+                    dashboard.addRecent(viewed);
+                }
+            }
+        });
+        
         centerPanel.add(dashboard, "home");
         centerPanel.add(searchView, "search");
         centerCards.show(centerPanel, "home");
