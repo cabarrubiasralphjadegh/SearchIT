@@ -198,7 +198,11 @@ public class SearchITWindow {
         JPopupMenu sugPopup = new JPopupMenu();
         sugPopup.setFocusable(false);
         sugPopup.setBorder(new LineBorder(ACCENT));
-        sugPopup.add(sugList);
+            JPanel sugBox = new JPanel(new BorderLayout());
+        sugBox.setBackground(new Color(0x0e1830));
+        sugBox.add(sugList, BorderLayout.CENTER);
+        sugPopup.add(sugBox);
+        sugPopup.setBackground(new Color(0x0e1830));
 
         Runnable updateSuggestions = () -> {
             String q = searchField.getText().trim().toLowerCase();
@@ -344,7 +348,7 @@ public class SearchITWindow {
                 }
             }
         });
-        
+
         centerPanel.add(dashboard, "home");
         centerPanel.add(searchView, "search");
         centerCards.show(centerPanel, "home");
