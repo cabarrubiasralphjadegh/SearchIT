@@ -155,7 +155,6 @@ public class SearchITWindow {
         };
 
         searchButton.addActionListener(e -> doSearch.run());
-        searchField.addActionListener(e -> doSearch.run());
 
         resultList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
@@ -174,6 +173,141 @@ public class SearchITWindow {
             resultList.setSelectedIndex(0);
         };
 
+                // ---------- search suggestions ----------
+        DefaultListModel<Article> sugModel = new DefaultListModel<>();
+        JList<Article> sugList = new JList<>(sugModel);
+        sugList.setFocusable(false);
+        sugList.setBackground(new Color(0x0e1830));
+        sugList.setForeground(TEXT);
+        sugList.setSelectionBackground(BLUE);
+        sugList.setSelectionForeground(Color.WHITE);
+        sugList.setFont(Fx.body(Font.BOLD, 15f));
+        sugList.setFixedCellHeight(38);
+        sugList.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value,
+                    int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                Article a = (Article) value;
+                setText(a.getTitle() + "   (" + a.getCategory() + ")");
+                setBorder(new EmptyBorder(0, 14, 0, 14));
+                return this;
+            }
+        });
+
+        JPopupMenu sugPopup = new JPopupMenu();
+        sugPopup.setFocusable(false);
+        sugPopup.setBorder(new LineBorder(ACCENT));
+        sugPopup.add(sugList);
+
+        Runnable updateSuggestions = () -> {
+            String q = searchField.getText().trim().toLowerCase();
+            sugModel.clear();
+            if (!q.isEmpty()) {
+                for (Article a : manager.getAllArticles()) {
+                    if (a.getTitle().toLowerCase().contains(q)) {
+                        sugModel.addElement(a);
+                        if (sugModel.size() >= 6) {
+                            break;
+                        }
+                    }
+                }
+            }
+            if (sugModel.isEmpty() || !searchField.isFocusOwner()) {
+                sugPopup.setVisible(false);
+            } else {
+                sugList.setSelectedIndex(-1);
+                sugPopup.setPopupSize(pill.getWidth(), sugModel.size() * 38 + 4);
+                if (!sugPopup.isVisible()) {
+                    sugPopup.show(pill, 0, pill.getHeight() + 4);
+                }
+            }
+        };
+
+        searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                updateSuggestions.run();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                updateSuggestions.run();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                updateSuggestions.run();
+            }
+        });
+
+        searchField.addActionListener(e -> {
+            Article picked = sugPopup.isVisible() ? sugList.getSelectedValue() : null;
+            sugPopup.setVisible(false);
+            if (picked != null) {
+                openArticle.accept(picked);
+            } else {
+                doSearch.run();
+            }
+        });
+        searchButton.addActionListener(e -> sugPopup.setVisible(false));
+
+        searchField.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                sugPopup.setVisible(false);
+            }
+        });
+
+        sugList.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(java.awt.event.MouseEvent e) {
+                sugList.setSelectedIndex(sugList.locationToIndex(e.getPoint()));
+            }
+        });
+        sugList.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+                int i = sugList.locationToIndex(e.getPoint());
+                if (i >= 0) {
+                    Article a = sugModel.get(i);
+                    sugPopup.setVisible(false);
+                    openArticle.accept(a);
+                }
+            }
+        });
+
+        InputMap im = searchField.getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap am = searchField.getActionMap();
+        im.put(KeyStroke.getKeyStroke("DOWN"), "sugDown");
+        im.put(KeyStroke.getKeyStroke("UP"), "sugUp");
+        im.put(KeyStroke.getKeyStroke("ESCAPE"), "sugHide");
+        am.put("sugDown", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int n = sugModel.size();
+                if (sugPopup.isVisible() && n > 0) {
+                    sugList.setSelectedIndex((sugList.getSelectedIndex() + 1) % n);
+                }
+            }
+        });
+        am.put("sugUp", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                int n = sugModel.size();
+                if (sugPopup.isVisible() && n > 0) {
+                    int s = sugList.getSelectedIndex();
+                    sugList.setSelectedIndex(s <= 0 ? n - 1 : s - 1);
+                }
+            }
+        });
+        am.put("sugHide", new AbstractAction() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                sugPopup.setVisible(false);
+            }
+        });
+        
         JScrollPane listScroll = new JScrollPane(resultList);
         listScroll.setBorder(new LineBorder(BORDER));
         listScroll.getViewport().setBackground(CARD);
