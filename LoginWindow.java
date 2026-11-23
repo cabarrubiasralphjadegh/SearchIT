@@ -1,301 +1,406 @@
 package org.example;
 
-import java.awt.*;
-import java.util.Arrays;
-import java.util.function.Consumer;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.Arrays;
+import java.util.function.Consumer;
 
 public class LoginWindow extends JFrame {
 
-    private static final Color BG = new Color(0x080d1b);
-    private static final Color CARD = new Color(0x142039);
     private static final Color ACCENT = new Color(0x38bdf8);
     private static final Color TEXT = new Color(0xe2e8f0);
-    private static final Color MUTED = new Color(0x94a3b8);
+    private static final Color MUTED = new Color(0xaab6cc);
+    private static final Color GOOD = new Color(0x34d399);
+    private static final Color BAD = new Color(0xfb7185);
+
+    /** Current light colour of the lamp; the card, boxes and labels follow it. */
+    private static Color accentNow = ACCENT;
 
     private final AccountStore store;
     private final Consumer<String> onSuccess;
-    private final CardLayout cards = new CardLayout();
-    private final JPanel cardPanel = new JPanel(cards);
 
-    private final JTextField loginUser = field(new JTextField());
-    private final JPasswordField loginPass = field(new JPasswordField());
-    private final JLabel loginMsg = new JLabel(" ");
+    private final JTextField userField = new JTextField();
+    private final JTextField emailField = new JTextField();
+    private final JPasswordField passField = new JPasswordField();
 
-    private final JTextField regUser = field(new JTextField());
-    private final JTextField regEmail = field(new JTextField());
-    private final JPasswordField regPass = field(new JPasswordField());
-    private final JPasswordField regPass2 = field(new JPasswordField());
-    private final JLabel regMsg = new JLabel(" ");
+    private final JLabel logo = new JLabel("SEARCH IT", SwingConstants.CENTER);
+    private final JLabel title = new JLabel();
+    private final JLabel subtitle = new JLabel();
+    private final JLabel userLabel = label("USERNAME OR EMAIL");
+    private final JLabel emailLabel = label("EMAIL");
+    private final JLabel passLabel = label("PASSWORD");
+    private final JLabel message = new JLabel(" ");
+    private final NeonButton submit = new NeonButton("LOG IN", true);
+    private final JButton toggle = new JButton();
+
+    private final JPanel emailRow;
+    private final FadeHolder holder;
+    private final LampScene scene;
+    private boolean registerMode = false;
 
     public LoginWindow(AccountStore store, Consumer<String> onSuccess) {
+        super("Search IT - Login");
         this.store = store;
         this.onSuccess = onSuccess;
 
-        setTitle("Search IT - Login");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(560, 700);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1200, 780);
+        setMinimumSize(new Dimension(900, 620));
         setLocationRelativeTo(null);
 
-        JPanel root = new JPanel(new GridBagLayout());
-        root.setBackground(BG);
+        scene = new LampScene(new GridBagLayout());
+        setContentPane(scene);
 
-        cardPanel.setOpaque(false);
-        cardPanel.add(buildLogin(), "login");
-        cardPanel.add(buildRegister(), "register");
-        root.add(cardPanel);
+        // ----- text styles -----
+        logo.setFont(Fx.heading(Font.BOLD, 34f));
+        logo.setForeground(ACCENT);
 
-        setContentPane(root);
-    }
+        JLabel tag = new JLabel("IT LEARNING AND RESOURCE DISCOVERY PLATFORM", SwingConstants.CENTER);
+        tag.setFont(Fx.body(Font.BOLD, 12f));
+        tag.setForeground(MUTED);
 
-    // ---------- screens ----------
+        title.setFont(Fx.heading(Font.BOLD, 22f));
+        title.setForeground(Color.WHITE);
+        subtitle.setFont(Fx.body(Font.PLAIN, 15f));
+        subtitle.setForeground(MUTED);
+        message.setFont(Fx.body(Font.BOLD, 14f));
 
-    private JPanel buildLogin() {
-        GlowPanel p = new GlowPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        styleField(userField);
+        styleField(emailField);
+        styleField(passField);
 
-        put(p, title("Welcome back"));
-        put(p, small("Log in to continue to Search IT"));
-        p.add(Box.createVerticalStrut(20));
-        put(p, small("Username or email"));
-        put(p, loginUser);
-        p.add(Box.createVerticalStrut(12));
-        put(p, small("Password"));
-        put(p, loginPass);
-        p.add(Box.createVerticalStrut(8));
-        put(p, loginMsg);
-        p.add(Box.createVerticalStrut(8));
+        JPanel userRow = box(userField);
+        emailRow = box(emailField);
+        JPanel passRow = box(passField);
 
-        JButton go = primary("Log in");
-        go.addActionListener(e -> doLogin());
-        loginPass.addActionListener(e -> doLogin());
-        put(p, go);
+        submit.setPreferredSize(new Dimension(100, 48));
+        submit.addActionListener(e -> submit());
+        userField.addActionListener(e -> submit());
+        emailField.addActionListener(e -> submit());
+        passField.addActionListener(e -> submit());
 
-        p.add(Box.createVerticalStrut(10));
-        JButton toRegister = link("No account yet? Create one");
-        toRegister.addActionListener(e -> {
-            regMsg.setText(" ");
-            cards.show(cardPanel, "register");
+        toggle.setContentAreaFilled(false);
+        toggle.setBorderPainted(false);
+        toggle.setFocusPainted(false);
+        toggle.setOpaque(false);
+        toggle.setForeground(ACCENT);
+        toggle.setFont(Fx.body(Font.BOLD, 15f));
+        toggle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        toggle.addActionListener(e -> {
+            setMode(!registerMode);
+            showMessage(" ", true);
         });
-        put(p, toRegister);
-        return p;
-    }
 
-    private JPanel buildRegister() {
-        GlowPanel p = new GlowPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        // ----- card layout -----
+        GlassCard card = new GlassCard();
+        card.setLayout(new GridBagLayout());
+        card.setBorder(new EmptyBorder(34, 40, 30, 40));
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.weightx = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.WEST;
 
-        put(p, title("Create account"));
-        put(p, small("Join Search IT in a few seconds"));
-        p.add(Box.createVerticalStrut(16));
-        put(p, small("Username (letters, numbers, _ ; min 3)"));
-        put(p, regUser);
-        p.add(Box.createVerticalStrut(10));
-        put(p, small("Email"));
-        put(p, regEmail);
-        p.add(Box.createVerticalStrut(10));
-        put(p, small("Password (min 8 characters)"));
-        put(p, regPass);
-        p.add(Box.createVerticalStrut(10));
-        put(p, small("Confirm password"));
-        put(p, regPass2);
-        p.add(Box.createVerticalStrut(8));
-        put(p, regMsg);
-        p.add(Box.createVerticalStrut(8));
+        int row = 0;
+        c.gridy = row++;
+        card.add(logo, c);
+        c.gridy = row++;
+        c.insets = new Insets(2, 0, 22, 0);
+        card.add(tag, c);
 
-        JButton go = primary("Create account");
-        go.addActionListener(e -> doRegister());
-        regPass2.addActionListener(e -> doRegister());
-        put(p, go);
+        c.insets = new Insets(0, 0, 0, 0);
+        c.gridy = row++;
+        card.add(title, c);
+        c.gridy = row++;
+        c.insets = new Insets(2, 0, 20, 0);
+        card.add(subtitle, c);
 
-        p.add(Box.createVerticalStrut(10));
-        JButton back = link("Already have an account? Log in");
-        back.addActionListener(e -> {
-            loginMsg.setText(" ");
-            cards.show(cardPanel, "login");
-        });
-        put(p, back);
-        return p;
-    }
+        c.insets = new Insets(0, 0, 6, 0);
+        c.gridy = row++;
+        card.add(userLabel, c);
+        c.insets = new Insets(0, 0, 14, 0);
+        c.gridy = row++;
+        card.add(userRow, c);
 
-    // ---------- actions ----------
+        c.insets = new Insets(0, 0, 6, 0);
+        c.gridy = row++;
+        card.add(emailLabel, c);
+        c.insets = new Insets(0, 0, 14, 0);
+        c.gridy = row++;
+        card.add(emailRow, c);
 
-    private void doLogin() {
-        String user = loginUser.getText().trim();
-        char[] pass = loginPass.getPassword();
-        try {
-            if (user.isEmpty() || pass.length == 0) {
-                showMsg(loginMsg, "Enter your username and password.", false);
-                return;
+        c.insets = new Insets(0, 0, 6, 0);
+        c.gridy = row++;
+        card.add(passLabel, c);
+        c.insets = new Insets(0, 0, 10, 0);
+        c.gridy = row++;
+        card.add(passRow, c);
+
+        c.insets = new Insets(0, 0, 12, 0);
+        c.gridy = row++;
+        card.add(message, c);
+
+        c.insets = new Insets(0, 0, 8, 0);
+        c.gridy = row++;
+        card.add(submit, c);
+
+        c.insets = new Insets(4, 0, 0, 0);
+        c.gridy = row++;
+        c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.NONE;
+        card.add(toggle, c);
+
+        holder = new FadeHolder();
+        holder.setLayout(new BorderLayout());
+        holder.setBorder(new EmptyBorder(26, 26, 26, 26));
+        holder.add(card, BorderLayout.CENTER);
+        holder.setPreferredSize(new Dimension(540, holder.getPreferredSize().height));
+        holder.setVisible(false);
+
+        // left half is the lamp, right half holds the card
+        JPanel filler = new JPanel();
+        filler.setOpaque(false);
+        filler.setPreferredSize(new Dimension(1, 1));
+
+        GridBagConstraints gl = new GridBagConstraints();
+        gl.gridx = 0;
+        gl.weightx = 1;
+        gl.weighty = 1;
+        gl.fill = GridBagConstraints.BOTH;
+        scene.add(filler, gl);
+
+        GridBagConstraints gr = new GridBagConstraints();
+        gr.gridx = 1;
+        gr.weightx = 1;
+        gr.weighty = 1;
+        gr.anchor = GridBagConstraints.CENTER;
+        scene.add(holder, gr);
+
+        // ----- lamp events -----
+        scene.setOnTheme(this::recolor);
+        scene.setOnToggle(on -> {
+            if (on) {
+                holder.setVisible(true);
+                Fx.later(250, () -> {
+                    Fx.animate(600, t -> holder.setAlpha((float) t));
+                    userField.requestFocusInWindow();
+                });
+            } else {
+                Fx.animate(400, t -> holder.setAlpha((float) (1 - t)));
+                Fx.later(430, () -> {
+                    if (!scene.isLit()) {
+                        holder.setVisible(false);
+                    }
+                });
             }
-            if (store.authenticate(user, pass)) {
+        });
+
+        setMode(false);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+
+    // ---------- behaviour ----------
+
+    private void recolor(Color c) {
+        accentNow = c;
+        logo.setForeground(c);
+        userLabel.setForeground(c);
+        emailLabel.setForeground(c);
+        passLabel.setForeground(c);
+        toggle.setForeground(c);
+        holder.repaint();
+    }
+
+    private void setMode(boolean register) {
+        registerMode = register;
+        title.setText(register ? "Create account" : "Welcome back");
+        subtitle.setText(register ? "Join Search IT in a few seconds"
+                                  : "The light's on. Log in to continue.");
+        userLabel.setText(register ? "USERNAME" : "USERNAME OR EMAIL");
+        emailLabel.setVisible(register);
+        emailRow.setVisible(register);
+        submit.setText(register ? "CREATE ACCOUNT" : "LOG IN");
+        toggle.setText(register ? "Already have an account? Log in"
+                                : "No account yet? Create one");
+        revalidate();
+        repaint();
+    }
+
+    private void showMessage(String text, boolean good) {
+        message.setForeground(good ? GOOD : BAD);
+        message.setText("<html><div style='width:340px'>" + text + "</div></html>");
+    }
+
+    private void submit() {
+        String user = userField.getText().trim();
+        char[] pw = passField.getPassword();
+        try {
+            if (registerMode) {
+                boolean ok = store.register(user, emailField.getText().trim(), pw);
+                if (ok) {
+                    passField.setText("");
+                    setMode(false);
+                    showMessage("Account created. You can log in now.", true);
+                } else {
+                    showMessage("That username or email is already taken.", false);
+                }
+            } else if (user.isEmpty() || pw.length == 0) {
+                showMessage("Please enter your username and password.", false);
+            } else if (store.authenticate(user, pw)) {
                 dispose();
                 onSuccess.accept(user);
             } else {
-                showMsg(loginMsg, "Wrong username/email or password.", false);
+                showMessage("Wrong username or password.", false);
             }
         } catch (Exception ex) {
-            showMsg(loginMsg, "Login error: " + ex.getMessage(), false);
+            showMessage(ex.getMessage() == null ? "Something went wrong." : ex.getMessage(), false);
         } finally {
-            Arrays.fill(pass, ' ');
+            Arrays.fill(pw, '\0');
         }
     }
 
-    private void doRegister() {
-        String user = regUser.getText().trim();
-        String email = regEmail.getText().trim();
-        char[] p1 = regPass.getPassword();
-        char[] p2 = regPass2.getPassword();
-        try {
-            if (!user.matches("[A-Za-z0-9_]{3,20}")) {
-                showMsg(regMsg, "Username: 3-20 letters, numbers or _ only.", false);
-            } else if (!email.matches("[^@\\s]+@[^@\\s]+\\.[^@\\s]+")) {
-                showMsg(regMsg, "Please enter a valid email.", false);
-            } else if (p1.length < 8) {
-                showMsg(regMsg, "Password needs at least 8 characters.", false);
-            } else if (!Arrays.equals(p1, p2)) {
-                showMsg(regMsg, "Passwords do not match.", false);
-            } else if (store.register(user, email, p1)) {
-                regUser.setText("");
-                regEmail.setText("");
-                regPass.setText("");
-                regPass2.setText("");
-                cards.show(cardPanel, "login");
-                loginUser.setText(user);
-                showMsg(loginMsg, "Account created. You can log in now.", true);
-            } else {
-                showMsg(regMsg, "That username or email is already used.", false);
-            }
-        } catch (Exception ex) {
-            showMsg(regMsg, "Error: " + ex.getMessage(), false);
-        } finally {
-            Arrays.fill(p1, ' ');
-            Arrays.fill(p2, ' ');
-        }
+    // ---------- small helpers ----------
+
+    private static JLabel label(String text) {
+        JLabel l = new JLabel(text);
+        l.setFont(Fx.body(Font.BOLD, 12f));
+        l.setForeground(ACCENT);
+        return l;
     }
 
-    private void showMsg(JLabel label, String text, boolean ok) {
-        label.setForeground(ok ? new Color(0x34d399) : new Color(0xf87171));
-        label.setText(text);
-    }
-
-    // ---------- styling helpers ----------
-
-    private static <T extends JTextField> T field(T f) {
-        f.setBackground(new Color(0x0b1326));
+    private static void styleField(JTextField f) {
+        f.setOpaque(false);
         f.setForeground(TEXT);
         f.setCaretColor(ACCENT);
-        f.setFont(Fx.body(Font.PLAIN, 15f));
-        f.setBorder(BorderFactoryHelper.input());
-        return f;
+        f.setFont(Fx.body(Font.PLAIN, 17f));
+        f.setBorder(new EmptyBorder(10, 14, 10, 14));
     }
 
-    private static JLabel title(String text) {
-        JLabel l = new JLabel(text);
-        l.setFont(Fx.heading(Font.BOLD, 24f));
-        l.setForeground(TEXT);
-        return l;
-    }
+    /** Rounded dark box around a field that glows while the field has focus. */
+    private static JPanel box(JTextField field) {
+        FieldBox b = new FieldBox();
+        b.setLayout(new BorderLayout());
+        b.add(field, BorderLayout.CENTER);
+        field.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                b.setFocused(true);
+            }
 
-    private static JLabel small(String text) {
-        JLabel l = new JLabel(text);
-        l.setFont(Fx.body(Font.PLAIN, 13f));
-        l.setForeground(MUTED);
-        return l;
-    }
-
-    private static JButton primary(String text) {
-        JButton b = new JButton(text);
-        b.setBackground(ACCENT);
-        b.setForeground(BG);
-        b.setFont(Fx.body(Font.BOLD, 15f));
-        b.setFocusPainted(false);
-        b.setOpaque(true);
-        b.setBorder(new EmptyBorder(10, 16, 10, 16));
-        b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            @Override
+            public void focusLost(FocusEvent e) {
+                b.setFocused(false);
+            }
+        });
         return b;
     }
 
-    private static JButton link(String text) {
-        JButton b = new JButton(text);
-        b.setForeground(ACCENT);
-        b.setContentAreaFilled(false);
-        b.setBorderPainted(false);
-        b.setFocusPainted(false);
-        b.setHorizontalAlignment(SwingConstants.LEFT);
-        b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        return b;
-    }
+    /** Panel that can be faded in and out by changing its alpha. */
+    private static class FadeHolder extends JPanel {
+        private float alpha = 0f;
 
-    private static void put(JPanel p, JComponent c) {
-        c.setAlignmentX(Component.LEFT_ALIGNMENT);
-        if (c instanceof JTextField) {
-            c.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
-        } else if (c instanceof JButton) {
-            c.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
-        }
-        p.add(c);
-    }
-
-    private static class BorderFactoryHelper {
-        static javax.swing.border.Border input() {
-            return BorderFactory.createCompoundBorder(
-                new LineBorder(new Color(0x25365a), 1, true),
-                new EmptyBorder(8, 10, 8, 10));
-        }
-    }
-
-    // Rounded card with a soft neon glow
-    private static class GlowPanel extends JPanel {
-        GlowPanel() {
+        FadeHolder() {
             setOpaque(false);
-            setBorder(new EmptyBorder(36, 40, 36, 40));
+        }
+
+        void setAlpha(float a) {
+            alpha = Math.max(0f, Math.min(1f, a));
+            repaint();
         }
 
         @Override
-        public Dimension getPreferredSize() {
-            Dimension d = super.getPreferredSize();
-            d.width = 440;
-            return d;
+        public void paint(Graphics g) {
+            if (alpha >= 0.99f) {
+                super.paint(g);
+                return;
+            }
+            if (alpha <= 0.01f) {
+                return;
+            }
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setComposite(AlphaComposite.SrcOver.derive(alpha));
+            super.paint(g2);
+            g2.dispose();
+        }
+    }
+
+    private static class FieldBox extends JPanel {
+        private boolean focused;
+
+        FieldBox() {
+            setOpaque(false);
+            setBorder(new EmptyBorder(3, 3, 3, 3));
+        }
+
+        void setFocused(boolean f) {
+            focused = f;
+            repaint();
         }
 
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-            int w = getWidth() - 16;
-            int h = getHeight() - 16;
-            for (int i = 7; i >= 1; i--) {
-                g2.setColor(new Color(56, 189, 248, 12));
-                g2.setStroke(new BasicStroke(i * 2));
-                g2.drawRoundRect(8, 8, w, h, 28, 28);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            int w = getWidth() - 4;
+            int h = getHeight() - 4;
+            Color a = accentNow;
+            if (focused) {
+                for (int i = 4; i >= 1; i--) {
+                    g2.setColor(new Color(a.getRed(), a.getGreen(), a.getBlue(), 28));
+                    g2.setStroke(new BasicStroke(i * 2));
+                    g2.drawRoundRect(2, 2, w, h, 16, 16);
+                }
             }
-            g2.setColor(CARD);
-            g2.fillRoundRect(8, 8, w, h, 28, 28);
-            g2.setColor(ACCENT);
-            g2.setStroke(new BasicStroke(1.5f));
-            g2.drawRoundRect(8, 8, w, h, 28, 28);
+            g2.setColor(new Color(6, 11, 26, 235));
+            g2.fillRoundRect(2, 2, w, h, 16, 16);
+            g2.setColor(new Color(a.getRed(), a.getGreen(), a.getBlue(), focused ? 255 : 90));
+            g2.setStroke(new BasicStroke(1.4f));
+            g2.drawRoundRect(2, 2, w, h, 16, 16);
             g2.dispose();
             super.paintComponent(g);
         }
     }
 
-    // ---------- temporary test launcher ----------
+    /** Translucent glass card whose glowing border follows the lamp colour. */
+    private static class GlassCard extends JPanel {
+        GlassCard() {
+            setOpaque(false);
+        }
 
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            int w = getWidth() - 2;
+            int h = getHeight() - 2;
+            Color a = accentNow;
+            for (int i = 8; i >= 1; i--) {
+                g2.setColor(new Color(a.getRed(), a.getGreen(), a.getBlue(), 14));
+                g2.setStroke(new BasicStroke(i * 3));
+                g2.drawRoundRect(1, 1, w, h, 30, 30);
+            }
+            g2.setColor(new Color(8, 14, 32, 215));
+            g2.fillRoundRect(1, 1, w, h, 30, 30);
+            g2.setPaint(new GradientPaint(0, 0, a, getWidth(), getHeight(),
+                    new Color(a.getRed(), a.getGreen(), a.getBlue(), 70)));
+            g2.setStroke(new BasicStroke(1.8f));
+            g2.drawRoundRect(1, 1, w, h, 30, 30);
+            g2.dispose();
+            super.paintComponent(g);
+        }
+    }
+
+    // temporary launcher for testing this window alone
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                AccountStore store = new AccountStore();
-                new LoginWindow(store, user ->
-                    JOptionPane.showMessageDialog(null,
-                        "Welcome, " + user + "! (dashboard comes next)")
-                ).setVisible(true);
+                new LoginWindow(new AccountStore(), u -> System.out.println("Logged in: " + u))
+                        .setVisible(true);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null,
-                    "Could not start: " + e.getMessage());
+                e.printStackTrace();
             }
         });
     }
