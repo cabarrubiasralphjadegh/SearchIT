@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050816">
+<title>Search IT</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+@font-face { font-family: "Audiowide"; src: url("fonts/Audiowide-Regular.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Rajdhani"; src: url("fonts/Rajdhani-Medium.ttf") format("truetype"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Rajdhani"; src: url("fonts/Rajdhani-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+
+:root {
+  --bg: #050816; --panel: rgba(16, 27, 51, .78); --line: rgba(56, 189, 248, .35);
+  --text: #e2e8f0; --muted: #aab6cc; --cyan: #38bdf8; --violet: #8b5cf6; --lav: #a78bfa;
+  --head: "Audiowide", "Trebuchet MS", sans-serif; --body: "Rajdhani", "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; }
+body {
+  min-height: 100vh; color: var(--text); font-family: var(--body); font-weight: 500; font-size: 18px; line-height: 1.5;
+  background:
+    radial-gradient(60vmax 60vmax at 85% -10%, rgba(139, 92, 246, .35), transparent 60%),
+    radial-gradient(50vmax 50vmax at -10% 30%, rgba(37, 99, 235, .30), transparent 60%),
+    linear-gradient(180deg, #050816, #0e0726);
+  background-attachment: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+body::before { /* grid */
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: linear-gradient(rgba(56,189,248,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+body::after { /* scanning light */
+  content: ""; position: fixed; left: 0; right: 0; height: 120px; top: -120px; pointer-events: none; z-index: 0;
+  background: linear-gradient(180deg, transparent, rgba(56,189,248,.10), transparent);
+  animation: scan 9s linear infinite;
+}
+@keyframes scan { to { transform: translateY(calc(100vh + 240px)); } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(56,189,248,.12), 0 0 22px rgba(56,189,248,.45); } }
+
+a { color: var(--cyan); }
+header {
+  position: sticky; top: 0; z-index: 20; padding: calc(10px + env(safe-area-inset-top)) 14px 12px;
+  background: rgba(5, 8, 22, .82); backdrop-filter: blur(10px);
+  border-bottom: 2px solid transparent; border-image: linear-gradient(90deg, #38bdf8, #8b5cf6, #22d3ee) 1;
+}
+.bar { max-width: 980px; margin: 0 auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.logo { font-family: var(--head); font-size: 22px; letter-spacing: .06em; color: var(--cyan); text-decoration: none; text-shadow: 0 0 14px rgba(56,189,248,.6); }
+.logo small { display: block; font-family: var(--body); font-weight: 700; font-size: 10px; letter-spacing: .18em; color: var(--muted); text-shadow: none; }
+.searchwrap { position: relative; flex: 1 1 100%; min-width: 0; }
+@media (min-width: 640px) { .searchwrap { flex: 1 1 260px; } }
+.search {
+  display: flex; align-items: center; background: rgba(11, 19, 38, .9); border: 1.5px solid rgba(56,189,248,.45);
+  border-radius: 999px; padding: 4px 4px 4px 16px; transition: box-shadow .2s, border-color .2s;
+}
+.search:focus-within { border-color: var(--cyan); box-shadow: 0 0 0 4px rgba(56,189,248,.14), 0 0 24px rgba(56,189,248,.3); }
+.search input { flex: 1; width: 100%; min-width: 0; background: none; border: 0; outline: 0; color: var(--text); font: inherit; font-size: 17px; padding: 8px 4px; }
+.search input::placeholder { color: #7f8ea8; }
+button { font: inherit; cursor: pointer; }
+.go {
+  border: 0; border-radius: 999px; padding: 9px 18px; color: #fff; font-family: var(--head); font-size: 12px; letter-spacing: .08em;
+  background: linear-gradient(90deg, #2563eb, #8b5cf6); box-shadow: 0 0 16px rgba(99,102,241,.5);
+}
+.sugg {
+  display: none; position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 30; overflow: hidden;
+  background: #0e1830; border: 1px solid var(--cyan); border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.6);
+}
+.sugg.open { display: block; }
+.sugg button { display: block; width: 100%; text-align: left; background: none; border: 0; color: var(--text); padding: 12px 16px; font-weight: 700; }
+.sugg button span { color: var(--muted); font-weight: 500; }
+.sugg button:hover, .sugg button.on { background: #2563eb; }
+
+main { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 18px 14px 60px; }
+.rise { animation: rise .55s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i, 0) * 60ms); }
+
+.card {
+  background: var(--panel); border: 1.5px solid var(--line); border-radius: 22px; padding: 18px 20px;
+  box-shadow: 0 0 26px rgba(56,189,248,.10); color: inherit; text-decoration: none; display: block; text-align: left; width: 100%;
+  transition: transform .18s, box-shadow .18s, border-color .18s;
+}
+button.card, a.card { cursor: pointer; }
+button.card:hover, a.card:hover, button.card:active, a.card:active { transform: translateY(-3px); border-color: var(--g, var(--cyan)); box-shadow: 0 0 30px color-mix(in srgb, var(--g, #38bdf8) 45%, transparent); }
+.card h3 { margin: 0 0 4px; font-family: var(--head); font-weight: 400; font-size: 14px; letter-spacing: .04em; color: #fff; }
+.card p { margin: 0; color: var(--muted); font-size: 16px; }
+.hello h1 { margin: 0 0 6px; font-family: var(--head); font-weight: 400; font-size: clamp(22px, 5.5vw, 30px); }
+.hello h1 b { color: var(--cyan); font-weight: 400; }
+.hello p { margin: 0; color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+.stat { padding: 14px 16px; }
+.stat strong { display: block; font-family: var(--head); font-weight: 400; font-size: clamp(24px, 7vw, 34px); color: var(--g); text-shadow: 0 0 14px color-mix(in srgb, var(--g) 60%, transparent); }
+.stat span { color: var(--muted); font-size: 15px; }
+h2.sec { margin: 28px 0 12px; font-family: var(--head); font-weight: 400; font-size: 14px; letter-spacing: .12em; color: var(--cyan); }
+h2.sec.v { color: var(--lav); }
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+.grid3 { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .grid { grid-template-columns: repeat(3, 1fr); } .grid3 { grid-template-columns: repeat(3, 1fr); } }
+.cat { border-left: 4px solid var(--g); }
+.empty { color: var(--muted); }
+
+.list { display: grid; gap: 12px; }
+.item h3 { font-size: 15px; }
+.tag { display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--cyan); border: 1px solid var(--line); }
+.back {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; padding: 8px 16px; border-radius: 999px;
+  background: none; color: var(--cyan); border: 1.5px solid var(--line); font-family: var(--head); font-size: 11px; letter-spacing: .1em;
+}
+.note { color: var(--muted); margin: 0 0 14px; }
+
+.article { padding: 22px; }
+.article h1 { margin: 0 0 8px; font-family: var(--head); font-weight: 400; font-size: clamp(22px, 6vw, 32px); line-height: 1.2; color: var(--cyan); text-shadow: 0 0 16px rgba(56,189,248,.45); }
+.article .desc { color: var(--muted); font-size: 19px; }
+.article h2 { margin: 28px 0 8px; font-family: var(--head); font-weight: 400; font-size: 17px; color: var(--lav); }
+.article h2 span { color: var(--cyan); }
+.article h3 { margin: 18px 0 6px; color: #7dd3fc; font-size: 19px; }
+.article p { margin: 8px 0; } .article li { margin: 4px 0; }
+.article b { color: #fff; }
+.article pre { margin: 12px 0; padding: 14px; border-radius: 14px; overflow-x: auto; background: #020b04; border: 1px solid rgba(56,189,248,.35); color: #38bdf8; font: 14px/1.5 ui-monospace, Menlo, Consolas, monospace; }
+.article ul.refs { color: var(--muted); font-size: 16px; word-break: break-word; }
+footer { position: relative; z-index: 1; text-align: center; color: #7f8ea8; font-size: 14px; padding: 0 14px 30px; }
+@media (prefers-reduced-motion: reduce) { *, body::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="#/">SEARCH IT<small>IT LEARNING PLATFORM</small></a>
+    <div class="searchwrap">
+      <form class="search" id="form" autocomplete="off">
+        <input id="q" type="search" placeholder="Search topics: Java, DNS, blockchain..." aria-label="Search articles" enterkeyhint="search">
+        <button class="go" type="submit">SEARCH</button>
+      </form>
+      <div class="sugg" id="sugg"></div>
+    </div>
+  </div>
+</header>
+<main id="view"><p class="empty">Loading articles...</p></main>
+<footer>Search IT &middot; Programming 1 final project</footer>
+
+<script>
+const CATS = ["Programming", "Computer Fundamentals", "Networking", "Web Development", "Database Management", "Cybersecurity", "Emerging Technologies"];
+const GLOW = ["#38bdf8", "#8b5cf6", "#22d3ee", "#a78bfa", "#60a5fa", "#c084fc", "#2dd4bf"];
+const RECENT_KEY = "searchit.recent";
+let ARTICLES = [];
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const view = $("#view");
+
+/* ---------- saved "recently viewed" (kept in this browser only) ---------- */
+function getRecent() {
+  try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) { return []; }
+}
+function addRecent(title) {
+  const list = getRecent().filter((t) => t !== title);
+  list.unshift(title);
+  try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 3))); } catch (e) { /* storage blocked */ }
+}
+
+/* ---------- article text: same mini-markdown as the desktop app ---------- */
+function fmt(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); }
+
+function renderText(text) {
+  let html = "", list = null;
+  const close = () => { if (list) { html += "</" + list + ">"; list = null; } };
+  text.split("\n").forEach((raw) => {
+    const line = raw.trim();
+    if (!line) return;
+    if (line.startsWith("### ")) { close(); html += "<h3>" + fmt(line.slice(4)) + "</h3>"; }
+    else if (line.startsWith("- ")) { if (list !== "ul") { close(); html += "<ul>"; list = "ul"; } html += "<li>" + fmt(line.slice(2)) + "</li>"; }
+    else if (/^\d+\.\s/.test(line)) { if (list !== "ol") { close(); html += "<ol>"; list = "ol"; } html += "<li>" + fmt(line.replace(/^\d+\.\s/, "")) + "</li>"; }
+    else { close(); html += "<p>" + fmt(line) + "</p>"; }
+  });
+  close();
+  return html;
+}
+
+function renderContent(text) {
+  return String(text || "").split("```").map((part, i) => {
+    if (i % 2 === 1) {
+      let code = part;
+      const nl = code.indexOf("\n");
+      if (nl !== -1 && /^[a-zA-Z]+$/.test(code.slice(0, nl).trim())) code = code.slice(nl + 1);
+      return "<pre>" + esc(code.replace(/^\n|\n$/g, "")) + "</pre>";
+    }
+    return renderText(part);
+  }).join("");
+}
+
+/* ---------- search ---------- */
+function search(q) {
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!words.length) return ARTICLES.map((a, i) => i);
+  const scored = [];
+  ARTICLES.forEach((a, i) => {
+    const title = a.title.toLowerCase(), cat = a.category.toLowerCase(), desc = a.description.toLowerCase();
+    const body = a.sections.map((s) => s.title + " " + s.content).join(" ").toLowerCase();
+    let score = 0, ok = true;
+    words.forEach((w) => {
+      let s = 0;
+      if (title.includes(w)) s += 10;
+      if (cat.includes(w)) s += 6;
+      if (desc.includes(w)) s += 4;
+      if (body.includes(w)) s += 1;
+      if (!s) ok = false;
+      score += s;
+    });
+    if (ok) scored.push([score, i]);
+  });
+  return scored.sort((x, y) => y[0] - x[0]).map((p) => p[1]);
+}
+
+/* ---------- views ---------- */
+function countUp(el, target) {
+  const start = performance.now();
+  const step = (t) => {
+    const p = Math.min(1, (t - start) / 1000), e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * e);
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+function categoryNames() {
+  const present = [...new Set(ARTICLES.map((a) => a.category))];
+  return CATS.filter((c) => present.includes(c)).concat(present.filter((c) => !CATS.includes(c)));
+}
+
+function homeView() {
+  const cats = categoryNames();
+  const refs = ARTICLES.reduce((n, a) => n + a.references.length, 0);
+  const recent = getRecent().map((t) => ARTICLES.findIndex((a) => a.title === t)).filter((i) => i >= 0);
+  const startIdx = Math.max(0, ARTICLES.findIndex((a) => a.title === "Introduction to Programming"));
+  let n = 0;
+  const rise = () => `class="rise" style="--i:${n++}"`;
+
+  let html = `<div ${rise()}><div class="card hello"><h1>Welcome to <b>Search IT</b></h1><p>Search. Discover. Learn. Pick a topic below, or type in the search bar above.</p></div></div>`;
+  html += `<div class="stats">` + [[ARTICLES.length, "Articles", GLOW[0]], [cats.length, "Categories", GLOW[1]], [refs, "References", GLOW[2]]]
+    .map((s) => `<div ${rise()}><div class="card stat" style="--g:${s[2]}"><strong data-n="${s[0]}">0</strong><span>${s[1]}</span></div></div>`).join("") + `</div>`;
+
+  html += `<h2 class="sec v">RECENTLY VIEWED</h2><div class="grid3">`;
+  if (recent.length) {
+    html += recent.map((i, k) => `<div ${rise()}><a class="card" style="--g:${GLOW[k]}" href="#/article/${i}"><h3>${esc(ARTICLES[i].title)}</h3><p>${esc(ARTICLES[i].category)}</p></a></div>`).join("");
+  } else {
+    html += `<div ${rise()}><div class="card"><h3>Nothing here yet</h3><p>Open an article and it will show up here</p></div></div>`;
+  }
+  html += `</div><h2 class="sec">BROWSE BY CATEGORY</h2><div class="grid">`;
+  cats.forEach((c, i) => {
+    const count = ARTICLES.filter((a) => a.category === c).length;
+    html += `<div ${rise()}><a class="card cat" style="--g:${GLOW[i % GLOW.length]}" href="#/search/${encodeURIComponent(c)}"><h3>${esc(c)}</h3><p>${count} ${count === 1 ? "article" : "articles"}</p></a></div>`;
+  });
+  html += `<div ${rise()}><a class="card cat" style="--g:#8b5cf6" href="#/article/${startIdx}"><h3>Start here</h3><p>${esc(ARTICLES[startIdx].title)}</p></a></div>`;
+  html += `<div ${rise()}><button class="card cat" style="--g:#22d3ee" id="random"><h3>Surprise me</h3><p>Open a random article</p></button></div></div>`;
+
+  view.innerHTML = html;
+  view.querySelectorAll("strong[data-n]").forEach((el) => countUp(el, +el.dataset.n));
+  $("#random").onclick = () => { location.hash = "#/article/" + Math.floor(Math.random() * ARTICLES.length); };
+}
+
+function resultsView(q) {
+  const hits = search(q);
+  let html = `<a class="back" href="#/">&larr; HOME</a>`;
+  if (!hits.length) {
+    html += `<p class="note">No matching articles found for "${esc(q)}".</p>`;
+  } else {
+    html += `<p class="note">${hits.length} result${hits.length === 1 ? "" : "s"} for "${esc(q)}"</p><div class="list">` +
+      hits.map((i, k) => `<div class="rise" style="--i:${Math.min(k, 8)}"><a class="card item" href="#/article/${i}"><h3>${esc(ARTICLES[i].title)}</h3><p>${esc(ARTICLES[i].description)}</p><span class="tag">${esc(ARTICLES[i].category)}</span></a></div>`).join("") + `</div>`;
+  }
+  view.innerHTML = html;
+}
+
+function articleView(i) {
+  const a = ARTICLES[i];
+  if (!a) { location.hash = "#/"; return; }
+  addRecent(a.title);
+  let n = 1;
+  const sections = a.sections.map((s) => `<h2><span>${n++}.</span> ${esc(s.title)}</h2>${renderContent(s.content)}`).join("");
+  const refs = a.references.map((r) => "<li>" + esc(r).replace(/(https?:\/\/[^\s)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>') + "</li>").join("");
+  view.innerHTML = `<button class="back" id="back">&larr; BACK</button><div class="rise"><article class="card article"><h1>${esc(a.title)}</h1><span class="tag">${esc(a.category)}</span><p class="desc">${esc(a.description)}</p>${sections}<h2>References</h2><ul class="refs">${refs}</ul></article></div>`;
+  $("#back").onclick = () => { history.length > 1 ? history.back() : (location.hash = "#/"); };
+}
+
+function route() {
+  if (!ARTICLES.length) return;
+  const h = location.hash || "#/";
+  window.scrollTo(0, 0);
+  closeSugg();
+  let m;
+  if ((m = h.match(/^#\/article\/(\d+)/))) articleView(+m[1]);
+  else if ((m = h.match(/^#\/search\/(.*)/))) { const q = decodeURIComponent(m[1]); $("#q").value = q; resultsView(q); }
+  else { homeView(); }
+}
+
+/* ---------- search box and suggestions ---------- */
+const input = $("#q"), sugg = $("#sugg");
+let suggItems = [], suggIndex = -1;
+
+function closeSugg() { sugg.classList.remove("open"); suggIndex = -1; }
+function paintSugg() {
+  [...sugg.children].forEach((b, k) => b.classList.toggle("on", k === suggIndex));
+}
+input.addEventListener("input", () => {
+  const q = input.value.trim().toLowerCase();
+  suggItems = q ? ARTICLES.map((a, i) => [a, i]).filter((p) => p[0].title.toLowerCase().includes(q)).slice(0, 6) : [];
+  if (!suggItems.length) { closeSugg(); return; }
+  sugg.innerHTML = suggItems.map((p) => `<button type="button" data-i="${p[1]}">${esc(p[0].title)} <span>(${esc(p[0].category)})</span></button>`).join("");
+  suggIndex = -1;
+  sugg.classList.add("open");
+});
+input.addEventListener("keydown", (e) => {
+  if (!sugg.classList.contains("open")) return;
+  if (e.key === "ArrowDown") { suggIndex = (suggIndex + 1) % suggItems.length; paintSugg(); e.preventDefault(); }
+  else if (e.key === "ArrowUp") { suggIndex = suggIndex <= 0 ? suggItems.length - 1 : suggIndex - 1; paintSugg(); e.preventDefault(); }
+  else if (e.key === "Escape") closeSugg();
+  else if (e.key === "Enter" && suggIndex >= 0) { e.preventDefault(); location.hash = "#/article/" + suggItems[suggIndex][1]; input.blur(); }
+});
+sugg.addEventListener("mousedown", (e) => e.preventDefault());
+sugg.addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (b) { location.hash = "#/article/" + b.dataset.i; input.blur(); }
+});
+input.addEventListener("blur", () => setTimeout(closeSugg, 150));
+$("#form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  closeSugg();
+  const q = input.value.trim();
+  location.hash = "#/search/" + encodeURIComponent(q);
+  input.blur();
+});
+
+/* ---------- start ---------- */
+window.addEventListener("hashchange", route);
+fetch("articles.json")
+  .then((r) => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then((data) => { ARTICLES = data; route(); })
+  .catch((err) => { view.innerHTML = `<p class="note">Could not load the articles (${esc(err.message)}). Open this page from the website address, not as a file.</p>`; });
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js").catch(() => {}));
+}
+</script>
+</body>
+</html>
