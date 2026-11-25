@@ -7,6 +7,9 @@
 <title>Search IT</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/Audiowide-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="fonts/Rajdhani-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="fonts/Rajdhani-Bold.ttf" as="font" type="font/ttf" crossorigin>
 <style>
 @font-face { font-family: "Audiowide"; src: url("fonts/Audiowide-Regular.ttf") format("truetype"); font-display: swap; }
 @font-face { font-family: "Rajdhani"; src: url("fonts/Rajdhani-Medium.ttf") format("truetype"); font-weight: 500; font-display: swap; }
@@ -122,12 +125,76 @@ h2.sec.v { color: var(--lav); }
 .article ul.refs { color: var(--muted); font-size: 16px; word-break: break-word; }
 footer { position: relative; z-index: 1; text-align: center; color: #7f8ea8; font-size: 14px; padding: 0 14px 30px; }
 @media (prefers-reduced-motion: reduce) { *, body::after { animation: none !important; transition: none !important; } }
+
+/* ---------- login (same lamp scene as the desktop app) ---------- */
+[hidden] { display: none !important; }
+body.locked { overflow: hidden; }
+.who { margin-left: auto; display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--muted); font-size: 15px; }
+.who b { color: var(--cyan); }
+.who button { border: 1.5px solid var(--line); background: none; color: var(--cyan); border-radius: 999px; padding: 5px 12px; font-family: var(--head); font-size: 10px; letter-spacing: .1em; }
+.login { --acc: #38bdf8; position: fixed; inset: 0; z-index: 100; background: #060914; transition: opacity .5s; overflow: hidden; }
+.login.gone { opacity: 0; pointer-events: none; }
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: manipulation; }
+.bulb-btn {
+  position: absolute; z-index: 3; top: calc(12px + env(safe-area-inset-top)); right: 12px; width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; padding: 0; color: var(--acc);
+  background: rgba(8, 14, 32, .75); border: 1.5px solid color-mix(in srgb, var(--acc) 65%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--acc) 30%, transparent);
+}
+.login.lit .bulb-btn { background: color-mix(in srgb, var(--acc) 25%, #08101f); box-shadow: 0 0 22px color-mix(in srgb, var(--acc) 55%, transparent); }
+@media (min-aspect-ratio: 1/1) { .bulb-btn { width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); opacity: 0; } .bulb-btn:focus-visible { width: 48px; height: 48px; clip: auto; opacity: 1; } }
+.holder {
+  position: absolute; top: 0; bottom: 0; left: 50%; right: 0; display: flex; padding: 26px; overflow-y: auto;
+  opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .4s, visibility 0s .4s;
+}
+.login.lit .holder { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .6s .25s, visibility 0s; }
+.lcard {
+  width: min(100%, 500px); margin: auto; padding: 34px 40px 28px; border-radius: 30px;
+  background: rgba(8, 14, 32, .86); border: 1.8px solid var(--acc);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--acc) 34%, transparent), 0 0 70px color-mix(in srgb, var(--acc) 16%, transparent);
+}
+.lcard .logo2 { font-family: var(--head); font-weight: 700; font-size: 34px; line-height: 1.1; color: var(--acc); text-shadow: 0 0 18px color-mix(in srgb, var(--acc) 60%, transparent); }
+.lcard .ltag { margin: 4px 0 20px; font-weight: 700; font-size: 12px; letter-spacing: .06em; color: var(--muted); }
+.lcard h2 { margin: 0; font-family: var(--head); font-weight: 700; font-size: 22px; color: #fff; }
+.lcard .sub { margin: 4px 0 18px; color: var(--muted); font-size: 15px; font-weight: 500; }
+.lcard label { display: block; margin: 0 0 6px; font-weight: 700; font-size: 12px; letter-spacing: .14em; color: var(--acc); }
+.lcard input {
+  display: block; width: 100%; margin: 0 0 14px; padding: 12px 16px; border-radius: 16px; font: inherit; font-size: 17px; color: var(--text);
+  background: rgba(6, 11, 26, .92); border: 1.4px solid color-mix(in srgb, var(--acc) 38%, transparent); outline: 0; transition: border-color .2s, box-shadow .2s;
+}
+.lcard input:focus { border-color: var(--acc); box-shadow: 0 0 0 3px color-mix(in srgb, var(--acc) 22%, transparent), 0 0 18px color-mix(in srgb, var(--acc) 35%, transparent); }
+.msg { min-height: 22px; margin: 0 0 10px; font-weight: 700; font-size: 14px; }
+.msg.err { color: #fb7185; } .msg.ok { color: #34d399; }
+.go.wide { width: 100%; padding: 14px 0; font-size: 13px; }
+.go:disabled { opacity: .6; }
+.toggle { display: block; margin: 12px auto 0; background: none; border: 0; color: var(--acc); font-weight: 700; font-size: 15px; }
+.fine { margin: 12px 0 0; color: #7f8ea8; font-size: 13px; text-align: center; }
+@media (max-aspect-ratio: 1/1) {
+  .holder { left: 0; top: auto; max-height: 100%; padding: 12px; }
+  .lcard { padding: 22px 20px 18px; border-radius: 26px; }
+  .lcard .logo2 { font-size: 26px; }
+  .lcard .ltag { margin-bottom: 12px; font-size: 11px; }
+  .lcard .sub { margin-bottom: 12px; }
+  .lcard input { margin-bottom: 10px; padding: 10px 14px; }
+}
+@media (max-aspect-ratio: 1/1) and (max-height: 760px) {
+  .holder { padding: 8px; }
+  .lcard { padding: 16px 16px 12px; }
+  .lcard .sub, .lcard .fine { display: none; }
+  .lcard .ltag { margin-bottom: 8px; }
+  .lcard input { margin-bottom: 8px; padding: 8px 12px; }
+  .lcard label { margin-bottom: 4px; }
+  .msg { min-height: 18px; margin-bottom: 6px; }
+  .go.wide { padding: 11px 0; }
+  .toggle { margin-top: 6px; }
+}
 </style>
 </head>
 <body>
 <header>
   <div class="bar">
     <a class="logo" href="#/">SEARCH IT<small>IT LEARNING PLATFORM</small></a>
+    <div class="who" id="who" hidden><span>Hi, <b id="whoName"></b></span><button id="logout" type="button">LOG OUT</button></div>
     <div class="searchwrap">
       <form class="search" id="form" autocomplete="off">
         <input id="q" type="search" placeholder="Search topics: Java, DNS, blockchain..." aria-label="Search articles" enterkeyhint="search">
@@ -140,6 +207,31 @@ footer { position: relative; z-index: 1; text-align: center; color: #7f8ea8; fon
 <main id="view"><p class="empty">Loading articles...</p></main>
 <footer>Search IT &middot; Programming 1 final project</footer>
 
+<div class="login" id="login" role="dialog" aria-label="Log in to Search IT">
+  <canvas id="scene"></canvas>
+  <button class="bulb-btn" id="lampBtn" type="button" aria-label="Turn the lamp light on or off" title="Light on / off"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1.1 1.3 1.1 2.2h5c0-.9.5-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg></button>
+  <div class="holder">
+    <form class="lcard" id="authForm" novalidate>
+      <div class="logo2">SEARCH IT</div>
+      <div class="ltag">IT LEARNING AND RESOURCE DISCOVERY PLATFORM</div>
+      <h2 id="auTitle">Welcome back</h2>
+      <p class="sub" id="auSub">The light's on. Log in to continue.</p>
+      <label for="auUser" id="auUserL">USERNAME OR EMAIL</label>
+      <input id="auUser" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="60">
+      <div id="auEmailRow" hidden>
+        <label for="auEmail">EMAIL</label>
+        <input id="auEmail" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="80">
+      </div>
+      <label for="auPass">PASSWORD</label>
+      <input id="auPass" type="password" autocomplete="current-password" maxlength="64">
+      <p class="msg" id="auMsg" role="status"></p>
+      <button class="go wide" id="auGo" type="submit">LOG IN</button>
+      <button class="toggle" id="auToggle" type="button">New here? Create an account</button>
+      <p class="fine">Accounts are saved only in this browser, on this device.</p>
+    </form>
+  </div>
+</div>
+
 <script>
 const CATS = ["Programming", "Computer Fundamentals", "Networking", "Web Development", "Database Management", "Cybersecurity", "Emerging Technologies"];
 const GLOW = ["#38bdf8", "#8b5cf6", "#22d3ee", "#a78bfa", "#60a5fa", "#c084fc", "#2dd4bf"];
@@ -151,36 +243,12 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 const view = $("#view");
 
 /* ---------- saved "recently viewed" (kept in this browser only) ---------- */
+let currentUser = null;
+const recentKey = () => RECENT_KEY + "." + (currentUser ? currentUser.toLowerCase() : "guest");
 function getRecent() {
-  try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch (e) { return []; }
+  try { return JSON.parse(localStorage.getItem(recentKey())) || []; } catch (e) { return []; }
 }
 function addRecent(title) {
-  const list = getRecent().filter((t) => t !== title);
-  list.unshift(title);
-  try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, 3))); } catch (e) { /* storage blocked */ }
-}
-
-/* ---------- article text: same mini-markdown as the desktop app ---------- */
-function fmt(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); }
-
-function renderText(text) {
-  let html = "", list = null;
-  const close = () => { if (list) { html += "</" + list + ">"; list = null; } };
-  text.split("\n").forEach((raw) => {
-    const line = raw.trim();
-    if (!line) return;
-    if (line.startsWith("### ")) { close(); html += "<h3>" + fmt(line.slice(4)) + "</h3>"; }
-    else if (line.startsWith("- ")) { if (list !== "ul") { close(); html += "<ul>"; list = "ul"; } html += "<li>" + fmt(line.slice(2)) + "</li>"; }
-    else if (/^\d+\.\s/.test(line)) { if (list !== "ol") { close(); html += "<ol>"; list = "ol"; } html += "<li>" + fmt(line.replace(/^\d+\.\s/, "")) + "</li>"; }
-    else { close(); html += "<p>" + fmt(line) + "</p>"; }
-  });
-  close();
-  return html;
-}
-
-function renderContent(text) {
-  return String(text || "").split("```").map((part, i) => {
-    if (i % 2 === 1) {
       let code = part;
       const nl = code.indexOf("\n");
       if (nl !== -1 && /^[a-zA-Z]+$/.test(code.slice(0, nl).trim())) code = code.slice(nl + 1);
@@ -330,6 +398,305 @@ $("#form").addEventListener("submit", (e) => {
   location.hash = "#/search/" + encodeURIComponent(q);
   input.blur();
 });
+
+/* ---------- login: the same lamp scene as the desktop app, accounts kept in this browser ---------- */
+const ACC_KEY = "searchit.accounts", SESSION_KEY = "searchit.session", ITER = 100000;
+const loginEl = $("#login"), lampBtn = $("#lampBtn");
+const auUser = $("#auUser"), auEmail = $("#auEmail"), auPass = $("#auPass"), auMsg = $("#auMsg"), auGo = $("#auGo");
+let registerMode = false;
+
+function loadAccounts() { try { return JSON.parse(localStorage.getItem(ACC_KEY)) || {}; } catch (e) { return {}; } }
+function saveAccounts(a) { try { localStorage.setItem(ACC_KEY, JSON.stringify(a)); return true; } catch (e) { return false; } }
+const toB64 = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const fromB64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+async function hashPw(pw, salt, iter) {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  return toB64(await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations: iter }, key, 256));
+}
+function sameText(a, b) {
+  if (a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
+}
+function findAccount(idf) {
+  const accts = loadAccounts(), k = idf.toLowerCase();
+  return accts[k] || Object.values(accts).find((a) => (a.email || "").toLowerCase() === k) || null;
+}
+function setMsg(text, bad) { auMsg.textContent = text; auMsg.className = "msg" + (text ? (bad ? " err" : " ok") : ""); }
+
+/* ----- the lamp scene (canvas port of LampScene.java; sizes are in "units" = height / 900) ----- */
+const cv = $("#scene"), ctx = cv.getContext("2d");
+const THEMES = ["#38bdf8", "#a78bfa", "#f472b6", "#2dd4bf"];
+const THEME_RGB = THEMES.map((h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)));
+let themeIdx = -1, theme = THEME_RGB[0], lit = false, busy = false, glow = 0, pullAmt = 0, tickV = 0, lastT = 0, raf = 0;
+
+function seeded(seed) {
+  return () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+const rnd = seeded(11);
+const dots = Array.from({ length: 30 }, () => ({ x: rnd(), y: rnd(), r: 6 + rnd() * 40, sp: 0.0004 + rnd() * 0.0012, ph: rnd() * 6.28, ring: Math.floor(rnd() * 3) === 0 }));
+
+const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${Math.max(0, Math.min(1, a))})`;
+const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mixC = (a, b, t) => { t = Math.max(0, Math.min(1, t)); return [0, 1, 2].map((i) => Math.round(a[i] + (b[i] - a[i]) * t)); };
+const rgbStr = (c) => `rgb(${c[0]},${c[1]},${c[2]})`;
+const C = { dark1: hexRgb("#1b2238"), dark2: hexRgb("#0e1324"), leg: hexRgb("#2a3552"), pole: hexRgb("#8f9db8"), hub: hexRgb("#aab6cc"), white: [255, 255, 255] };
+
+/* phone (portrait): the lamp sits on the left side and shrinks to fit above the card, so it can always be touched */
+let uPort = null;
+function portraitTarget() {
+  const w = cv.clientWidth, h = cv.clientHeight;
+  const base = Math.min(w / 460, h / 900) * 0.8;
+  if (!lit) return base;
+  const top = document.querySelector(".lcard").getBoundingClientRect().top;
+  return Math.max(0.34, Math.min(base, (top - 14) / 505));
+}
+function geom() {
+  const w = cv.clientWidth, h = cv.clientHeight, portrait = h > w;
+  if (!portrait) return { w, h, u: h / 900, cx: w * 0.26, portrait, yo: 0 };
+  if (uPort === null) uPort = portraitTarget();
+  const u = uPort;
+  return { w, h, u, cx: Math.max(w * 0.27, 125 * u + 8), portrait, yo: -60 * u };
+}
+function cordLen(u) { return (170 + 45 * pullAmt) * u; }
+function hitLamp(x, y) {
+  const g = geom(), u = g.u, cx = g.cx, pad = 8;
+  y -= g.yo;
+  const inShade = x >= cx - 115 * u - pad && x <= cx + 115 * u + pad && y >= 140 * u - pad && y <= 340 * u + pad;
+  const cordX = cx + 24 * u, bottom = 336 * u + cordLen(u) + 24 * u;
+  const inCord = x >= cordX - 18 * u - pad && x <= cordX + 18 * u + pad && y >= 330 * u && y <= bottom + pad;
+  return inShade || inCord;
+}
+
+function animate(ms, fn) {
+  const t0 = performance.now();
+  const f = (now) => { const t = Math.min(1, (now - t0) / ms); fn(1 - Math.pow(1 - t, 3), t); if (t < 1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
+}
+
+function pullCord() {
+  if (busy) return;
+  busy = true;
+  animate(380, (e, t) => { pullAmt = Math.sin(Math.PI * t); });
+  lit = !lit;
+  if (lit) {
+    themeIdx = (themeIdx + 1) % THEMES.length;
+    theme = THEME_RGB[themeIdx];
+    loginEl.style.setProperty("--acc", THEMES[themeIdx]);
+    if (window.matchMedia("(hover: hover)").matches) setTimeout(() => { if (lit) auUser.focus({ preventScroll: true }); }, 400);
+  }
+  loginEl.classList.toggle("lit", lit);
+  const from = glow, to = lit ? 1 : 0;
+  animate(lit ? 900 : 600, (e) => { glow = from + (to - from) * e; });
+  setTimeout(() => { busy = false; }, 1000);
+}
+cv.addEventListener("pointerdown", (e) => { const r = cv.getBoundingClientRect(); if (hitLamp(e.clientX - r.left, e.clientY - r.top)) pullCord(); });
+cv.addEventListener("pointermove", (e) => { const r = cv.getBoundingClientRect(); cv.style.cursor = hitLamp(e.clientX - r.left, e.clientY - r.top) ? "pointer" : "default"; });
+lampBtn.addEventListener("click", pullCord);
+
+function draw() {
+  const g = geom(), w = g.w, h = g.h, u = g.u, cx = g.cx;
+  const dpr = window.devicePixelRatio || 1;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const shadeTop = 160 * u, shadeBottom = 330 * u, floor = 800 * u;
+
+  // room
+  let gr = ctx.createLinearGradient(0, 0, 0, h);
+  gr.addColorStop(0, "#060914"); gr.addColorStop(1, "#0b1020");
+  ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h);
+  ctx.save(); ctx.translate(0, g.yo);
+  if (glow > 0.01) {
+    gr = ctx.createRadialGradient(cx, 300 * u, 0, cx, 300 * u, 720 * u);
+    gr.addColorStop(0, rgba(theme, 0.333 * glow)); gr.addColorStop(1, rgba(theme, 0));
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, w, h);
+  }
+
+  // floating light circles
+  const k = 0.18 + 0.82 * glow;
+  for (const d of dots) {
+    const x = d.x * w + Math.sin(tickV * 0.6 + d.ph) * 14, y = d.y * h, r = d.r * u;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832);
+    if (d.ring) { ctx.strokeStyle = rgba(theme, 0.275 * k); ctx.lineWidth = 1.4; ctx.stroke(); }
+    else { ctx.fillStyle = rgba(theme, 0.133 * k); ctx.fill(); }
+  }
+
+  // light cone, floor pool and halo
+  if (glow > 0.01) {
+    ctx.beginPath();
+    ctx.moveTo(cx - 105 * u, shadeBottom); ctx.lineTo(cx + 105 * u, shadeBottom);
+    ctx.lineTo(cx + 430 * u, floor); ctx.lineTo(cx - 430 * u, floor); ctx.closePath();
+    gr = ctx.createLinearGradient(0, shadeBottom, 0, floor);
+    gr.addColorStop(0, rgba(theme, 0.41 * glow)); gr.addColorStop(1, rgba(theme, 0.031 * glow));
+    ctx.fillStyle = gr; ctx.fill();
+
+    ctx.save(); ctx.translate(cx, floor); ctx.scale(1, 0.16);
+    gr = ctx.createRadialGradient(0, 0, 0, 0, 0, 420 * u);
+    gr.addColorStop(0, rgba(theme, 0.43 * glow)); gr.addColorStop(1, rgba(theme, 0));
+    ctx.fillStyle = gr; ctx.fillRect(-420 * u, -420 * u, 840 * u, 840 * u);
+    ctx.restore();
+
+    gr = ctx.createRadialGradient(cx, shadeBottom - 40 * u, 0, cx, shadeBottom - 40 * u, 260 * u);
+    gr.addColorStop(0, rgba(theme, 0.37 * glow)); gr.addColorStop(1, rgba(theme, 0));
+    ctx.fillStyle = gr; ctx.fillRect(cx - 260 * u, shadeBottom - 300 * u, 520 * u, 520 * u);
+  }
+
+  // legs, pole, hub
+  ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.setLineDash([]);
+  ctx.lineWidth = 7 * u; ctx.strokeStyle = rgbStr(C.leg);
+  ctx.beginPath();
+  ctx.moveTo(cx, 620 * u); ctx.lineTo(cx - 130 * u, floor);
+  ctx.moveTo(cx, 620 * u); ctx.lineTo(cx + 130 * u, floor);
+  ctx.moveTo(cx, 620 * u); ctx.lineTo(cx + 28 * u, floor - 30 * u);
+  ctx.stroke();
+  ctx.lineWidth = 6 * u; ctx.strokeStyle = rgbStr(C.pole);
+  ctx.beginPath(); ctx.moveTo(cx, shadeBottom); ctx.lineTo(cx, 620 * u); ctx.stroke();
+  ctx.fillStyle = rgbStr(C.hub);
+  ctx.beginPath(); ctx.ellipse(cx, 620 * u, 9 * u, 14 * u, 0, 0, 6.2832); ctx.fill();
+
+  // finial
+  ctx.lineWidth = 3 * u; ctx.strokeStyle = rgbStr(C.pole);
+  ctx.beginPath(); ctx.moveTo(cx, shadeTop); ctx.lineTo(cx, shadeTop - 22 * u); ctx.stroke();
+  ctx.fillStyle = rgbStr(C.pole);
+  ctx.beginPath(); ctx.arc(cx, shadeTop - 25 * u, 5 * u, 0, 6.2832); ctx.fill();
+
+  // shade
+  const bright = mixC(theme, C.white, 0.35);
+  const shadePath = () => { ctx.beginPath(); ctx.moveTo(cx - 50 * u, shadeTop); ctx.lineTo(cx + 50 * u, shadeTop); ctx.lineTo(cx + 115 * u, shadeBottom); ctx.lineTo(cx - 115 * u, shadeBottom); ctx.closePath(); };
+  gr = ctx.createLinearGradient(cx - 115 * u, 0, cx + 115 * u, 0);
+  const edge = rgbStr(mixC(C.dark2, theme, 0.55 * glow));
+  gr.addColorStop(0, edge); gr.addColorStop(0.5, rgbStr(mixC(C.dark1, bright, 0.85 * glow))); gr.addColorStop(1, edge);
+  shadePath(); ctx.fillStyle = gr; ctx.fill();
+
+  ctx.save(); shadePath(); ctx.clip();
+  ctx.lineWidth = 1; ctx.strokeStyle = `rgba(0,0,0,${(60 - 30 * glow) / 255})`;
+  ctx.beginPath();
+  for (let i = 1; i < 18; i++) {
+    ctx.moveTo(cx - 50 * u + i * (100 * u / 18), shadeTop);
+    ctx.lineTo(cx - 115 * u + i * (230 * u / 18), shadeBottom);
+  }
+  ctx.stroke(); ctx.restore();
+
+  ctx.beginPath(); ctx.ellipse(cx, shadeBottom, 115 * u, 14 * u, 0, 0, 6.2832);
+  ctx.fillStyle = rgbStr(mixC(C.dark2, bright, 0.95 * glow)); ctx.fill();
+  ctx.lineWidth = 1.5; ctx.strokeStyle = rgbStr(mixC(C.leg, theme, glow)); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(cx, shadeTop, 50 * u, 5 * u, 0, 0, 6.2832);
+  ctx.fillStyle = rgbStr(mixC(C.dark1, theme, 0.4 * glow)); ctx.fill();
+
+  // pull cord
+  const cordX = cx + 24 * u, y0 = 336 * u, y1 = y0 + cordLen(u);
+  ctx.lineWidth = 2.4 * u; ctx.setLineDash([2 * u, 3 * u]); ctx.strokeStyle = rgbStr(mixC(C.pole, theme, 0.5 * glow));
+  ctx.beginPath(); ctx.moveTo(cordX, y0); ctx.lineTo(cordX, y1); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = rgbStr(mixC(C.hub, theme, 0.6 * glow));
+  ctx.beginPath(); ctx.ellipse(cordX, y1 + 6 * u, 6 * u, 8 * u, 0, 0, 6.2832); ctx.fill();
+
+  // hint text
+  const pulse = lit ? 0.6 : 0.5 + 0.35 * Math.sin(tickV * 1.6);
+  ctx.font = "700 12px Rajdhani, 'Segoe UI', sans-serif";
+  if ("letterSpacing" in ctx) ctx.letterSpacing = "2.6px";
+  ctx.fillStyle = `rgba(170,182,204,${pulse})`;
+  ctx.textBaseline = "middle";
+  const hint = lit ? "PULL AGAIN TO DIM" : "PULL THE CORD TO LIGHT UP";
+  ctx.textAlign = "left";
+  if (g.portrait) {
+    const words = hint.split(" "), half = Math.ceil(words.length / 2);
+    ctx.fillText(words.slice(0, half).join(" "), cordX + 22 * u, y1 + 2 * u);
+    ctx.fillText(words.slice(half).join(" "), cordX + 22 * u, y1 + 2 * u + 18);
+  } else { ctx.fillText(hint, cordX + 26 * u, y1 + 6 * u); }
+  ctx.restore();
+}
+
+function frame(now) {
+  raf = requestAnimationFrame(frame);
+  const dt = Math.min(100, now - (lastT || now)); lastT = now;
+  tickV += 0.12 * dt / 60;
+  if (cv.clientHeight > cv.clientWidth) { const t = portraitTarget(); uPort = uPort === null ? t : uPort + (t - uPort) * 0.14; }
+  for (const d of dots) { d.y -= d.sp * dt / 60; if (d.y < -0.1) d.y = 1.1; }
+  draw();
+}
+if (document.fonts && document.fonts.load) {
+  ["700 12px Rajdhani", "500 17px Rajdhani", "700 34px Audiowide"].forEach((f) => document.fonts.load(f).catch(() => {}));
+}
+function startScene() { if (!raf) { lastT = 0; raf = requestAnimationFrame(frame); } }
+function stopScene() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
+
+/* ----- locking, login, logout ----- */
+function lockPage(locked) {
+  document.body.classList.toggle("locked", locked);
+  ["header", "main", "footer"].forEach((s) => { $(s).inert = locked; });
+}
+function enter(user) {
+  currentUser = user;
+  try { localStorage.setItem(SESSION_KEY, user); } catch (e) { /* storage blocked */ }
+  $("#whoName").textContent = user;
+  $("#who").hidden = false;
+  auPass.value = "";
+  setMsg("");
+  loginEl.classList.add("gone");
+  lockPage(false);
+  setTimeout(() => { loginEl.hidden = true; stopScene(); }, 550);
+  if (ARTICLES.length) route();
+}
+function showLogin() {
+  currentUser = null;
+  try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* ignore */ }
+  $("#who").hidden = true;
+  lit = false; glow = 0; busy = false; loginEl.classList.remove("lit");
+  setMode(false);
+  loginEl.hidden = false;
+  void loginEl.offsetWidth;
+  loginEl.classList.remove("gone");
+  lockPage(true);
+  startScene();
+}
+$("#logout").addEventListener("click", () => { location.hash = "#/"; showLogin(); });
+
+function setMode(register) {
+  registerMode = register;
+  $("#auTitle").textContent = register ? "Create account" : "Welcome back";
+  $("#auSub").textContent = register ? "Join Search IT in a few seconds" : "The light's on. Log in to continue.";
+  $("#auUserL").textContent = register ? "USERNAME" : "USERNAME OR EMAIL";
+  $("#auEmailRow").hidden = !register;
+  auGo.textContent = register ? "CREATE ACCOUNT" : "LOG IN";
+  $("#auToggle").textContent = register ? "Already have an account? Log in" : "New here? Create an account";
+  auPass.autocomplete = register ? "new-password" : "current-password";
+}
+$("#auToggle").addEventListener("click", () => { setMode(!registerMode); setMsg(""); });
+
+$("#authForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  setMsg("");
+  const user = auUser.value.trim(), email = auEmail.value.trim(), pw = auPass.value;
+  if (!window.crypto || !crypto.subtle) { setMsg("This browser cannot protect passwords here. Open the https website address.", true); return; }
+  if (!user || !pw) { setMsg("Please enter your username and password.", true); return; }
+  auGo.disabled = true;
+  try {
+    if (registerMode) {
+      if (!/^[A-Za-z0-9_.-]{3,20}$/.test(user)) { setMsg("Username: 3-20 letters, numbers, . _ or -", true); return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { setMsg("Please enter a valid email address.", true); return; }
+      if (pw.length < 6) { setMsg("Password must be at least 6 characters.", true); return; }
+      if (findAccount(user) || findAccount(email)) { setMsg("That username or email is already taken.", true); return; }
+      const accts = loadAccounts(), salt = crypto.getRandomValues(new Uint8Array(16));
+      accts[user.toLowerCase()] = { user, email, salt: toB64(salt), iter: ITER, hash: await hashPw(pw, salt, ITER) };
+      if (!saveAccounts(accts)) { setMsg("Could not save the account (browser storage is blocked).", true); return; }
+      setMode(false); auEmail.value = ""; auPass.value = "";
+      setMsg("Account created. You can log in now.", false);
+    } else {
+      const a = findAccount(user);
+      if (!a || !sameText(await hashPw(pw, fromB64(a.salt), a.iter), a.hash)) { setMsg("Wrong username or password.", true); return; }
+      enter(a.user);
+    }
+  } finally { auGo.disabled = false; }
+});
+
+(function initSession() {
+  let saved = null;
+  try { saved = localStorage.getItem(SESSION_KEY); } catch (e) { /* ignore */ }
+  const a = saved && loadAccounts()[saved.toLowerCase()];
+  if (a) { currentUser = a.user; $("#whoName").textContent = a.user; $("#who").hidden = false; loginEl.hidden = true; }
+  else { lockPage(true); startScene(); }
+})();
 
 /* ---------- start ---------- */
 window.addEventListener("hashchange", route);
