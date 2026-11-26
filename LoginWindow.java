@@ -5,6 +5,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Path2D;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
@@ -25,6 +28,8 @@ public class LoginWindow extends JFrame {
     private final JTextField userField = new JTextField();
     private final JTextField emailField = new JTextField();
     private final JPasswordField passField = new JPasswordField();
+    private EyeButton eye;
+    private char defaultEcho;
 
     private final JLabel logo = new JLabel("SEARCH IT", SwingConstants.CENTER);
     private final JLabel title = new JLabel();
@@ -75,6 +80,9 @@ public class LoginWindow extends JFrame {
         JPanel userRow = box(userField);
         emailRow = box(emailField);
         JPanel passRow = box(passField);
+        defaultEcho = passField.getEchoChar();
+        eye = new EyeButton(() -> setPasswordVisible(passField.getEchoChar() != 0));
+        passRow.add(eye, BorderLayout.EAST);
 
         submit.setPreferredSize(new Dimension(100, 48));
         submit.addActionListener(e -> submit());
@@ -90,6 +98,7 @@ public class LoginWindow extends JFrame {
         toggle.setFont(Fx.body(Font.BOLD, 15f));
         toggle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         toggle.addActionListener(e -> {
+            setPasswordVisible(false);
             setMode(!registerMode);
             showMessage(" ", true);
         });
@@ -296,6 +305,71 @@ public class LoginWindow extends JFrame {
             }
         });
         return b;
+    }
+
+    /** Shows the typed password as plain text, or hides it again. */
+    private void setPasswordVisible(boolean visible) {
+        passField.setEchoChar(visible ? (char) 0 : defaultEcho);
+        if (eye != null) {
+            eye.setShown(visible);
+        }
+    }
+
+    /** Small eye icon inside the password box; click it to show or hide the password. */
+    private static class EyeButton extends JComponent {
+        private boolean shown;
+        private boolean hover;
+
+        EyeButton(Runnable onToggle) {
+            setPreferredSize(new Dimension(46, 40));
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            setToolTipText("Show or hide the password");
+            setFocusable(false); // keep the cursor in the password field
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    onToggle.run();
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    hover = true;
+                    repaint();
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    hover = false;
+                    repaint();
+                }
+            });
+        }
+
+        void setShown(boolean s) {
+            shown = s;
+            repaint();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            Color a = accentNow;
+            g2.setColor(new Color(a.getRed(), a.getGreen(), a.getBlue(), hover ? 255 : 190));
+            g2.setStroke(new BasicStroke(1.8f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            double cx = getWidth() / 2.0;
+            double cy = getHeight() / 2.0;
+            Path2D eyeShape = new Path2D.Double();
+            eyeShape.moveTo(cx - 10, cy);
+            eyeShape.quadTo(cx, cy - 11, cx + 10, cy);
+            eyeShape.quadTo(cx, cy + 11, cx - 10, cy);
+            g2.draw(eyeShape);
+            g2.fillOval((int) Math.round(cx - 3.5), (int) Math.round(cy - 3.5), 7, 7);
+            if (shown) {
+                g2.drawLine((int) cx - 9, (int) cy + 9, (int) cx + 9, (int) cy - 9);
+            }
+            g2.dispose();
+        }
     }
 
     /** Panel that can be faded in and out by changing its alpha. */
