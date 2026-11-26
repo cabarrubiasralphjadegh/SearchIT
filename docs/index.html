@@ -249,6 +249,32 @@ function getRecent() {
   try { return JSON.parse(localStorage.getItem(recentKey())) || []; } catch (e) { return []; }
 }
 function addRecent(title) {
+  const list = getRecent().filter((t) => t !== title);
+  list.unshift(title);
+  try { localStorage.setItem(recentKey(), JSON.stringify(list.slice(0, 3))); } catch (e) { /* storage blocked */ }
+}
+
+/* ---------- article text: same mini-markdown as the desktop app ---------- */
+function fmt(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>"); }
+
+function renderText(text) {
+  let html = "", list = null;
+  const close = () => { if (list) { html += "</" + list + ">"; list = null; } };
+  text.split("\n").forEach((raw) => {
+    const line = raw.trim();
+    if (!line) return;
+    if (line.startsWith("### ")) { close(); html += "<h3>" + fmt(line.slice(4)) + "</h3>"; }
+    else if (line.startsWith("- ")) { if (list !== "ul") { close(); html += "<ul>"; list = "ul"; } html += "<li>" + fmt(line.slice(2)) + "</li>"; }
+    else if (/^\d+\.\s/.test(line)) { if (list !== "ol") { close(); html += "<ol>"; list = "ol"; } html += "<li>" + fmt(line.replace(/^\d+\.\s/, "")) + "</li>"; }
+    else { close(); html += "<p>" + fmt(line) + "</p>"; }
+  });
+  close();
+  return html;
+}
+
+function renderContent(text) {
+  return String(text || "").split("```").map((part, i) => {
+    if (i % 2 === 1) {
       let code = part;
       const nl = code.indexOf("\n");
       if (nl !== -1 && /^[a-zA-Z]+$/.test(code.slice(0, nl).trim())) code = code.slice(nl + 1);
