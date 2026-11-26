@@ -188,6 +188,17 @@ body.locked { overflow: hidden; }
   .go.wide { padding: 11px 0; }
   .toggle { margin-top: 6px; }
 }
+
+.pwrow { position: relative; margin-bottom: 14px; }
+.lcard .pwrow input { margin-bottom: 0; padding-right: 54px; }
+.eye { position: absolute; top: 50%; right: 8px; transform: translateY(-50%); width: 38px; height: 38px; padding: 0; display: flex; align-items: center; justify-content: center; background: none; border: 0; border-radius: 50%; color: var(--acc); }
+.eye:focus-visible { outline: 2px solid var(--acc); }
+.eye .off { display: none; }
+.eye.on .off { display: block; }
+.eye.on .see { display: none; }
+@media (max-aspect-ratio: 1/1) { .pwrow { margin-bottom: 10px; } }
+@media (max-aspect-ratio: 1/1) and (max-height: 760px) { .pwrow { margin-bottom: 8px; } .eye { width: 32px; height: 32px; } }
+
 </style>
 </head>
 <body>
@@ -223,7 +234,10 @@ body.locked { overflow: hidden; }
         <input id="auEmail" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="80">
       </div>
       <label for="auPass">PASSWORD</label>
-      <input id="auPass" type="password" autocomplete="current-password" maxlength="64">
+            <div class="pwrow">
+        <input id="auPass" type="password" autocomplete="current-password" maxlength="64">
+        <button class="eye" id="auEye" type="button" aria-label="Show password" aria-pressed="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g class="see"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></g><g class="off"><path d="M17.9 17.9A10.9 10.9 0 0 1 12 19C5 19 1 12 1 12a18.5 18.5 0 0 1 5.1-5.9M9.9 5.1A10.4 10.4 0 0 1 12 5c7 0 11 7 11 7a18.6 18.6 0 0 1-2.2 3.2M14.1 14.1a3 3 0 1 1-4.2-4.2"/><path d="M1 1l22 22"/></g></svg></button>
+      </div>
       <p class="msg" id="auMsg" role="status"></p>
       <button class="go wide" id="auGo" type="submit">LOG IN</button>
       <button class="toggle" id="auToggle" type="button">New here? Create an account</button>
@@ -715,7 +729,15 @@ $("#authForm").addEventListener("submit", async (e) => {
     }
   } finally { auGo.disabled = false; }
 });
-
+$("#auEye").addEventListener("click", () => {
+  const show = auPass.type === "password";
+  auPass.type = show ? "text" : "password";
+  const eye = $("#auEye");
+  eye.classList.toggle("on", show);
+  eye.setAttribute("aria-pressed", String(show));
+  eye.setAttribute("aria-label", show ? "Hide password" : "Show password");
+  auPass.focus({ preventScroll: true });
+});
 (function initSession() {
   let saved = null;
   try { saved = localStorage.getItem(SESSION_KEY); } catch (e) { /* ignore */ }
