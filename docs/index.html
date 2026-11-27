@@ -198,7 +198,17 @@ body.locked { overflow: hidden; }
 .eye.on .see { display: none; }
 @media (max-aspect-ratio: 1/1) { .pwrow { margin-bottom: 10px; } }
 @media (max-aspect-ratio: 1/1) and (max-height: 760px) { .pwrow { margin-bottom: 8px; } .eye { width: 32px; height: 32px; } }
-
+/* fill the whole screen on tablets, phones and desktops */
+.bar, main { max-width: 1320px; }
+main:has(> .stats) { display: flex; flex-direction: column; }
+main:has(> .stats) > .grid { flex: 1 0 auto; grid-auto-rows: minmax(104px, 1fr); }
+.cat { display: flex; flex-direction: column; justify-content: center; }
+.grid > .rise { display: flex; }
+.grid > .rise > .card { flex: 1; }
+.card h3 { font-size: clamp(14px, 0.7vw + 9px, 19px); }
+.card p { font-size: clamp(16px, 0.5vw + 12px, 19px); }
+h2.sec { margin-top: clamp(24px, 3.2dvh, 44px); }
+.article { max-width: 980px; margin-left: auto; margin-right: auto; }
 </style>
 </head>
 <body>
